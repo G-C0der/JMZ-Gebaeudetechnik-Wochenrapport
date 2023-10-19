@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { emailValidationSchema, passwordValidationSchema } from "../constants";
-import { Box, FormControl, Input, VStack } from "native-base";
+import { Box, Button, Heading, Input, VStack } from "native-base";
 
 export function Login(): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +22,7 @@ export function Login(): JSX.Element {
     onSubmit: async (values) => {
       setIsLoading(true);
 
+      console.log(values)
       // const loginResponse = await login(values);
       // if (!loginResponse.success) setError(loginResponse.error!);
 
@@ -31,11 +32,25 @@ export function Login(): JSX.Element {
 
   return (
     <View>
-      <Box>
-        <VStack>
+      <Box p='6'>
+        <VStack space='5'>
+          <Heading size='xl'>Login</Heading >
+
           <Input
             placeholder='Email'
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+            onChange={formik.handleChange}
           />
+
+          <Input
+            placeholder='Kennwort'
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
+            onChange={formik.handleChange}
+          />
+
+          <Button onPress={() => formik.handleSubmit()}>Login</Button>
         </VStack>
       </Box>
     </View>
