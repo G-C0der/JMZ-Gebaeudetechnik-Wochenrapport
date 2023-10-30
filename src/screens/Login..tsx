@@ -3,7 +3,7 @@ import { View } from "react-native";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { emailValidationSchema, passwordValidationSchema } from "../constants";
-import { Box, Button, Heading, Input, VStack } from "native-base";
+import { Box, Button, Heading, Input, Text, VStack } from "native-base";
 
 export function Login(): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +22,7 @@ export function Login(): JSX.Element {
     onSubmit: async (values) => {
       setIsLoading(true);
 
-      console.log(values)
+      console.log('values', values)
       // const loginResponse = await login(values);
       // if (!loginResponse.success) setError(loginResponse.error!);
 
@@ -38,17 +38,23 @@ export function Login(): JSX.Element {
 
           <Input
             placeholder='Email'
-            onBlur={formik.handleBlur}
+            onBlur={() => formik.handleBlur('email')}
             value={formik.values.email}
-            onChange={formik.handleChange}
+            onChangeText={(text) => formik.setFieldValue('email', text)}
           />
+          {formik.touched.email && formik.errors.email ? (
+            <Text style={{ color: 'red' }}>{formik.errors.email}</Text>
+          ) : null}
 
           <Input
-            placeholder='Kennwort'
-            onBlur={formik.handleBlur}
+            placeholder='Passwort'
+            onBlur={() => formik.handleBlur('password')}
             value={formik.values.password}
-            onChange={formik.handleChange}
+            onChangeText={(text) => formik.setFieldValue('password', text)}
           />
+          {formik.touched.password && formik.errors.password ? (
+            <Text style={{ color: 'red' }}>{formik.errors.password}</Text>
+          ) : null}
 
           <Button onPress={() => formik.handleSubmit()}>Login</Button>
         </VStack>
