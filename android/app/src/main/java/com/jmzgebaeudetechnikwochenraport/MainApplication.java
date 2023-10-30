@@ -1,4 +1,4 @@
-package com.jmzgebaeudetechnikwochenraport;
+package com.jmzgebaeudetechnikwochenrapport;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

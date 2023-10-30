@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* jmzgebaeudetechnikwochenraportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* jmzgebaeudetechnikwochenraportTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-jmzgebaeudetechnikwochenraport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-jmzgebaeudetechnikwochenraport.a */; };
+		00E356F31AD99517003FC87E /* jmzgebaeudetechnikwochenrapportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* jmzgebaeudetechnikwochenrapportTests.m */; };
+		0C80B921A6F3F58F76C31292 /* libPods-jmzgebaeudetechnikwochenrapport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-jmzgebaeudetechnikwochenrapport.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		7699B88040F8A987B510C191 /* libPods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests.a */; };
+		7699B88040F8A987B510C191 /* libPods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -22,27 +22,27 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = jmzgebaeudetechnikwochenraport;
+			remoteInfo = jmzgebaeudetechnikwochenrapport;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* jmzgebaeudetechnikwochenraportTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jmzgebaeudetechnikwochenraportTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* jmzgebaeudetechnikwochenrapportTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jmzgebaeudetechnikwochenrapportTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* jmzgebaeudetechnikwochenraportTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = jmzgebaeudetechnikwochenraportTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* jmzgebaeudetechnikwochenraport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jmzgebaeudetechnikwochenraport.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = jmzgebaeudetechnikwochenraport/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = jmzgebaeudetechnikwochenraport/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = jmzgebaeudetechnikwochenraport/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = jmzgebaeudetechnikwochenraport/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = jmzgebaeudetechnikwochenraport/main.m; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B4392A12AC88292D35C810B /* Pods-jmzgebaeudetechnikwochenraport.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jmzgebaeudetechnikwochenraport.debug.xcconfig"; path = "Target Support Files/Pods-jmzgebaeudetechnikwochenraport/Pods-jmzgebaeudetechnikwochenraport.debug.xcconfig"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-jmzgebaeudetechnikwochenraport.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jmzgebaeudetechnikwochenraport.release.xcconfig"; path = "Target Support Files/Pods-jmzgebaeudetechnikwochenraport/Pods-jmzgebaeudetechnikwochenraport.release.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests.debug.xcconfig"; path = "Target Support Files/Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests/Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-jmzgebaeudetechnikwochenraport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-jmzgebaeudetechnikwochenraport.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = jmzgebaeudetechnikwochenraport/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests.release.xcconfig"; path = "Target Support Files/Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests/Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests.release.xcconfig"; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* jmzgebaeudetechnikwochenrapportTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = jmzgebaeudetechnikwochenrapportTests.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* jmzgebaeudetechnikwochenrapport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jmzgebaeudetechnikwochenrapport.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = jmzgebaeudetechnikwochenrapport/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = jmzgebaeudetechnikwochenrapport/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = jmzgebaeudetechnikwochenrapport/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = jmzgebaeudetechnikwochenrapport/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = jmzgebaeudetechnikwochenrapport/main.m; sourceTree = "<group>"; };
+		19F6CBCC0A4E27FBF8BF4A61 /* libPods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B4392A12AC88292D35C810B /* Pods-jmzgebaeudetechnikwochenrapport.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jmzgebaeudetechnikwochenrapport.debug.xcconfig"; path = "Target Support Files/Pods-jmzgebaeudetechnikwochenrapport/Pods-jmzgebaeudetechnikwochenrapport.debug.xcconfig"; sourceTree = "<group>"; };
+		5709B34CF0A7D63546082F79 /* Pods-jmzgebaeudetechnikwochenrapport.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jmzgebaeudetechnikwochenrapport.release.xcconfig"; path = "Target Support Files/Pods-jmzgebaeudetechnikwochenrapport/Pods-jmzgebaeudetechnikwochenrapport.release.xcconfig"; sourceTree = "<group>"; };
+		5B7EB9410499542E8C5724F5 /* Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.debug.xcconfig"; path = "Target Support Files/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5DCACB8F33CDC322A6C60F78 /* libPods-jmzgebaeudetechnikwochenrapport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-jmzgebaeudetechnikwochenrapport.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = jmzgebaeudetechnikwochenrapport/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		89C6BE57DB24E9ADA2F236DE /* Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.release.xcconfig"; path = "Target Support Files/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests.a in Frameworks */,
+				7699B88040F8A987B510C191 /* libPods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,20 +59,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-jmzgebaeudetechnikwochenraport.a in Frameworks */,
+				0C80B921A6F3F58F76C31292 /* libPods-jmzgebaeudetechnikwochenrapport.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* jmzgebaeudetechnikwochenraportTests */ = {
+		00E356EF1AD99517003FC87E /* jmzgebaeudetechnikwochenrapportTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* jmzgebaeudetechnikwochenraportTests.m */,
+				00E356F21AD99517003FC87E /* jmzgebaeudetechnikwochenrapportTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = jmzgebaeudetechnikwochenraportTests;
+			path = jmzgebaeudetechnikwochenrapportTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -83,7 +83,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* jmzgebaeudetechnikwochenraport */ = {
+		13B07FAE1A68108700A75B9A /* jmzgebaeudetechnikwochenrapport */ = {
 			isa = PBXGroup;
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -93,15 +93,15 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = jmzgebaeudetechnikwochenraport;
+			name = jmzgebaeudetechnikwochenrapport;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-jmzgebaeudetechnikwochenraport.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests.a */,
+				5DCACB8F33CDC322A6C60F78 /* libPods-jmzgebaeudetechnikwochenrapport.a */,
+				19F6CBCC0A4E27FBF8BF4A61 /* libPods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -116,9 +116,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* jmzgebaeudetechnikwochenraport */,
+				13B07FAE1A68108700A75B9A /* jmzgebaeudetechnikwochenrapport */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* jmzgebaeudetechnikwochenraportTests */,
+				00E356EF1AD99517003FC87E /* jmzgebaeudetechnikwochenrapportTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -131,8 +131,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* jmzgebaeudetechnikwochenraport.app */,
-				00E356EE1AD99517003FC87E /* jmzgebaeudetechnikwochenraportTests.xctest */,
+				13B07F961A680F5B00A75B9A /* jmzgebaeudetechnikwochenrapport.app */,
+				00E356EE1AD99517003FC87E /* jmzgebaeudetechnikwochenrapportTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,10 +140,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-jmzgebaeudetechnikwochenraport.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-jmzgebaeudetechnikwochenraport.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests.release.xcconfig */,
+				3B4392A12AC88292D35C810B /* Pods-jmzgebaeudetechnikwochenrapport.debug.xcconfig */,
+				5709B34CF0A7D63546082F79 /* Pods-jmzgebaeudetechnikwochenrapport.release.xcconfig */,
+				5B7EB9410499542E8C5724F5 /* Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.debug.xcconfig */,
+				89C6BE57DB24E9ADA2F236DE /* Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -151,9 +151,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* jmzgebaeudetechnikwochenraportTests */ = {
+		00E356ED1AD99517003FC87E /* jmzgebaeudetechnikwochenrapportTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "jmzgebaeudetechnikwochenraportTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "jmzgebaeudetechnikwochenrapportTests" */;
 			buildPhases = (
 				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -167,14 +167,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = jmzgebaeudetechnikwochenraportTests;
-			productName = jmzgebaeudetechnikwochenraportTests;
-			productReference = 00E356EE1AD99517003FC87E /* jmzgebaeudetechnikwochenraportTests.xctest */;
+			name = jmzgebaeudetechnikwochenrapportTests;
+			productName = jmzgebaeudetechnikwochenrapportTests;
+			productReference = 00E356EE1AD99517003FC87E /* jmzgebaeudetechnikwochenrapportTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* jmzgebaeudetechnikwochenraport */ = {
+		13B07F861A680F5B00A75B9A /* jmzgebaeudetechnikwochenrapport */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "jmzgebaeudetechnikwochenraport" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "jmzgebaeudetechnikwochenrapport" */;
 			buildPhases = (
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -189,9 +189,9 @@
 			);
 			dependencies = (
 			);
-			name = jmzgebaeudetechnikwochenraport;
-			productName = jmzgebaeudetechnikwochenraport;
-			productReference = 13B07F961A680F5B00A75B9A /* jmzgebaeudetechnikwochenraport.app */;
+			name = jmzgebaeudetechnikwochenrapport;
+			productName = jmzgebaeudetechnikwochenrapport;
+			productReference = 13B07F961A680F5B00A75B9A /* jmzgebaeudetechnikwochenrapport.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -211,7 +211,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "jmzgebaeudetechnikwochenraport" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "jmzgebaeudetechnikwochenrapport" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -224,8 +224,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* jmzgebaeudetechnikwochenraport */,
-				00E356ED1AD99517003FC87E /* jmzgebaeudetechnikwochenraportTests */,
+				13B07F861A680F5B00A75B9A /* jmzgebaeudetechnikwochenrapport */,
+				00E356ED1AD99517003FC87E /* jmzgebaeudetechnikwochenrapportTests */,
 			);
 		};
 /* End PBXProject section */
@@ -272,15 +272,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenraport/Pods-jmzgebaeudetechnikwochenraport-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenrapport/Pods-jmzgebaeudetechnikwochenrapport-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenraport/Pods-jmzgebaeudetechnikwochenraport-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenrapport/Pods-jmzgebaeudetechnikwochenrapport-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenraport/Pods-jmzgebaeudetechnikwochenraport-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenrapport/Pods-jmzgebaeudetechnikwochenrapport-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
@@ -298,7 +298,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -320,7 +320,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-jmzgebaeudetechnikwochenraport-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-jmzgebaeudetechnikwochenrapport-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -333,15 +333,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests/Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests/Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests/Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
@@ -350,15 +350,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenraport/Pods-jmzgebaeudetechnikwochenraport-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenrapport/Pods-jmzgebaeudetechnikwochenrapport-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenraport/Pods-jmzgebaeudetechnikwochenraport-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenrapport/Pods-jmzgebaeudetechnikwochenrapport-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenraport/Pods-jmzgebaeudetechnikwochenraport-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenrapport/Pods-jmzgebaeudetechnikwochenrapport-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
@@ -367,15 +367,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests/Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests/Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests/Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -404,7 +404,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* jmzgebaeudetechnikwochenraportTests.m in Sources */,
+				00E356F31AD99517003FC87E /* jmzgebaeudetechnikwochenrapportTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,7 +422,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* jmzgebaeudetechnikwochenraport */;
+			target = 13B07F861A680F5B00A75B9A /* jmzgebaeudetechnikwochenrapport */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -430,14 +430,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests.debug.xcconfig */;
+			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = jmzgebaeudetechnikwochenraportTests/Info.plist;
+				INFOPLIST_FILE = jmzgebaeudetechnikwochenrapportTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -451,17 +451,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/jmzgebaeudetechnikwochenraport.app/jmzgebaeudetechnikwochenraport";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/jmzgebaeudetechnikwochenrapport.app/jmzgebaeudetechnikwochenrapport";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-jmzgebaeudetechnikwochenraport-jmzgebaeudetechnikwochenraportTests.release.xcconfig */;
+			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = jmzgebaeudetechnikwochenraportTests/Info.plist;
+				INFOPLIST_FILE = jmzgebaeudetechnikwochenrapportTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -475,19 +475,19 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/jmzgebaeudetechnikwochenraport.app/jmzgebaeudetechnikwochenraport";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/jmzgebaeudetechnikwochenrapport.app/jmzgebaeudetechnikwochenrapport";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-jmzgebaeudetechnikwochenraport.debug.xcconfig */;
+			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-jmzgebaeudetechnikwochenrapport.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = jmzgebaeudetechnikwochenraport/Info.plist;
+				INFOPLIST_FILE = jmzgebaeudetechnikwochenrapport/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -499,7 +499,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = jmzgebaeudetechnikwochenraport;
+				PRODUCT_NAME = jmzgebaeudetechnikwochenrapport;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -508,12 +508,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-jmzgebaeudetechnikwochenraport.release.xcconfig */;
+			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-jmzgebaeudetechnikwochenrapport.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = jmzgebaeudetechnikwochenraport/Info.plist;
+				INFOPLIST_FILE = jmzgebaeudetechnikwochenrapport/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -525,7 +525,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = jmzgebaeudetechnikwochenraport;
+				PRODUCT_NAME = jmzgebaeudetechnikwochenrapport;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -669,7 +669,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "jmzgebaeudetechnikwochenraportTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "jmzgebaeudetechnikwochenrapportTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -678,7 +678,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "jmzgebaeudetechnikwochenraport" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "jmzgebaeudetechnikwochenrapport" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -687,7 +687,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "jmzgebaeudetechnikwochenraport" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "jmzgebaeudetechnikwochenrapport" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
