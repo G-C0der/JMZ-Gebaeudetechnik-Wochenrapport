@@ -34,8 +34,6 @@ export function Login(): JSX.Element {
     <View>
       <Box p='6'>
         <VStack space='5'>
-          <Heading size='xl'>Login</Heading >
-
           <Input
             placeholder='Email'
             onBlur={() => formik.handleBlur('email')}
