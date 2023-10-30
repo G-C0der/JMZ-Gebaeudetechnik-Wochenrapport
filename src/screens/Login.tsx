@@ -3,9 +3,14 @@ import { View } from "react-native";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { emailValidationSchema, passwordValidationSchema } from "../constants";
-import { Box, Button, Heading, Input, Text, VStack } from "native-base";
+import { Box, Button, Input, Text, VStack } from "native-base";
+import { NavigationProp } from "@react-navigation/native";
 
-export function Login(): JSX.Element {
+interface LoginProps {
+  navigation: NavigationProp<any>;
+}
+
+export function Login({ navigation }: LoginProps): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
 
   const validationSchema = yup.object({
@@ -22,9 +27,9 @@ export function Login(): JSX.Element {
     onSubmit: async (values) => {
       setIsLoading(true);
 
-      console.log('values', values)
       // const loginResponse = await login(values);
       // if (!loginResponse.success) setError(loginResponse.error!);
+      navigation.navigate('Home');
 
       setIsLoading(false);
     }
