@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { View } from "react-native";
 import { NavigationProp } from "@react-navigation/native";
-import { Text } from "native-base";
+import { View, Text } from "native-base";
 
 interface HomeProps {
   navigation: NavigationProp<any>;

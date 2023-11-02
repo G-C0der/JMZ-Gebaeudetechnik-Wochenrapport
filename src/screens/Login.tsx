@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { View } from "react-native";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { emailValidationSchema, passwordValidationSchema } from "../constants";
-import { Box, Button, Input, Text, VStack } from "native-base";
+import { View, Box, Button, Input, Text, VStack } from "native-base";
 import { NavigationProp } from "@react-navigation/native";
 
 interface LoginProps {
@@ -27,9 +26,9 @@ export function Login({ navigation }: LoginProps): JSX.Element {
     onSubmit: async (values) => {
       setIsLoading(true);
 
-      // const loginResponse = await login(values);
-      // if (!loginResponse.success) setError(loginResponse.error!);
-      navigation.navigate('Home');
+      const loginResponse = await login(values);
+      if (!loginResponse.success) setError(loginResponse.error!);
+      else navigation.navigate('Home');
 
       setIsLoading(false);
     }
