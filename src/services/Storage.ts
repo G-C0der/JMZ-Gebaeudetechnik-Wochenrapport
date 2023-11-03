@@ -1,9 +1,10 @@
 import * as Keychain from 'react-native-keychain';
 
 class Storage {
-  async storeToken(token: string) {
+  async storeToken(token: string, tokenExpiration: string) {
     try {
-      await Keychain.setGenericPassword('token', token);
+      const tokenData = { token, tokenExpiration };
+      await Keychain.setGenericPassword('tokenData', JSON.stringify(tokenData));
     } catch (err) {
       console.log('Error storing token.', err);
     }
@@ -12,7 +13,7 @@ class Storage {
   async retrieveToken() {
     try {
       const credentials = await Keychain.getGenericPassword();
-      if (credentials && credentials.password) return credentials.password;
+      if (credentials && credentials.password) return JSON.parse(credentials.password);
       else console.log('No token found.');
     } catch (err) {
       console.log('Error retrieving token.', err);
