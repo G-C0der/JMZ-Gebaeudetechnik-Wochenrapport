@@ -1,6 +1,6 @@
 import {hasDatePassed} from "../utils";
 
-const isTokenExpired = (tokenExpiration: string | null) => hasDatePassed(tokenExpiration);
+const isTokenExpired = (tokenExpiration: string | undefined) => hasDatePassed(tokenExpiration);
 
 export {
   isTokenExpired

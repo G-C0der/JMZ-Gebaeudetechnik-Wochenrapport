@@ -11,17 +11,20 @@ export class UserStore {
   constructor() {
     makeAutoObservable(this);
 
-    const tokenData = storage.retrieveToken();
-    if (tokenData) {
-      this.token = tokenData.token; // TODO: check how to do
-      this.tokenExpiration = tokenData.tokenExpiration; // TODO: check how to do
-    }
+    // Storage update
+    reaction(
+      () => [this.token, this.tokenExpiration],
+      ([token, tokenExpiration]) => {
+        if (token && tokenExpiration) storage.storeToken(this.token!, this.tokenExpiration!); // TODO: wouldn't it be better if i in this condition also would check that token and tokenExpiration from state matches token and tokenExpiration from storage?
+        else storage.deleteToken(); // TODO: will be sufficient when called synchronously? will logout be called here indirectly? if not, why not calling logout instead?
+      }
+    );
 
     // Token expiration handling
     reaction(
       () => this.tokenExpiration,
       (tokenExpiration) => {
-        if (isTokenExpired(tokenExpiration)) this.logout(); // TODO: check how to do
+        if (isTokenExpired(tokenExpiration)) this.logout(); // TODO: will be sufficient when called synchronously?
       }
     );
 
@@ -30,25 +33,22 @@ export class UserStore {
       () => [this.token, this.user],
       ([token, user]) => {
         if (token && this.tokenExpiration && !user) {
-          const syncAuthenticatedUser = () => {
-            authApi.getAuthenticatedUser().then(({ user }) => {
-              if (!user) return this.logout;
-              runInAction(() => this.user = user);
-            });
-          }
+          authApi.getAuthenticatedUser().then(({ user }) => {
+            if (!user) this.logout; // TODO: will be sufficient when called synchronously?
+            else runInAction(() => this.user = user);
+          });
         }
       }
     );
-
-    // Storage update
-    reaction(
-      () => [this.token, this.tokenExpiration],
-      ([token, tokenExpiration]) => {
-        if (token && tokenExpiration) storage.storeToken(this.token!, this.tokenExpiration!);
-        else // TODO: check how to do
-      }
-    );
   }
+
+  setup = async () => {
+    const tokenData = await storage.retrieveToken();
+    runInAction(() => {
+      this.token = tokenData.token;
+      this.tokenExpiration = tokenData.tokenExpiration;
+    });
+  };
 
   login = async (credentials: Credentials) => {
     const { token, expiration, user } = await authApi.login(credentials);
@@ -63,7 +63,12 @@ export class UserStore {
   };
 
   logout = async () => {
-    // TODO: check how to do
+    runInAction(() => {
+      this.token = undefined;
+      this.tokenExpiration = undefined;
+      this.user = undefined;
+    });
+    // TODO: storage deletion not needed, since this will be done via reaction, correct?
   };
 
   register = async (form: UserForm) => await userApi.register(form);
