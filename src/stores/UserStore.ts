@@ -1,6 +1,6 @@
 import { makeAutoObservable, reaction, runInAction } from "mobx";
 import { Credentials, User, UserForm } from "../types";
-import { authApi, storage, userApi } from "../services";
+import { authApi, storage, userApi, navigate } from "../services";
 import { isTokenExpired } from "./utils";
 
 export class UserStore {
@@ -10,6 +10,7 @@ export class UserStore {
 
   constructor() {
     makeAutoObservable(this);
+    this.logout = this.logout.bind(this);
 
     // Storage update
     reaction(
@@ -69,6 +70,8 @@ export class UserStore {
       this.user = undefined;
     });
     // TODO: storage deletion not needed, since this will be done via reaction, correct?
+
+    navigate('Login');
   };
 
   register = async (form: UserForm) => await userApi.register(form);

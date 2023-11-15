@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {serverAPIBaseURL} from '../../config';
-import { storage } from "../index";
+import { emitter, storage } from "../index";
 import Toast from "react-native-toast-message";
 
 class Api {
@@ -48,7 +48,8 @@ class Api {
 
         if (res.status === 401) {
           await storage.deleteToken();
-          window.location.reload();
+
+          emitter.emit('unauthorized');
         }
 
         return Promise.reject(err);
