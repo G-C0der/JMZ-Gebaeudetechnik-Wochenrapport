@@ -1,3 +1,4 @@
+import { createContext, useContext } from "react";
 import { UserStore } from "./UserStore";
 import { AdminStore } from "./AdminStore";
 
@@ -9,6 +10,13 @@ const store = {
   adminStore: new AdminStore()
 };
 
+const StoreContext = createContext(store);
+
+const useStore = useContext(StoreContext);
+
 export {
-  store
+  store,
+
+  StoreContext,
+  useStore
 };

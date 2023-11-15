@@ -5,12 +5,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Login } from "./src/screens/Login";
 import { Home } from "./src/screens/Home";
 import Toast from "react-native-toast-message";
+import { store, StoreContext } from "./src/stores";
 
 const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
   return (
-    <>
+    <StoreContext.Provider value={store}>
       <NativeBaseProvider>
         <NavigationContainer>
           <Stack.Navigator>
@@ -21,7 +22,7 @@ function App(): JSX.Element {
       </NativeBaseProvider>
 
       <Toast />
-    </>
+    </StoreContext.Provider>
   );
 }
 
