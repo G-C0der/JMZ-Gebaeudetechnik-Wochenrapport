@@ -36,6 +36,10 @@ class Api {
         } else if (res.status === 500) {
           severity = 'error';
           message = 'An unexpected server error occurred.';
+        } else if (res.status === 401) {
+          await storage.deleteToken();
+
+          emitter.emit('unauthorized');
         } else {
           severity = res.data.severity ?? 'error';
           message = res.data.message ?? res.data;
@@ -45,12 +49,6 @@ class Api {
           type: severity,
           text1: message
         });
-
-        if (res.status === 401) {
-          await storage.deleteToken();
-
-          emitter.emit('unauthorized');
-        }
 
         return Promise.reject(err);
       }

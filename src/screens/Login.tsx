@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { emailValidationSchema, passwordValidationSchema } from "../constants";
 import { View, Box, Button, Input, Text, VStack } from "native-base";
 import { NavigationProp } from "@react-navigation/native";
+import { useStore } from "../stores";
 
 interface LoginProps {
   navigation: NavigationProp<any>;
 }
 
 export function Login({ navigation }: LoginProps): JSX.Element {
-  const [isLoading, setIsLoading] = useState(false);
+  const { userStore } = useStore();
 
   const validationSchema = yup.object({
     email: emailValidationSchema,
@@ -24,13 +25,8 @@ export function Login({ navigation }: LoginProps): JSX.Element {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      setIsLoading(true);
-
-      const loginResponse = await login(values);
-      if (!loginResponse.success) setError(loginResponse.error!);
-      else navigation.navigate('Home');
-
-      setIsLoading(false);
+      await userStore.login(values);
+      navigation.navigate('Home'); // TODO: move to store
     }
   });
 

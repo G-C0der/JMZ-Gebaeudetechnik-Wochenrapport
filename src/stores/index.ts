@@ -3,8 +3,13 @@ import { UserStore } from "./UserStore";
 import { AdminStore } from "./AdminStore";
 import { emitter } from "../services";
 
+interface Store {
+  userStore: UserStore;
+  adminStore: AdminStore;
+}
+
 // Init stores
-const store = {
+const store: Store = {
   userStore: new UserStore(),
   adminStore: new AdminStore()
 };
@@ -22,7 +27,7 @@ emitter.on('unauthorized', store.userStore.logout);
 
 const StoreContext = createContext(store);
 
-const useStore = useContext(StoreContext);
+const useStore = () => useContext(StoreContext);
 
 export {
   store,

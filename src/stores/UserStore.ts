@@ -8,6 +8,8 @@ export class UserStore {
   tokenExpiration: string | undefined;
   user: User | undefined;
 
+  loading = false;
+
   constructor() {
     makeAutoObservable(this);
     this.logout = this.logout.bind(this);
@@ -45,6 +47,7 @@ export class UserStore {
 
   setup = async () => {
     const tokenData = await storage.retrieveToken();
+    if (!tokenData) return;
     runInAction(() => {
       this.token = tokenData.token;
       this.tokenExpiration = tokenData.tokenExpiration;
@@ -52,6 +55,8 @@ export class UserStore {
   };
 
   login = async (credentials: Credentials) => {
+    this.loading = true;
+
     const { token, expiration, user } = await authApi.login(credentials);
 
     if (typeof token !== 'string' || !token.length || !expiration || !user) return;
@@ -60,6 +65,8 @@ export class UserStore {
       this.token = token;
       this.tokenExpiration = expiration;
       this.user = user;
+
+      this.loading = false;
     });
   };
 
