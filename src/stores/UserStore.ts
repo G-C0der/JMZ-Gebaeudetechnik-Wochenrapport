@@ -1,14 +1,20 @@
 import { makeAutoObservable, reaction, runInAction } from "mobx";
 import { Credentials, User, UserForm } from "../types";
 import { authApi, storage, userApi, navigate } from "../services";
-import { isTokenExpired } from "./utils";
+import { isTokenExpired, logErrorMessage } from "./utils";
 
 export class UserStore {
   token: string | undefined;
   tokenExpiration: string | undefined;
   user: User | undefined;
 
-  loading = false;
+  loginLoading = false;
+  registerLoading = false;
+  sendVerificationEmailLoading = false;
+  verifyLoading = false;
+  sendResetPasswordEmailLoading = false;
+  verifyResetPasswordTokenLoading = false;
+  resetPasswordLoading = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -55,22 +61,27 @@ export class UserStore {
   };
 
   login = async (credentials: Credentials) => {
-    this.loading = true;
+    this.loginLoading = true;
+    try {
+      const { token, expiration, user } = await authApi.login(credentials);
 
-    const { token, expiration, user } = await authApi.login(credentials);
+      if (typeof token !== 'string' || !token.length || !expiration || !user) return;
 
-    if (typeof token !== 'string' || !token.length || !expiration || !user) return;
+      runInAction(() => {
+        this.token = token;
+        this.tokenExpiration = expiration;
+        this.user = user;
 
-    runInAction(() => {
-      this.token = token;
-      this.tokenExpiration = expiration;
-      this.user = user;
+        this.loginLoading = false;
+      });
 
-      this.loading = false;
-    });
+      navigate('Home');
+    } catch (err) {
+      logErrorMessage(err);
+    }
   };
 
-  logout = async () => {
+  logout = () => {
     runInAction(() => {
       this.token = undefined;
       this.tokenExpiration = undefined;
@@ -81,15 +92,63 @@ export class UserStore {
     navigate('Login');
   };
 
-  register = async (form: UserForm) => await userApi.register(form);
+  register = async (form: UserForm) => {
+    this.registerLoading = true;
+    try {
+      await userApi.register(form);
+      runInAction(() => this.registerLoading = false);
+    } catch (err) {
+      logErrorMessage(err);
+    }
+  };
 
-  sendVerificationEmail = async (email: string) => await userApi.sendVerificationEmail(email);
+  sendVerificationEmail = async (email: string) => {
+    this.sendVerificationEmailLoading = true;
+    try {
+      await userApi.sendVerificationEmail(email);
+      runInAction(() => this.sendVerificationEmailLoading = false);
+    } catch (err) {
+      logErrorMessage(err);
+    }
+  };
 
-  verify = async (token: string) => await userApi.verify(token);
+  verify = async (token: string) => {
+    this.verifyLoading = true;
+    try {
+      await userApi.verify(token);
+      runInAction(() => this.verifyLoading = false);
+    } catch (err) {
+      logErrorMessage(err);
+    }
+  };
 
-  sendResetPasswordEmail = async (email: string) => await userApi.sendResetPasswordEmail(email);
+  sendResetPasswordEmail = async (email: string) => {
+    this.sendResetPasswordEmailLoading = true;
+    try {
+      await userApi.sendResetPasswordEmail(email);
+      runInAction(() => this.sendResetPasswordEmailLoading = false);
+    } catch (err) {
+      logErrorMessage(err);
+    }
+  };
 
-  verifyResetPasswordToken = async (token: string) => await userApi.verifyResetPasswordToken(token);
+  verifyResetPasswordToken = async (token: string) => {
+    this.verifyResetPasswordTokenLoading = true;
+    try {
+      await userApi.verifyResetPasswordToken(token);
+      runInAction(() => this.verifyResetPasswordTokenLoading = false);
+    } catch (err) {
+      logErrorMessage(err);
+    }
+  };
 
-  resetPassword = async (password: string, token: string) => await userApi.resetPassword(password, token);
+  resetPassword = async (password: string, token: string) => {
+    this.resetPasswordLoading = true;
+    try {
+      await userApi.resetPassword(password, token);
+      runInAction(() => this.resetPasswordLoading = false);
+    } catch (err) {
+      logErrorMessage(err);
+    }
+  };
 }

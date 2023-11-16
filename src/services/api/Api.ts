@@ -28,7 +28,7 @@ class Api {
         return res;
       },
       async (err) => {
-        const { res } = err;
+        const { response: res } = err;
         let severity, message;
         if (!res) {
           severity = 'error';
@@ -44,13 +44,20 @@ class Api {
           severity = res.data.severity ?? 'error';
           message = res.data.message ?? res.data;
         }
-
+        // console[severity === 'warning' ? 'warn' : 'error'](message);
         Toast.show({
           type: severity,
           text1: message
         });
 
-        return Promise.reject(err);
+        return Promise.reject({
+          response: {
+            data: {
+              severity,
+              message
+            }
+          }
+        });
       }
     );
   }

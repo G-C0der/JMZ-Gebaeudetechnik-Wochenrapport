@@ -24,10 +24,7 @@ export function Login({ navigation }: LoginProps): JSX.Element {
       password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: async (values) => {
-      await userStore.login(values);
-      navigation.navigate('Home'); // TODO: move to store
-    }
+    onSubmit: async (values) => await userStore.login(values)
   });
 
   return (
