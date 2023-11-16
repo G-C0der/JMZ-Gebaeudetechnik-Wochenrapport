@@ -18,12 +18,14 @@ class Api {
     this.api.interceptors.response.use(
       async (res) => {
         const severity = res.data.severity ?? 'success';
-        const message = res.data.message ?? res.data;
+        const message = res.data.message ?? (typeof res.data === 'string' ? res.data : null);
 
-        Toast.show({
-          type: severity,
-          text1: message
-        });
+        if (message) {
+          Toast.show({
+            type: severity,
+            text1: message
+          });
+        }
 
         return res;
       },
