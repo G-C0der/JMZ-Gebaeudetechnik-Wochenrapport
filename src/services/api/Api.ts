@@ -1,0 +1,70 @@
+import axios from 'axios';
+import {serverAPIBaseURL} from '../../config';
+import { emitter, storage } from "../index";
+import Toast from "react-native-toast-message";
+
+class Api {
+  api = axios.create({
+    baseURL: serverAPIBaseURL
+  });
+
+  constructor() {
+    this.api.interceptors.request.use(async (config) => {
+      const token = await storage.retrieveToken();
+      config.headers.Authorization = `Bearer ${token}`;
+      return config;
+    });
+
+    this.api.interceptors.response.use(
+      async (res) => {
+        const severity = res.data.severity ?? 'success';
+        const message = res.data.message ?? (typeof res.data === 'string' ? res.data : null);
+
+        if (message) {
+          Toast.show({
+            type: severity,
+            text1: message
+          });
+        }
+
+        return res;
+      },
+      async (err) => {
+        const { response: res } = err;
+        let severity, message;
+        if (!res) {
+          severity = 'error';
+          message = 'Error trying to reach server.';
+        } else if (res.status === 500) {
+          severity = 'error';
+          message = 'An unexpected server error occurred.';
+        } else if (res.status === 401) {
+          await storage.deleteToken();
+
+          emitter.emit('unauthorized');
+        } else {
+          severity = res.data.severity ?? 'error';
+          message = res.data.message ?? res.data;
+        }
+        // console[severity === 'warning' ? 'warn' : 'error'](message);
+        Toast.show({
+          type: severity,
+          text1: message
+        });
+
+        return Promise.reject({
+          response: {
+            data: {
+              severity,
+              message
+            }
+          }
+        });
+      }
+    );
+  }
+}
+
+export {
+  Api
+};
