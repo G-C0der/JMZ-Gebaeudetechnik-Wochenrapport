@@ -74,9 +74,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.jmzgebaeudetechnikwochenrapport"
+    namespace "com.jmzgebaeudetechnik.wochenrapport"
     defaultConfig {
-        applicationId "com.jmzgebaeudetechnikwochenrapport"
+        applicationId "com.jmzgebaeudetechnik.wochenrapport"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

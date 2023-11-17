@@ -1,4 +1,4 @@
-package com.jmzgebaeudetechnikwochenrapport;
+package com.jmzgebaeudetechnik.wochenrapport;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
