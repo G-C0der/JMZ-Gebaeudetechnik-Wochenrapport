@@ -1,5 +1,6 @@
 import React from 'react';
-import { NativeBaseProvider } from "native-base";
+import { GluestackUIProvider } from "@gluestack-ui/themed";
+import { config } from "@gluestack-ui/config";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Login } from "./src/screens/Login";
@@ -13,7 +14,7 @@ const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
   return (
-    <NativeBaseProvider>
+    <GluestackUIProvider config={config}>
       <NavigationContainer ref={navigationRef}>
         <StoreContext.Provider value={store}>
             <Stack.Navigator>
@@ -24,7 +25,7 @@ function App(): JSX.Element {
       </NavigationContainer>
 
       <Toast config={toastConfig} />
-    </NativeBaseProvider>
+    </GluestackUIProvider>
   );
 }
 

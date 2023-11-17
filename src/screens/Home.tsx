@@ -1,15 +1,11 @@
-import React, { useState } from "react";
-import { NavigationProp } from "@react-navigation/native";
-import { View, Text } from "native-base";
+import React from "react";
+import { SafeAreaView } from "react-native";
+import { Text } from "@gluestack-ui/themed";
 
-interface HomeProps {
-  navigation: NavigationProp<any>;
-}
-
-export function Home({ navigation }: HomeProps): JSX.Element {
+export function Home(): JSX.Element {
   return (
-    <View>
+    <SafeAreaView>
       <Text>Home</Text>
-    </View>
+    </SafeAreaView>
   );
 }
