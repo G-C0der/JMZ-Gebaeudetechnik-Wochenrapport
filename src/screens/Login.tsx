@@ -29,7 +29,7 @@ export function Login(): JSX.Element {
       <Box padding={20}>
         <VStack space='md'>
           <TextField formik={formik} field='email' placeholder='Email' />
-          <TextField formik={formik} field='password' placeholder='Password' />
+          <TextField formik={formik} field='password' placeholder='Password' secureTextEntry={true} />
 
           <Button onPress={() => formik.handleSubmit()}><Text>Login</Text></Button>
         </VStack>

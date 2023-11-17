@@ -6,6 +6,7 @@ interface TextFieldProps {
   formik: FormikProps<any>;
   field: string;
   placeholder: string;
+  [key: string]: any;
 }
 
 export function TextField({ formik, field, placeholder, ...props }: TextFieldProps) {
