@@ -3,12 +3,12 @@ import { SafeAreaView } from "react-native";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { emailValidationSchema, passwordValidationSchema } from "../constants";
-import { Box, Button, Input, InputField, Text, VStack } from "@gluestack-ui/themed";
+import { Box, Button, Text, VStack } from "@gluestack-ui/themed";
 import { useStore } from "../stores";
 import { TextField } from "../components/TextField";
 
 export function Login(): JSX.Element {
-  const { userStore } = useStore();
+  const { userStore: { login } } = useStore();
 
   const validationSchema = yup.object({
     email: emailValidationSchema,
@@ -21,7 +21,7 @@ export function Login(): JSX.Element {
       password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: async (values) => await userStore.login(values)
+    onSubmit: async (values) => await login(values)
   });
 
   return (

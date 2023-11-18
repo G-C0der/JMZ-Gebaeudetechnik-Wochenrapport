@@ -8,13 +8,13 @@ export class UserStore {
   tokenExpiration: string | undefined;
   user: User | undefined;
 
-  loginLoading = false;
-  registerLoading = false;
-  sendVerificationEmailLoading = false;
-  verifyLoading = false;
-  sendResetPasswordEmailLoading = false;
-  verifyResetPasswordTokenLoading = false;
-  resetPasswordLoading = false;
+  isLoginLoading = false;
+  isRegisterLoading = false;
+  isSendVerificationEmailLoading = false;
+  isVerifyLoading = false;
+  isSendResetPasswordEmailLoading = false;
+  isVerifyResetPasswordTokenLoading = false;
+  isResetPasswordLoading = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -61,7 +61,7 @@ export class UserStore {
   };
 
   login = async (credentials: Credentials) => {
-    this.loginLoading = true;
+    this.isLoginLoading = true;
     try {
       const { token, expiration, user } = await authApi.login(credentials);
 
@@ -72,10 +72,10 @@ export class UserStore {
         this.tokenExpiration = expiration;
         this.user = user;
 
-        this.loginLoading = false;
+        this.isLoginLoading = false;
       });
 
-      navigate('Home');
+      navigate('Rapport');
     } catch (err) {
       logErrorMessage(err);
     }
@@ -93,60 +93,60 @@ export class UserStore {
   };
 
   register = async (form: UserForm) => {
-    this.registerLoading = true;
+    this.isRegisterLoading = true;
     try {
       await userApi.register(form);
-      runInAction(() => this.registerLoading = false);
+      runInAction(() => this.isRegisterLoading = false);
     } catch (err) {
       logErrorMessage(err);
     }
   };
 
   sendVerificationEmail = async (email: string) => {
-    this.sendVerificationEmailLoading = true;
+    this.isSendVerificationEmailLoading = true;
     try {
       await userApi.sendVerificationEmail(email);
-      runInAction(() => this.sendVerificationEmailLoading = false);
+      runInAction(() => this.isSendVerificationEmailLoading = false);
     } catch (err) {
       logErrorMessage(err);
     }
   };
 
   verify = async (token: string) => {
-    this.verifyLoading = true;
+    this.isVerifyLoading = true;
     try {
       await userApi.verify(token);
-      runInAction(() => this.verifyLoading = false);
+      runInAction(() => this.isVerifyLoading = false);
     } catch (err) {
       logErrorMessage(err);
     }
   };
 
   sendResetPasswordEmail = async (email: string) => {
-    this.sendResetPasswordEmailLoading = true;
+    this.isSendResetPasswordEmailLoading = true;
     try {
       await userApi.sendResetPasswordEmail(email);
-      runInAction(() => this.sendResetPasswordEmailLoading = false);
+      runInAction(() => this.isSendResetPasswordEmailLoading = false);
     } catch (err) {
       logErrorMessage(err);
     }
   };
 
   verifyResetPasswordToken = async (token: string) => {
-    this.verifyResetPasswordTokenLoading = true;
+    this.isVerifyResetPasswordTokenLoading = true;
     try {
       await userApi.verifyResetPasswordToken(token);
-      runInAction(() => this.verifyResetPasswordTokenLoading = false);
+      runInAction(() => this.isVerifyResetPasswordTokenLoading = false);
     } catch (err) {
       logErrorMessage(err);
     }
   };
 
   resetPassword = async (password: string, token: string) => {
-    this.resetPasswordLoading = true;
+    this.isResetPasswordLoading = true;
     try {
       await userApi.resetPassword(password, token);
-      runInAction(() => this.resetPasswordLoading = false);
+      runInAction(() => this.isResetPasswordLoading = false);
     } catch (err) {
       logErrorMessage(err);
     }

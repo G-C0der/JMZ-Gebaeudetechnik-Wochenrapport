@@ -2,10 +2,10 @@ import { createNavigationContainerRef, NavigationProp } from "@react-navigation/
 
 interface RootStackParamList {
   Login: undefined;
-  Home: { navigation: NavigationProp<any> };
+  Rapport: undefined;
 }
 
-type Screen = 'Login' | 'Home';
+type Screen = 'Login' | 'Rapport';
 
 const navigationRef = createNavigationContainerRef<RootStackParamList>();
 
