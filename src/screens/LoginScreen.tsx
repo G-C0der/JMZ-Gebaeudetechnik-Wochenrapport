@@ -7,7 +7,7 @@ import { Box, Button, Text, VStack } from "@gluestack-ui/themed";
 import { useStore } from "../stores";
 import { TextField } from "../components/TextField";
 
-export function Login(): JSX.Element {
+export function LoginScreen() {
   const { userStore: { login } } = useStore();
 
   const validationSchema = yup.object({

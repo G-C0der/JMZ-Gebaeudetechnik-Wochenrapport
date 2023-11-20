@@ -8,7 +8,7 @@ import { Box, Button, ButtonIcon, ChevronLeftIcon, ChevronRightIcon, HStack, Tex
 import { SelectField } from "../components/SelectField";
 import codes from '../data/codes.json';
 
-export function Workday(): JSX.Element {
+export function WorkdayScreen() {
   const [date, setDate] = useState(new Date());
   const [from, setFrom] = useState(new Date());
   const [to, setTo] = useState(new Date());
