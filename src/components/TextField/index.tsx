@@ -3,9 +3,9 @@ import { Input, InputField, Text } from "@gluestack-ui/themed";
 import { FormikProps } from "formik";
 
 interface TextFieldProps {
-  formik: FormikProps<any>;
-  field: string;
   placeholder: string;
+  field: string;
+  formik: FormikProps<any>;
   [key: string]: any;
 }
 

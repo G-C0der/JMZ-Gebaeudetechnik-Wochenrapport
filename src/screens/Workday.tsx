@@ -33,7 +33,7 @@ export function Workday(): JSX.Element {
     <SafeAreaView>
       <Box padding={20}>
         <VStack space='md'>
-          <SelectField options={codes} />
+          <SelectField placeholder='Typ' options={codes} />
 
           <Button>
             <ButtonIcon as={ChevronLeftIcon} m="$2" w="$7" h="$7" />
@@ -88,7 +88,7 @@ export function Workday(): JSX.Element {
             locale='de'
           />
 
-          <TextField formik={formik} field='project' placeholder='Projekt' />
+          <TextField placeholder='Projekt' field='project' formik={formik} />
         </VStack>
       </Box>
     </SafeAreaView>
