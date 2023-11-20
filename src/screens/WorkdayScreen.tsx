@@ -107,10 +107,15 @@ export function WorkdayScreen() {
               modal
               open={isTimePickerModalOpen}
               date={getCurrentDate()}
-              onDateChange={onTimeChange}
-              androidVariant='nativeAndroid'
+              onConfirm={(date) => {
+                setIsTimePickerModalOpen(false);
+                onTimeChange(date);
+              }}
+              onCancel={() => {
+                setIsTimePickerModalOpen(false);
+              }}
+              androidVariant='nativeAndroid' // TODO: change on IOS
               mode='time'
-              textColor='#000000'
               locale='de'
               is24hourSource='device'
             />
