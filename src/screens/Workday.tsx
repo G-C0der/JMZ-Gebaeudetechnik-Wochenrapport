@@ -4,7 +4,7 @@ import DatePicker from "react-native-date-picker";
 import { TextField } from "../components/TextField";
 import { useFormik } from "formik";
 import { workdayValidationSchema } from "../constants";
-import { Box, Button, ButtonIcon, ChevronLeftIcon, ChevronRightIcon, Text, VStack } from "@gluestack-ui/themed";
+import { Box, Button, ButtonIcon, ChevronLeftIcon, ChevronRightIcon, HStack, Text, VStack } from "@gluestack-ui/themed";
 import { SelectField } from "../components/SelectField";
 import codes from '../data/codes.json';
 
@@ -33,24 +33,24 @@ export function Workday(): JSX.Element {
     <SafeAreaView>
       <Box padding={20}>
         <VStack space='md'>
-          <SelectField placeholder='Typ' options={codes} />
+          <HStack>
+            <Button w='$9' action="secondary">
+              <ButtonIcon as={ChevronLeftIcon} m="$2" w="$7" h="$7" />
+            </Button>
 
-          <Button>
-            <ButtonIcon as={ChevronLeftIcon} m="$2" w="$7" h="$7" />
-          </Button>
+            <DatePicker
+              date={date}
+              onDateChange={setDate}
+              androidVariant='nativeAndroid' // TODO: change for IOS
+              mode='date'
+              textColor='#000000'
+              locale='de'
+            />
 
-          <DatePicker
-            date={date}
-            onDateChange={setDate}
-            androidVariant='nativeAndroid' // TODO: change for IOS
-            mode='date'
-            textColor='#000000'
-            locale='de'
-          />
-
-          <Button>
-            <ButtonIcon as={ChevronRightIcon} m="$2" w="$7" h="$7" />
-          </Button>
+            <Button w='$9' action="secondary">
+              <ButtonIcon as={ChevronRightIcon} m="$2" w="$7" h="$7" />
+            </Button>
+          </HStack>
 
           <DatePicker
             date={from}
@@ -89,6 +89,12 @@ export function Workday(): JSX.Element {
           />
 
           <TextField placeholder='Projekt' field='project' formik={formik} />
+
+          <SelectField placeholder='Typ' options={codes} />
+
+          {/*TODO: hours label*/}
+
+          {/*TODO: save button*/}
         </VStack>
       </Box>
     </SafeAreaView>
