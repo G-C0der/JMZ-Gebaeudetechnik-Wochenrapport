@@ -6,17 +6,18 @@ interface TextFieldProps {
   placeholder: string;
   field: string;
   formik: FormikProps<any>;
+  readonly?: boolean;
   [key: string]: any;
 }
 
-export function TextField({ formik, field, placeholder, ...props }: TextFieldProps) {
+export function TextField({ formik, field, placeholder, readonly, ...props }: TextFieldProps) {
   const { style, ...otherProps } = (props as any);
 
   return (
     <>
-      <Input>
+      <Input isReadOnly={readonly}>
         <InputField
-          style={{ paddingTop: 0, paddingBottom: 0, ...style }} // Fix for text area is too high per default
+          style={{ paddingTop: 0, paddingBottom: 0, ...style }} // Fix for content area is too high per default
           placeholder={placeholder}
           onBlur={() => formik.handleBlur(field)}
           value={formik.values[field]}

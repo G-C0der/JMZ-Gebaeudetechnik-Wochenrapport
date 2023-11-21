@@ -11,18 +11,14 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   HStack,
-  Text,
   VStack
 } from "@gluestack-ui/themed";
 import { SelectField } from "../components/SelectField";
 import codes from '../data/codes.json';
+import moment from 'moment';
 
 export function WorkdayScreen() {
   const [date, setDate] = useState(new Date());
-  const [from, setFrom] = useState(new Date());
-  const [to, setTo] = useState(new Date());
-  const [from2, setFrom2] = useState(new Date());
-  const [to2, setTo2] = useState(new Date());
   const [isTimePickerModalOpen, setIsTimePickerModalOpen] = useState(false);
   const [currentPicker, setCurrentPicker] = useState(null);
 
@@ -40,24 +36,21 @@ export function WorkdayScreen() {
     onSubmit: async (values) => {}
   });
 
+  console.log('fromik', formik.values)
+
+  const timeFields = ['from', 'to', 'from2', 'to2'];
+  const timeFieldPlaceholderMap = {
+    from: 'von',
+    to: 'bis',
+    from2: 'von',
+    to2: 'bis'
+  };
+
   const decreaseDate = () => setDate(currentDate => new Date(currentDate.setDate(currentDate.getDate() - 1)));
 
   const increaseDate = () => setDate(currentDate => new Date(currentDate.setDate(currentDate.getDate() + 1)));
 
-  const getCurrentDate = () => {
-    switch (currentPicker) {
-      case 'from':
-        return from;
-      case 'to':
-        return to;
-      case 'from2':
-        return from2;
-      case 'to2':
-        return to2;
-      default:
-        return new Date();
-    }
-  };
+  const getCurrentDate = () => formik.values[currentPicker] || new Date();
 
   const openTimePicker = (picker) => {
     setCurrentPicker(picker);
@@ -65,11 +58,19 @@ export function WorkdayScreen() {
   };
 
   const onTimeChange = (newTime) => {
+    formik.setFieldValue(currentPicker, newTime);/*
     if (currentPicker === 'from') setFrom(newTime);
     else if (currentPicker === 'to') setTo(newTime);
     else if (currentPicker === 'from2') setFrom2(newTime);
-    else if (currentPicker === 'to2') setTo2(newTime);
+    else if (currentPicker === 'to2') setTo2(newTime);*/
     setIsTimePickerModalOpen(false);
+  };
+
+  const formatTime = (time: Date | undefined) => {
+    if (time instanceof Date) {
+      return moment(time).format('HH:mm')
+    }
+    return time;
   };
 
   return (
@@ -96,11 +97,49 @@ export function WorkdayScreen() {
             </Button>
           </HStack>
 
-          {[from, to, from2, to2].map((time, index) => (
-            <TouchableOpacity key={index} onPress={() => openTimePicker(['from', 'to', 'from2', 'to2'][index])}>
-              <Text>{time.toLocaleTimeString()}</Text>
+          <HStack space='md'>
+            <TouchableOpacity onPress={() => openTimePicker('from')} style={{ flex: 1 }}>
+              <TextField
+                placeholder='von'
+                field='from'
+                formik={formik}
+                value={formatTime(formik.values['from'])}
+                readonly
+              />
             </TouchableOpacity>
-          ))}
+
+            <TouchableOpacity onPress={() => openTimePicker('to')} style={{ flex: 1 }}>
+              <TextField
+                placeholder='bis'
+                field='to'
+                formik={formik}
+                value={formatTime(formik.values['to'])}
+                readonly
+              />
+            </TouchableOpacity>
+          </HStack>
+
+          <HStack space='md'>
+            <TouchableOpacity onPress={() => openTimePicker('from2')} style={{ flex: 1 }}>
+              <TextField
+                placeholder='von'
+                field='from2'
+                formik={formik}
+                value={formatTime(formik.values['from2'])}
+                readonly
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => openTimePicker('to2')} style={{ flex: 1 }}>
+              <TextField
+                placeholder='bis'
+                field='to2'
+                formik={formik}
+                value={formatTime(formik.values['to2'])}
+                readonly
+              />
+            </TouchableOpacity>
+          </HStack>
 
           {currentPicker && (
             <DatePicker
