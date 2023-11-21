@@ -10,7 +10,7 @@ interface TextFieldProps {
   [key: string]: any;
 }
 
-export function TextField({ formik, field, placeholder, readonly, ...props }: TextFieldProps) {
+export function TextField({ placeholder, field, formik, readonly, ...props }: TextFieldProps) {
   const { style, ...otherProps } = (props as any);
 
   return (

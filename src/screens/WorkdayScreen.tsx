@@ -150,7 +150,7 @@ export function WorkdayScreen() {
 
           <TextField placeholder='Projekt' field='project' formik={formik} />
 
-          <SelectField placeholder='Typ' options={codes} />
+          <SelectField placeholder='Typ' options={codes} field='code' formik={formik} />
 
           {/*TODO: hours label*/}
 
