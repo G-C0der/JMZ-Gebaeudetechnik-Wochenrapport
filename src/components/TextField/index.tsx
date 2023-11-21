@@ -4,14 +4,19 @@ import { FormikProps } from "formik";
 
 interface TextFieldProps {
   placeholder: string;
-  field: string;
-  formik: FormikProps<any>;
+  field?: string;
+  formik?: FormikProps<any>;
   readonly?: boolean;
   [key: string]: any;
 }
 
 export function TextField({ placeholder, field, formik, readonly, ...props }: TextFieldProps) {
   const { style, ...otherProps } = (props as any);
+  const formikRelatedProps = formik && field ? {
+    onBlur: () => formik.handleBlur(field),
+    value: formik.values[field],
+    onChangeText: (text: string) => formik.setFieldValue(field, text)
+  } : {};
 
   return (
     <>
@@ -19,13 +24,11 @@ export function TextField({ placeholder, field, formik, readonly, ...props }: Te
         <InputField
           style={{ paddingTop: 0, paddingBottom: 0, ...style }} // Fix for content area is too high per default
           placeholder={placeholder}
-          onBlur={() => formik.handleBlur(field)}
-          value={formik.values[field]}
-          onChangeText={(text) => formik.setFieldValue(field, text)}
+          {...formikRelatedProps}
           {...otherProps}
         />
       </Input>
-      {formik.touched[field] && formik.errors[field] ? (
+      {formik && field && formik.touched[field] && formik.errors[field] ? (
         <Text color="red">{formik.errors[field]}</Text>
       ) : null}
     </>

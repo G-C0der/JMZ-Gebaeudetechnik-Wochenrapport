@@ -10,7 +10,7 @@ import {
   ButtonIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  HStack,
+  HStack, Text,
   VStack
 } from "@gluestack-ui/themed";
 import { SelectField } from "../components/SelectField";
@@ -35,8 +35,6 @@ export function WorkdayScreen() {
     onSubmit: async (values) => {}
   });
 
-  console.log('fromik', formik.values)
-
   const decreaseDate = () =>
     formik.setFieldValue('date', moment(formik.values.date).subtract(1, 'day').toDate());
 
@@ -56,10 +54,23 @@ export function WorkdayScreen() {
   };
 
   const formatTime = (time: Date | undefined) => {
-    if (time instanceof Date) {
-      return moment(time).format('HH:mm')
-    }
-    return time;
+    return time ? moment(time).format('HH:mm') : '';
+  };
+
+  const getTotalTime = () => {
+    const parseTime = (time) => time ? moment(time) : null;
+
+    const from = parseTime(formik.values.from);
+    const to = parseTime(formik.values.to);
+    const from2 = parseTime(formik.values.from2);
+    const to2 = parseTime(formik.values.to2);
+
+    const time1 = (from && to) ? Math.max(to.diff(from, 'minutes'), 0) : 0;
+    const time2 = (from2 && to2) ? Math.max(to2.diff(from2, 'minutes'), 0) : 0;
+
+    const total = time1 + time2;
+
+    return total ? `${total / 60}h` : null;
   };
 
   return (
@@ -153,9 +164,9 @@ export function WorkdayScreen() {
 
           <SelectField placeholder='Typ' options={codes} field='code' formik={formik} />
 
-          {/*TODO: hours label*/}
+          <TextField placeholder='Stunden' value={getTotalTime()} readonly />
 
-          {/*TODO: save button*/}
+          <Button onPress={() => formik.handleSubmit()}><Text>Speichern</Text></Button>
         </VStack>
       </Box>
     </SafeAreaView>
