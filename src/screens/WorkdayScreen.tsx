@@ -18,13 +18,12 @@ import codes from '../data/codes.json';
 import moment from 'moment';
 
 export function WorkdayScreen() {
-  const [date, setDate] = useState(new Date());
   const [isTimePickerModalOpen, setIsTimePickerModalOpen] = useState(false);
   const [currentPicker, setCurrentPicker] = useState<string>();
 
   const formik = useFormik({
     initialValues: {
-      date: undefined,
+      date: new Date(),
       from: undefined,
       to: undefined,
       from2: undefined,
@@ -38,9 +37,11 @@ export function WorkdayScreen() {
 
   console.log('fromik', formik.values)
 
-  const decreaseDate = () => setDate(currentDate => moment(currentDate).subtract(1, 'day').toDate());
+  const decreaseDate = () =>
+    formik.setFieldValue('date', moment(formik.values.date).subtract(1, 'day').toDate());
 
-  const increaseDate = () => setDate(currentDate => moment(currentDate).add(1, 'day').toDate());
+  const increaseDate = () =>
+    formik.setFieldValue('date', moment(formik.values.date).add(1, 'day').toDate());
 
   const getCurrentDate = () => formik.values[currentPicker!] || new Date();
 
@@ -71,8 +72,8 @@ export function WorkdayScreen() {
             </Button>
 
             <DatePicker
-              date={date}
-              onDateChange={setDate}
+              date={formik.values['date']}
+              onDateChange={(date) => formik.setFieldValue('date', date)}
               androidVariant='nativeAndroid' // TODO: change on IOS
               mode='date'
               textColor='#000000'
