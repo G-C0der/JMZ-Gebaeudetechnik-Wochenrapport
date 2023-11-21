@@ -20,15 +20,15 @@ import moment from 'moment';
 export function WorkdayScreen() {
   const [date, setDate] = useState(new Date());
   const [isTimePickerModalOpen, setIsTimePickerModalOpen] = useState(false);
-  const [currentPicker, setCurrentPicker] = useState(null);
+  const [currentPicker, setCurrentPicker] = useState<string>();
 
   const formik = useFormik({
     initialValues: {
-      date: '',
-      from: '',
-      to: '',
-      from2: '',
-      to2: '',
+      date: undefined,
+      from: undefined,
+      to: undefined,
+      from2: undefined,
+      to2: undefined,
       project: '',
       code: ''
     },
@@ -38,31 +38,19 @@ export function WorkdayScreen() {
 
   console.log('fromik', formik.values)
 
-  const timeFields = ['from', 'to', 'from2', 'to2'];
-  const timeFieldPlaceholderMap = {
-    from: 'von',
-    to: 'bis',
-    from2: 'von',
-    to2: 'bis'
-  };
+  const decreaseDate = () => setDate(currentDate => moment(currentDate).subtract(1, 'day').toDate());
 
-  const decreaseDate = () => setDate(currentDate => new Date(currentDate.setDate(currentDate.getDate() - 1)));
+  const increaseDate = () => setDate(currentDate => moment(currentDate).add(1, 'day').toDate());
 
-  const increaseDate = () => setDate(currentDate => new Date(currentDate.setDate(currentDate.getDate() + 1)));
+  const getCurrentDate = () => formik.values[currentPicker!] || new Date();
 
-  const getCurrentDate = () => formik.values[currentPicker] || new Date();
-
-  const openTimePicker = (picker) => {
+  const openTimePicker = (picker: string) => {
     setCurrentPicker(picker);
     setIsTimePickerModalOpen(true);
   };
 
-  const onTimeChange = (newTime) => {
-    formik.setFieldValue(currentPicker, newTime);/*
-    if (currentPicker === 'from') setFrom(newTime);
-    else if (currentPicker === 'to') setTo(newTime);
-    else if (currentPicker === 'from2') setFrom2(newTime);
-    else if (currentPicker === 'to2') setTo2(newTime);*/
+  const onTimeChange = (newTime: Date) => {
+    formik.setFieldValue(currentPicker!, newTime);
     setIsTimePickerModalOpen(false);
   };
 
