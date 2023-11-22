@@ -16,6 +16,7 @@ import {
 import { SelectField } from "../components/SelectField";
 import codes from '../data/codes.json';
 import moment from 'moment';
+import { round } from "../utils";
 
 export function WorkdayScreen() {
   const [isTimePickerModalOpen, setIsTimePickerModalOpen] = useState(false);
@@ -34,7 +35,7 @@ export function WorkdayScreen() {
     validationSchema: workdayValidationSchema,
     onSubmit: async (values) => {}
   });
-console.log('v',formik.values)
+
   const decreaseDate = () =>
     formik.setFieldValue('date', moment(formik.values.date).subtract(1, 'day').toDate());
 
@@ -74,9 +75,11 @@ console.log('v',formik.values)
     const time1 = (from && to) ? Math.max(to.diff(from, 'minutes'), 0) : 0;
     const time2 = (from2 && to2) ? Math.max(to2.diff(from2, 'minutes'), 0) : 0;
 
-    const total = time1 + time2;
+    const total = (time1 + time2) / 60;
+    const totalHours = Math.floor(total);
+    const totalMinutes = round((total - totalHours) * 60, 0);
 
-    return total ? `${total / 60}h` : null;
+    return total ? `${totalHours}h ${totalMinutes}m` : null;
   };
   return (
     <SafeAreaView>
