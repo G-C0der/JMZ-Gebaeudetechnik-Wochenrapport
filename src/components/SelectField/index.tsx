@@ -1,36 +1,58 @@
 import React from 'react';
-import { SelectScrollView, Select, SelectIcon, SelectInput, SelectTrigger, Icon, ChevronDownIcon, SelectPortal, SelectBackdrop, SelectContent, SelectDragIndicatorWrapper, SelectDragIndicator, SelectItem } from "@gluestack-ui/themed";
+import {
+  SelectScrollView,
+  Select,
+  SelectIcon,
+  SelectInput,
+  SelectTrigger,
+  Icon,
+  ChevronDownIcon,
+  SelectPortal,
+  SelectBackdrop,
+  SelectContent,
+  SelectDragIndicatorWrapper,
+  SelectDragIndicator,
+  SelectItem,
+  Text
+} from "@gluestack-ui/themed";
 import { FormikProps } from "formik";
 
 interface SelectFieldProps {
   placeholder: string;
-  options: { [key: string | number]: string };
+  options: { [key: string]: string };
   field: string;
   formik: FormikProps<any>;
+  valueFormatter?: (value: string) => unknown;
 }
 
-export function SelectField({ placeholder, options, field, formik }: SelectFieldProps) {
+export function SelectField({ placeholder, options, field, formik, valueFormatter }: SelectFieldProps) {
   return (
-    <Select onValueChange={(value) => formik.setFieldValue(field, value)}>
-      <SelectTrigger variant="outline" size="md">
-        <SelectInput placeholder={placeholder} style={{ paddingTop: 0, paddingBottom: 0 }} />
-        <SelectIcon mr="$3">
-          <Icon as={ChevronDownIcon} />
-        </SelectIcon>
-      </SelectTrigger>
-      <SelectPortal>
-        <SelectBackdrop />
-        <SelectContent>
-          <SelectScrollView>
-            <SelectDragIndicatorWrapper>
-              <SelectDragIndicator />
-            </SelectDragIndicatorWrapper>
-            {Object.entries(options).map(([key, description]) => (
-              <SelectItem key={key} label={description} value={key} />
-            ))}
-          </SelectScrollView>
-        </SelectContent>
-      </SelectPortal>
-    </Select>
+    <>
+      <Select onValueChange={(value) => formik.setFieldValue(field, valueFormatter ? valueFormatter(value) : value)}>
+        <SelectTrigger variant="outline" size="md">
+          <SelectInput placeholder={placeholder} style={{ paddingTop: 0, paddingBottom: 0 }} />
+          <SelectIcon mr="$3">
+            <Icon as={ChevronDownIcon} />
+          </SelectIcon>
+        </SelectTrigger>
+        <SelectPortal>
+          <SelectBackdrop />
+          <SelectContent>
+            <SelectScrollView>
+              <SelectDragIndicatorWrapper>
+                <SelectDragIndicator />
+              </SelectDragIndicatorWrapper>
+              {Object.entries(options).map(([key, description]) => (
+                <SelectItem key={key} label={description} value={key} />
+              ))}
+            </SelectScrollView>
+          </SelectContent>
+        </SelectPortal>
+      </Select>
+
+      {formik && field && formik.touched[field] && formik.errors[field] ? (
+        <Text color="red">{formik.errors[field]}</Text>
+      ) : null}
+    </>
   );
 }

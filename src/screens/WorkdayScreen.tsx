@@ -162,7 +162,7 @@ export function WorkdayScreen() {
 
           <TextField placeholder='Projekt' field='project' formik={formik} />
 
-          <SelectField placeholder='Typ' options={codes} field='code' formik={formik} />
+          <SelectField placeholder='Typ' options={codes} field='code' formik={formik} valueFormatter={(value) => parseInt(value)} />
 
           <TextField placeholder='Stunden' value={getTotalTime()} readonly />
 

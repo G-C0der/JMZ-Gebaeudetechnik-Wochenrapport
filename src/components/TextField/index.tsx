@@ -28,6 +28,7 @@ export function TextField({ placeholder, field, formik, readonly, ...props }: Te
           {...otherProps}
         />
       </Input>
+
       {formik && field && formik.touched[field] && formik.errors[field] ? (
         <Text color="red">{formik.errors[field]}</Text>
       ) : null}
