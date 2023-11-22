@@ -10,7 +10,7 @@ import {
   ButtonIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  HStack, Text,
+  HStack, ScrollView, Text,
   VStack
 } from "@gluestack-ui/themed";
 import { SelectField } from "../components/SelectField";
@@ -32,7 +32,9 @@ export function WorkdayScreen() {
       code: ''
     },
     validationSchema: workdayValidationSchema,
-    onSubmit: async (values) => {}
+    onSubmit: async (values) => {
+      console.log('from', values)
+    }
   });
 
   const decreaseDate = () =>
@@ -75,100 +77,102 @@ export function WorkdayScreen() {
 
   return (
     <SafeAreaView>
-      <Box padding={20}>
-        <VStack space='md'>
-          <HStack justifyContent="space-between" alignItems="center">
-            <Button w='10%' action="secondary" onPress={decreaseDate}>
-              <ButtonIcon as={ChevronLeftIcon} m="$2" w="$7" h="$7" />
-            </Button>
+      <ScrollView>
+        <Box padding={20}>
+          <VStack space='md'>
+            <HStack justifyContent="space-between" alignItems="center">
+              <Button w='10%' action="secondary" onPress={decreaseDate}>
+                <ButtonIcon as={ChevronLeftIcon} m="$2" w="$7" h="$7" />
+              </Button>
 
-            <DatePicker
-              date={formik.values['date']}
-              onDateChange={(date) => formik.setFieldValue('date', date)}
-              androidVariant='nativeAndroid' // TODO: change on IOS
-              mode='date'
-              textColor='#000000'
-              locale='de'
-              style={{ flex: 1 }}
-            />
-
-            <Button w='10%' action="secondary" onPress={increaseDate}>
-              <ButtonIcon as={ChevronRightIcon} m="$2" w="$7" h="$7" />
-            </Button>
-          </HStack>
-
-          <HStack space='md'>
-            <TouchableOpacity onPress={() => openTimePicker('from')} style={{ flex: 1 }}>
-              <TextField
-                placeholder='von'
-                field='from'
-                formik={formik}
-                value={formatTime(formik.values['from'])}
-                readonly
+              <DatePicker
+                date={formik.values['date']}
+                onDateChange={(date) => formik.setFieldValue('date', date)}
+                androidVariant='nativeAndroid' // TODO: change on IOS
+                mode='date'
+                textColor='#000000'
+                locale='de'
+                style={{ flex: 1 }}
               />
-            </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => openTimePicker('to')} style={{ flex: 1 }}>
-              <TextField
-                placeholder='bis'
-                field='to'
-                formik={formik}
-                value={formatTime(formik.values['to'])}
-                readonly
+              <Button w='10%' action="secondary" onPress={increaseDate}>
+                <ButtonIcon as={ChevronRightIcon} m="$2" w="$7" h="$7" />
+              </Button>
+            </HStack>
+
+            <HStack space='md'>
+              <TouchableOpacity onPress={() => openTimePicker('from')} style={{ flex: 1 }}>
+                <TextField
+                  placeholder='von'
+                  field='from'
+                  formik={formik}
+                  value={formatTime(formik.values['from'])}
+                  readonly
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => openTimePicker('to')} style={{ flex: 1 }}>
+                <TextField
+                  placeholder='bis'
+                  field='to'
+                  formik={formik}
+                  value={formatTime(formik.values['to'])}
+                  readonly
+                />
+              </TouchableOpacity>
+            </HStack>
+
+            <HStack space='md'>
+              <TouchableOpacity onPress={() => openTimePicker('from2')} style={{ flex: 1 }}>
+                <TextField
+                  placeholder='von'
+                  field='from2'
+                  formik={formik}
+                  value={formatTime(formik.values['from2'])}
+                  readonly
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => openTimePicker('to2')} style={{ flex: 1 }}>
+                <TextField
+                  placeholder='bis'
+                  field='to2'
+                  formik={formik}
+                  value={formatTime(formik.values['to2'])}
+                  readonly
+                />
+              </TouchableOpacity>
+            </HStack>
+
+            {currentPicker && (
+              <DatePicker
+                modal
+                open={isTimePickerModalOpen}
+                date={getCurrentDate()}
+                onConfirm={(date) => {
+                  setIsTimePickerModalOpen(false);
+                  onTimeChange(date);
+                }}
+                onCancel={() => {
+                  setIsTimePickerModalOpen(false);
+                }}
+                androidVariant='nativeAndroid' // TODO: change on IOS
+                mode='time'
+                locale='de'
+                is24hourSource='device'
               />
-            </TouchableOpacity>
-          </HStack>
+            )}
 
-          <HStack space='md'>
-            <TouchableOpacity onPress={() => openTimePicker('from2')} style={{ flex: 1 }}>
-              <TextField
-                placeholder='von'
-                field='from2'
-                formik={formik}
-                value={formatTime(formik.values['from2'])}
-                readonly
-              />
-            </TouchableOpacity>
+            <TextField placeholder='Projekt' field='project' formik={formik} />
 
-            <TouchableOpacity onPress={() => openTimePicker('to2')} style={{ flex: 1 }}>
-              <TextField
-                placeholder='bis'
-                field='to2'
-                formik={formik}
-                value={formatTime(formik.values['to2'])}
-                readonly
-              />
-            </TouchableOpacity>
-          </HStack>
+            <SelectField placeholder='Typ' options={codes} field='code' formik={formik} valueFormatter={(value) => parseInt(value)} />
 
-          {currentPicker && (
-            <DatePicker
-              modal
-              open={isTimePickerModalOpen}
-              date={getCurrentDate()}
-              onConfirm={(date) => {
-                setIsTimePickerModalOpen(false);
-                onTimeChange(date);
-              }}
-              onCancel={() => {
-                setIsTimePickerModalOpen(false);
-              }}
-              androidVariant='nativeAndroid' // TODO: change on IOS
-              mode='time'
-              locale='de'
-              is24hourSource='device'
-            />
-          )}
+            <TextField placeholder='Stunden' value={getTotalTime()} readonly />
 
-          <TextField placeholder='Projekt' field='project' formik={formik} />
-
-          <SelectField placeholder='Typ' options={codes} field='code' formik={formik} valueFormatter={(value) => parseInt(value)} />
-
-          <TextField placeholder='Stunden' value={getTotalTime()} readonly />
-
-          <Button onPress={() => formik.handleSubmit()}><Text>Speichern</Text></Button>
-        </VStack>
-      </Box>
+            <Button onPress={() => formik.handleSubmit()}><Text>Speichern</Text></Button>
+          </VStack>
+        </Box>
+      </ScrollView>
     </SafeAreaView>
   );
 }
