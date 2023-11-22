@@ -24,17 +24,15 @@ export function WorkdayScreen() {
   const formik = useFormik({
     initialValues: {
       date: new Date(),
-      from: undefined,
-      to: undefined,
-      from2: undefined,
-      to2: undefined,
+      from: '',
+      to: '',
+      from2: '',
+      to2: '',
       project: '',
-      code: ''
+      code: undefined
     },
     validationSchema: workdayValidationSchema,
-    onSubmit: async (values) => {
-      console.log('from', values)
-    }
+    onSubmit: async (values) => {}
   });
 
   const decreaseDate = () =>
@@ -43,7 +41,7 @@ export function WorkdayScreen() {
   const increaseDate = () =>
     formik.setFieldValue('date', moment(formik.values.date).add(1, 'day').toDate());
 
-  const getCurrentDate = () => formik.values[currentPicker!] || new Date();
+  const getCurrentDate = () => timeToDate(formik.values[currentPicker!]) || new Date();
 
   const openTimePicker = (picker: string) => {
     setCurrentPicker(picker);
@@ -51,13 +49,17 @@ export function WorkdayScreen() {
   };
 
   const onTimeChange = (newTime: Date) => {
-    formik.setFieldValue(currentPicker!, newTime);
+    formik.setFieldValue(currentPicker!, dateToTime(newTime));
     setIsTimePickerModalOpen(false);
   };
 
-  const formatTime = (time: Date | undefined) => {
-    return time ? moment(time).format('HH:mm') : '';
-  };
+  const dateToTime = (time: Date | undefined) => time ? moment(time).format('HH:mm') : '';
+
+  const timeToDate = (time: string) => moment().set({
+    hour: parseInt(time.split(':')[0], 10),
+    minute: parseInt(time.split(':')[1], 10),
+    second: 0
+  }).toDate();
 
   const getTotalTime = () => {
     const parseTime = (time) => time ? moment(time) : null;
@@ -74,7 +76,6 @@ export function WorkdayScreen() {
 
     return total ? `${total / 60}h` : null;
   };
-
   return (
     <SafeAreaView>
       <ScrollView>
@@ -106,7 +107,7 @@ export function WorkdayScreen() {
                   placeholder='von'
                   field='from'
                   formik={formik}
-                  value={formatTime(formik.values['from'])}
+                  value={formik.values['from']}
                   readonly
                 />
               </TouchableOpacity>
@@ -116,7 +117,7 @@ export function WorkdayScreen() {
                   placeholder='bis'
                   field='to'
                   formik={formik}
-                  value={formatTime(formik.values['to'])}
+                  value={formik.values['to']}
                   readonly
                 />
               </TouchableOpacity>
@@ -128,7 +129,7 @@ export function WorkdayScreen() {
                   placeholder='von'
                   field='from2'
                   formik={formik}
-                  value={formatTime(formik.values['from2'])}
+                  value={formik.values['from2']}
                   readonly
                 />
               </TouchableOpacity>
@@ -138,7 +139,7 @@ export function WorkdayScreen() {
                   placeholder='bis'
                   field='to2'
                   formik={formik}
-                  value={formatTime(formik.values['to2'])}
+                  value={formik.values['to2']}
                   readonly
                 />
               </TouchableOpacity>
