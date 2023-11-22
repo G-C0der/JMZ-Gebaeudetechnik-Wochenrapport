@@ -34,14 +34,14 @@ export function WorkdayScreen() {
     validationSchema: workdayValidationSchema,
     onSubmit: async (values) => {}
   });
-
+console.log('v',formik.values)
   const decreaseDate = () =>
     formik.setFieldValue('date', moment(formik.values.date).subtract(1, 'day').toDate());
 
   const increaseDate = () =>
     formik.setFieldValue('date', moment(formik.values.date).add(1, 'day').toDate());
 
-  const getCurrentDate = () => timeToDate(formik.values[currentPicker!]) || new Date();
+  const getCurrentDate = () => timeToDate(formik.values[currentPicker!]);
 
   const openTimePicker = (picker: string) => {
     setCurrentPicker(picker);
@@ -55,14 +55,16 @@ export function WorkdayScreen() {
 
   const dateToTime = (time: Date | undefined) => time ? moment(time).format('HH:mm') : '';
 
-  const timeToDate = (time: string) => moment().set({
+  const timeToDate = (time: string) => timeToMoment(time).toDate();
+
+  const timeToMoment = (time: string) => moment().set({
     hour: parseInt(time.split(':')[0], 10),
     minute: parseInt(time.split(':')[1], 10),
     second: 0
-  }).toDate();
+  });
 
   const getTotalTime = () => {
-    const parseTime = (time) => time ? moment(time) : null;
+    const parseTime = (time: string) => time ? timeToMoment(time) : null;
 
     const from = parseTime(formik.values.from);
     const to = parseTime(formik.values.to);
