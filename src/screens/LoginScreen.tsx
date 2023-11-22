@@ -6,9 +6,10 @@ import { emailValidationSchema, passwordValidationSchema } from "../constants";
 import { Box, Button, Text, VStack } from "@gluestack-ui/themed";
 import { useStore } from "../stores";
 import { TextField } from "../components/TextField";
+import { LoadingButton } from "../components/LoadingButton";
 
 export function LoginScreen() {
-  const { userStore: { login } } = useStore();
+  const { userStore: { login, isLoginLoading } } = useStore();
 
   const validationSchema = yup.object({
     email: emailValidationSchema,
@@ -31,7 +32,7 @@ export function LoginScreen() {
           <TextField placeholder='Email' field='email' formik={formik} />
           <TextField placeholder='Password' field='password' formik={formik} secureTextEntry={true} />
 
-          <Button onPress={() => formik.handleSubmit()}><Text>Login</Text></Button>
+          <LoadingButton text='Login' onPress={() =>  formik.handleSubmit()} loading={isLoginLoading} />
         </VStack>
       </Box>
     </SafeAreaView>

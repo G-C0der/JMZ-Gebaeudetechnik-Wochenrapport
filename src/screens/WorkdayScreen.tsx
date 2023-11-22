@@ -17,6 +17,7 @@ import { SelectField } from "../components/SelectField";
 import codes from '../data/codes.json';
 import moment from 'moment';
 import { round } from "../utils";
+import { LoadingButton } from "../components/LoadingButton";
 
 export function WorkdayScreen() {
   const [isTimePickerModalOpen, setIsTimePickerModalOpen] = useState(false);
@@ -175,7 +176,7 @@ export function WorkdayScreen() {
 
             <TextField placeholder='Stunden' value={getTotalTime()} readonly />
 
-            <Button onPress={() => formik.handleSubmit()}><Text>Speichern</Text></Button>
+            <LoadingButton text='Speichern' onPress={() =>  formik.handleSubmit()} loading={false} />
           </VStack>
         </Box>
       </ScrollView>

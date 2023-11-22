@@ -75,9 +75,11 @@ export class UserStore {
         this.isLoginLoading = false;
       });
 
-      navigate('Rapport');
+      navigate('Arbeitstag');
     } catch (err) {
       logErrorMessage(err);
+
+      if (this.isLoginLoading) runInAction(() => this.isLoginLoading = false);
     }
   };
 
@@ -99,6 +101,8 @@ export class UserStore {
       runInAction(() => this.isRegisterLoading = false);
     } catch (err) {
       logErrorMessage(err);
+
+      if (this.isRegisterLoading) runInAction(() => this.isRegisterLoading = false);
     }
   };
 
@@ -109,6 +113,8 @@ export class UserStore {
       runInAction(() => this.isSendVerificationEmailLoading = false);
     } catch (err) {
       logErrorMessage(err);
+
+      if (this.isSendVerificationEmailLoading) runInAction(() => this.isSendVerificationEmailLoading = false);
     }
   };
 
@@ -119,6 +125,8 @@ export class UserStore {
       runInAction(() => this.isVerifyLoading = false);
     } catch (err) {
       logErrorMessage(err);
+
+      if (this.isVerifyLoading) runInAction(() => this.isVerifyLoading = false);
     }
   };
 
@@ -129,6 +137,8 @@ export class UserStore {
       runInAction(() => this.isSendResetPasswordEmailLoading = false);
     } catch (err) {
       logErrorMessage(err);
+
+      if (this.isSendResetPasswordEmailLoading) runInAction(() => this.isSendResetPasswordEmailLoading = false);
     }
   };
 
@@ -139,6 +149,8 @@ export class UserStore {
       runInAction(() => this.isVerifyResetPasswordTokenLoading = false);
     } catch (err) {
       logErrorMessage(err);
+
+      if (this.isVerifyResetPasswordTokenLoading) runInAction(() => this.isVerifyResetPasswordTokenLoading = false);
     }
   };
 
@@ -149,6 +161,8 @@ export class UserStore {
       runInAction(() => this.isResetPasswordLoading = false);
     } catch (err) {
       logErrorMessage(err);
+
+      if (this.isResetPasswordLoading) runInAction(() => this.isResetPasswordLoading = false);
     }
   };
 }
