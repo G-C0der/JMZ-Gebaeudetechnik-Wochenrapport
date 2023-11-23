@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { observer } from "mobx-react-lite";
 import { SafeAreaView, TouchableOpacity } from "react-native";
 import DatePicker from "react-native-date-picker";
 import { TextField } from "../components/TextField";
@@ -10,7 +11,7 @@ import {
   ButtonIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  HStack, ScrollView, Text,
+  HStack, ScrollView,
   VStack
 } from "@gluestack-ui/themed";
 import { SelectField } from "../components/SelectField";
@@ -21,11 +22,11 @@ import { LoadingButton } from "../components/LoadingButton";
 import { store } from "../stores";
 import { Workday } from "../types";
 
-export function WorkdayScreen() {
+export default observer(function WorkdayScreen() {
   const [isTimePickerModalOpen, setIsTimePickerModalOpen] = useState(false);
   const [currentPicker, setCurrentPicker] = useState<string>();
 
-  const { workScheduleStore: { saveWorkday } } = store;
+  const { workScheduleStore: { saveWorkday, isSaveWorkdayLoading } } = store;
 
   const formik = useFormik<Workday>({
     initialValues: {
@@ -180,10 +181,10 @@ export function WorkdayScreen() {
 
             <TextField placeholder='Stunden' value={getTotalTime()} readonly />
 
-            <LoadingButton text='Speichern' onPress={() =>  formik.handleSubmit()} loading={false} />
+            <LoadingButton text='Speichern' onPress={() =>  formik.handleSubmit()} loading={isSaveWorkdayLoading} />
           </VStack>
         </Box>
       </ScrollView>
     </SafeAreaView>
   );
-}
+});

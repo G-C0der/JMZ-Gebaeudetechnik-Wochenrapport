@@ -1,15 +1,16 @@
 import React from "react";
+import { observer } from "mobx-react-lite";
 import { SafeAreaView } from "react-native";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { emailValidationSchema, passwordValidationSchema } from "../constants";
-import { Box, Button, Text, VStack } from "@gluestack-ui/themed";
+import { Box, VStack } from "@gluestack-ui/themed";
 import { useStore } from "../stores";
 import { TextField } from "../components/TextField";
 import { LoadingButton } from "../components/LoadingButton";
 import { Credentials } from "../types";
 
-export function LoginScreen() {
+export default observer(function LoginScreen() {
   const { userStore: { login, isLoginLoading } } = useStore();
 
   const validationSchema = yup.object({
@@ -38,4 +39,4 @@ export function LoginScreen() {
       </Box>
     </SafeAreaView>
   );
-}
+});
