@@ -8,7 +8,7 @@ import { workdayValidationSchema } from "../constants";
 import {
   Box,
   Button,
-  ButtonIcon,
+  ButtonIcon, ButtonText,
   ChevronLeftIcon,
   ChevronRightIcon,
   HStack, ScrollView,
@@ -122,6 +122,13 @@ export default observer(function WorkdayScreen() {
                   readonly
                 />
               </TouchableOpacity>
+              <Button
+                action="secondary"
+                isDisabled={!formik.values['from']}
+                onPress={() => formik.setFieldValue('from', null)}
+              >
+                <ButtonText>X</ButtonText>
+              </Button>
 
               <TouchableOpacity onPress={() => openTimePicker('to')} style={{ flex: 1 }}>
                 <TextField
@@ -132,6 +139,13 @@ export default observer(function WorkdayScreen() {
                   readonly
                 />
               </TouchableOpacity>
+              <Button
+                action="secondary"
+                isDisabled={!formik.values['to']}
+                onPress={() => formik.setFieldValue('to', null)}
+              >
+                <ButtonText>X</ButtonText>
+              </Button>
             </HStack>
 
             <HStack space='md'>
@@ -144,6 +158,13 @@ export default observer(function WorkdayScreen() {
                   readonly
                 />
               </TouchableOpacity>
+              <Button
+                action="secondary"
+                isDisabled={!formik.values['from2']}
+                onPress={() => formik.setFieldValue('from2', null)}
+              >
+                <ButtonText>X</ButtonText>
+              </Button>
 
               <TouchableOpacity onPress={() => openTimePicker('to2')} style={{ flex: 1 }}>
                 <TextField
@@ -154,6 +175,13 @@ export default observer(function WorkdayScreen() {
                   readonly
                 />
               </TouchableOpacity>
+              <Button
+                action="secondary"
+                isDisabled={!formik.values['to2']}
+                onPress={() => formik.setFieldValue('to2', null)}
+              >
+                <ButtonText>X</ButtonText>
+              </Button>
             </HStack>
 
             {currentPicker && (
