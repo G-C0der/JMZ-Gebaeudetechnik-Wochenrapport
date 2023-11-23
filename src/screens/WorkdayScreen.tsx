@@ -30,10 +30,10 @@ export function WorkdayScreen() {
   const formik = useFormik<Workday>({
     initialValues: {
       date: new Date(),
-      from: '',
-      to: '',
-      from2: '',
-      to2: '',
+      from: undefined,
+      to: undefined,
+      from2: undefined,
+      to2: undefined,
       project: '',
       code: 0
     },
@@ -59,18 +59,18 @@ export function WorkdayScreen() {
     setIsTimePickerModalOpen(false);
   };
 
-  const dateToTime = (time: Date | undefined) => time ? moment(time).format('HH:mm') : '';
+  const dateToTime = (time?: Date) => time ? moment(time).format('HH:mm') : '';
 
-  const timeToDate = (time: string) => timeToMoment(time).toDate();
+  const timeToDate = (time?: string) => timeToMoment(time).toDate();
 
-  const timeToMoment = (time: string) => moment().set({
-    hour: parseInt(time.split(':')[0], 10),
-    minute: parseInt(time.split(':')[1], 10),
+  const timeToMoment = (time?: string) => moment().set(time ? {
+    hour: parseInt(time.split(":")[0], 10),
+    minute: parseInt(time.split(":")[1], 10),
     second: 0
-  });
+  } : {});
 
   const getTotalTime = () => {
-    const parseTime = (time: string) => time ? timeToMoment(time) : null;
+    const parseTime = (time?: string) => time ? timeToMoment(time) : null;
 
     const from = parseTime(formik.values.from);
     const to = parseTime(formik.values.to);
