@@ -7,6 +7,7 @@ import { Box, Button, Text, VStack } from "@gluestack-ui/themed";
 import { useStore } from "../stores";
 import { TextField } from "../components/TextField";
 import { LoadingButton } from "../components/LoadingButton";
+import { Credentials } from "../types";
 
 export function LoginScreen() {
   const { userStore: { login, isLoginLoading } } = useStore();
@@ -16,7 +17,7 @@ export function LoginScreen() {
     password: passwordValidationSchema,
   });
 
-  const formik = useFormik({
+  const formik = useFormik<Credentials>({
     initialValues: {
       email: '',
       password: '',
