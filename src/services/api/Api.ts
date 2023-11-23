@@ -31,14 +31,14 @@ class Api {
       },
       async (err) => {
         const { response: res } = err;
-        let severity, message;
+        let severity = 'error', message;
         if (!res) {
-          severity = 'error';
           message = 'Error trying to reach server.';
         } else if (res.status === 500) {
-          severity = 'error';
           message = 'An unexpected server error occurred.';
         } else if (res.status === 401) {
+          message = 'Unauthorized.';
+
           await storage.deleteToken();
 
           emitter.emit('unauthorized');
