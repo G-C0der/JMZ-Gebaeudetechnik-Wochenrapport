@@ -16,7 +16,7 @@ export class AdminStore {
   listUsers = async () => {
     this.isListUsersLoading = true;
     try {
-      const users = await userApi.list();
+      const { users } = await userApi.list();
       runInAction(() => {
         this.users = users;
 

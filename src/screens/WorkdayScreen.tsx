@@ -18,10 +18,13 @@ import codes from '../data/codes.json';
 import moment from 'moment';
 import { round } from "../utils";
 import { LoadingButton } from "../components/LoadingButton";
+import { store } from "../stores";
 
 export function WorkdayScreen() {
   const [isTimePickerModalOpen, setIsTimePickerModalOpen] = useState(false);
   const [currentPicker, setCurrentPicker] = useState<string>();
+
+  const { workScheduleStore: { saveWorkday } } = store;
 
   const formik = useFormik({
     initialValues: {
@@ -34,7 +37,7 @@ export function WorkdayScreen() {
       code: undefined
     },
     validationSchema: workdayValidationSchema,
-    onSubmit: async (values) => {}
+    onSubmit: async (values) => await saveWorkday(values)
   });
 
   const decreaseDate = () =>

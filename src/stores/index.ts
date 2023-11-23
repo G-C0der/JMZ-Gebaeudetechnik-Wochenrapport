@@ -2,16 +2,19 @@ import { createContext, useContext } from "react";
 import { UserStore } from "./UserStore";
 import { AdminStore } from "./AdminStore";
 import { emitter } from "../services";
+import { WorkScheduleStore } from "./WorkScheduleStore";
 
 interface Store {
   userStore: UserStore;
   adminStore: AdminStore;
+  workScheduleStore: WorkScheduleStore;
 }
 
 // Init stores
 const store: Store = {
   userStore: new UserStore(),
-  adminStore: new AdminStore()
+  adminStore: new AdminStore(),
+  workScheduleStore: new WorkScheduleStore()
 };
 
 // Setup stores
