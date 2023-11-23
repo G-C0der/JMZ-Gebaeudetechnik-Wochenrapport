@@ -50,8 +50,8 @@ const workdayValidationSchema = yup.object({
   code: yup
     .number()
     .required('Type is required.')
-    .min(100, 'Type has to be 3 digits long.')
-    .max(999, 'Type has to be 3 digits long.')
+    .min(100, 'Type is required.')
+    .max(999, 'Type is required.')
 });
 
 export {

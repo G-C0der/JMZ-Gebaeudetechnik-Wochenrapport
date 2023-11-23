@@ -4,9 +4,9 @@ import { authApi, storage, userApi, navigate } from "../services";
 import { isTokenExpired, logErrorMessage } from "./utils";
 
 export class UserStore {
-  token: string | undefined;
-  tokenExpiration: string | undefined;
-  user: User | undefined;
+  token: string = '';
+  tokenExpiration: string = '';
+  user: User | null = null;
 
   isLoginLoading = false;
   isRegisterLoading = false;
@@ -85,9 +85,9 @@ export class UserStore {
 
   logout = () => {
     runInAction(() => {
-      this.token = undefined;
-      this.tokenExpiration = undefined;
-      this.user = undefined;
+      this.token = '';
+      this.tokenExpiration = '';
+      this.user = null;
     });
     // TODO: storage deletion not needed, since this will be done via reaction, correct?
 

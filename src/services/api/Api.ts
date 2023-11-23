@@ -10,8 +10,8 @@ class Api {
 
   constructor() {
     this.api.interceptors.request.use(async (config) => {
-      const token = await storage.retrieveToken();
-      config.headers.Authorization = `Bearer ${token}`;
+      const tokenData = await storage.retrieveToken();
+      if (tokenData && tokenData.token) config.headers.Authorization = `Bearer ${tokenData.token}`;
       return config;
     });
 
@@ -46,7 +46,7 @@ class Api {
           severity = res.data.severity ?? 'error';
           message = res.data.message ?? res.data;
         }
-        // console[severity === 'warning' ? 'warn' : 'error'](message);
+
         Toast.show({
           type: severity,
           text1: message

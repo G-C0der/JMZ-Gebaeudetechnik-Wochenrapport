@@ -4,7 +4,7 @@ import { workdayApi, workweekApi } from "../services";
 import { logErrorMessage } from "./utils";
 
 export class WorkScheduleStore {
-  currentWorkweek: Workweek | undefined; // Workweek of the currently selected workday
+  currentWorkweek: Workweek | null = null; // Workweek of the currently selected workday
 
   isSaveWorkdayLoading = false;
   isFetchWorkweekLoading = false;
