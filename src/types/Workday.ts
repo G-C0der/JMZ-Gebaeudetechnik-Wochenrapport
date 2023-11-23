@@ -1,9 +1,9 @@
 interface Workday {
   date: Date;
-  from?: string;
-  to?: string;
-  from2?: string;
-  to2?: string;
+  from: string | null;
+  to: string | null;
+  from2: string | null;
+  to2: string | null;
   project: string;
   code: number;
 }
