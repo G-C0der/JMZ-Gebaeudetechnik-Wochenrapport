@@ -8,7 +8,7 @@ import { workdayValidationSchema } from "../constants";
 import {
   Box,
   Button,
-  ButtonIcon, ButtonText,
+  ButtonIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   HStack, ScrollView,
@@ -20,7 +20,7 @@ import moment from 'moment';
 import { round } from "../utils";
 import { LoadingButton } from "../components/LoadingButton";
 import { store } from "../stores";
-import { Workday } from "../types";
+import { WorkdayForm, WorkdayFormInit } from "../types";
 import TimePickerField from "../components/TimePickerField";
 
 export default observer(function WorkdayScreen() {
@@ -29,7 +29,7 @@ export default observer(function WorkdayScreen() {
 
   const { workScheduleStore: { saveWorkday, isSaveWorkdayLoading } } = store;
 
-  const formik = useFormik<Workday>({
+  const formik = useFormik<WorkdayFormInit>({
     initialValues: {
       date: new Date(),
       from: null,
@@ -40,7 +40,7 @@ export default observer(function WorkdayScreen() {
       code: 0
     },
     validationSchema: workdayValidationSchema,
-    onSubmit: async (values) => await saveWorkday(values)
+    onSubmit: async (values) => await saveWorkday(values as WorkdayForm)
   });
 
   const decreaseDate = () =>

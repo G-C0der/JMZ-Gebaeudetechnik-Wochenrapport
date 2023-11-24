@@ -1,10 +1,10 @@
 import { Api } from "./Api";
-import { Workday } from "../../types";
+import { WorkdayForm } from "../../types";
 
 class WorkdayApi extends Api {
   basePath = '/workdays';
 
-  save = async (form: Workday) => {
+  save = async (form: WorkdayForm) => {
     const { data } = await this.api.post(this.basePath, form);
     return data;
   };

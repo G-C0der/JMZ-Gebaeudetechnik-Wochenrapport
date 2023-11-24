@@ -1,5 +1,5 @@
 import {makeAutoObservable, runInAction} from "mobx";
-import { Workday, Workweek, WorkweekIdAlt } from "../types";
+import { WorkdayForm, Workweek, WorkweekIdAlt } from "../types";
 import { workdayApi, workweekApi } from "../services";
 import { logErrorMessage } from "./utils";
 
@@ -14,7 +14,7 @@ export class WorkScheduleStore {
     makeAutoObservable(this);
   }
 
-  saveWorkday = async (form: Workday) => {
+  saveWorkday = async (form: WorkdayForm) => {
     this.isSaveWorkdayLoading = true;
     try {
       await workdayApi.save(form);
