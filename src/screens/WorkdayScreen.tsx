@@ -21,6 +21,7 @@ import { round } from "../utils";
 import { LoadingButton } from "../components/LoadingButton";
 import { store } from "../stores";
 import { Workday } from "../types";
+import TimePickerField from "../components/TimePickerField";
 
 export default observer(function WorkdayScreen() {
   const [isTimePickerModalOpen, setIsTimePickerModalOpen] = useState(false);
@@ -113,75 +114,15 @@ export default observer(function WorkdayScreen() {
             </HStack>
 
             <HStack space='md'>
-              <TouchableOpacity onPress={() => openTimePicker('from')} style={{ flex: 1 }}>
-                <TextField
-                  placeholder='von'
-                  field='from'
-                  formik={formik}
-                  value={formik.values['from']}
-                  readonly
-                />
-              </TouchableOpacity>
-              <Button
-                action="secondary"
-                isDisabled={!formik.values['from']}
-                onPress={() => formik.setFieldValue('from', null)}
-              >
-                <ButtonText>X</ButtonText>
-              </Button>
+              <TimePickerField placeholder='von' field='from' formik={formik} openTimePicker={openTimePicker} />
 
-              <TouchableOpacity onPress={() => openTimePicker('to')} style={{ flex: 1 }}>
-                <TextField
-                  placeholder='bis'
-                  field='to'
-                  formik={formik}
-                  value={formik.values['to']}
-                  readonly
-                />
-              </TouchableOpacity>
-              <Button
-                action="secondary"
-                isDisabled={!formik.values['to']}
-                onPress={() => formik.setFieldValue('to', null)}
-              >
-                <ButtonText>X</ButtonText>
-              </Button>
+              <TimePickerField placeholder='bis' field='to' formik={formik} openTimePicker={openTimePicker} />
             </HStack>
 
             <HStack space='md'>
-              <TouchableOpacity onPress={() => openTimePicker('from2')} style={{ flex: 1 }}>
-                <TextField
-                  placeholder='von'
-                  field='from2'
-                  formik={formik}
-                  value={formik.values['from2']}
-                  readonly
-                />
-              </TouchableOpacity>
-              <Button
-                action="secondary"
-                isDisabled={!formik.values['from2']}
-                onPress={() => formik.setFieldValue('from2', null)}
-              >
-                <ButtonText>X</ButtonText>
-              </Button>
+              <TimePickerField placeholder='von' field='from2' formik={formik} openTimePicker={openTimePicker} />
 
-              <TouchableOpacity onPress={() => openTimePicker('to2')} style={{ flex: 1 }}>
-                <TextField
-                  placeholder='bis'
-                  field='to2'
-                  formik={formik}
-                  value={formik.values['to2']}
-                  readonly
-                />
-              </TouchableOpacity>
-              <Button
-                action="secondary"
-                isDisabled={!formik.values['to2']}
-                onPress={() => formik.setFieldValue('to2', null)}
-              >
-                <ButtonText>X</ButtonText>
-              </Button>
+              <TimePickerField placeholder='bis' field='to2' formik={formik} openTimePicker={openTimePicker} />
             </HStack>
 
             {currentPicker && (
