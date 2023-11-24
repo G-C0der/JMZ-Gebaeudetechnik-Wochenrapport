@@ -76,6 +76,8 @@ export class UserStore {
       });
 
       navigate('Arbeitstag');
+
+      return true;
     } catch (err) {
       logErrorMessage(err);
 

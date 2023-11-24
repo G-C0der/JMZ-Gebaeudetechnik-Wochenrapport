@@ -24,7 +24,10 @@ export default observer(function LoginScreen() {
       password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: async (values) => await login(values)
+    onSubmit: async (values) => {
+      const success = await login(values);
+      if (success) formik.resetForm();
+    }
   });
 
   return (
