@@ -34,7 +34,7 @@ export default observer(function LoginScreen() {
           <TextField placeholder='Email' field='email' formik={formik} />
           <TextField placeholder='Password' field='password' formik={formik} secureTextEntry={true} />
 
-          <LoadingButton text='Login' onPress={() =>  formik.handleSubmit()} loading={isLoginLoading} />
+          <LoadingButton text='Login' onPress={() =>  formik.handleSubmit()} loading={isLoginLoading} icon='login' />
         </VStack>
       </Box>
     </SafeAreaView>

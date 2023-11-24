@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
-import { SafeAreaView, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native";
 import DatePicker from "react-native-date-picker";
 import { TextField } from "../components/TextField";
 import { useFormik } from "formik";
@@ -150,7 +150,12 @@ export default observer(function WorkdayScreen() {
 
             <TextField placeholder='Stunden' value={getTotalTime()} readonly />
 
-            <LoadingButton text='Speichern' onPress={() =>  formik.handleSubmit()} loading={isSaveWorkdayLoading} />
+            <LoadingButton
+              text='Speichern'
+              onPress={() =>  formik.handleSubmit()}
+              loading={isSaveWorkdayLoading}
+              icon='save'
+            />
           </VStack>
         </Box>
       </ScrollView>
