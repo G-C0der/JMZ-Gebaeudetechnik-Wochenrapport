@@ -11,23 +11,14 @@ interface Workday {
   code: Code;
 }
 
-interface WorkdayForm {
-  date: Date;
+interface WorkdayForm extends Omit<Workday, 'from' | 'to' | 'from2' | 'to2'> {
   from: string | null;
   to: string | null;
   from2: string | null;
   to2: string | null;
-  project: string;
-  code: Code;
 }
 
-interface WorkdayFormInit {
-  date: Date;
-  from: string | null;
-  to: string | null;
-  from2: string | null;
-  to2: string | null;
-  project: string;
+interface WorkdayFormInit extends Omit<WorkdayForm, 'code'> {
   code: Code | 0;
 }
 
