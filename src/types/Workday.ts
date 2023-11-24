@@ -1,5 +1,5 @@
-import codes from '../data/codes.json';
 import { StringNumberToNumber } from "./Common";
+import { codeMap } from "../constants";
 
 interface Workday {
   date: Date;
@@ -31,7 +31,7 @@ interface WorkdayFormInit {
   code: Code | 0;
 }
 
-type Code = StringNumberToNumber<keyof typeof codes>;
+type Code = StringNumberToNumber<keyof typeof codeMap>;
 
 export type {
   Workday,

@@ -1,3 +1,5 @@
+import codeMap from '../data/codes.json';
+
 const workdayFieldLengths = {
   from: { max: 5 },
   to: { max: 5 },
@@ -6,6 +8,11 @@ const workdayFieldLengths = {
   project: { max: 200 }
 };
 
+const codes = Object.keys(codeMap).map(Number);
+
 export {
-  workdayFieldLengths
+  workdayFieldLengths,
+
+  codeMap,
+  codes
 };

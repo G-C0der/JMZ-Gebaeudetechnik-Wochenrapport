@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native";
 import DatePicker from "react-native-date-picker";
 import { TextField } from "../components/TextField";
 import { useFormik } from "formik";
-import { workdayValidationSchema } from "../constants";
+import { codeMap, workdayValidationSchema } from "../constants";
 import {
   Box,
   Button,
@@ -15,7 +15,6 @@ import {
   VStack
 } from "@gluestack-ui/themed";
 import { SelectField } from "../components/SelectField";
-import codes from '../data/codes.json';
 import moment from 'moment';
 import { round } from "../utils";
 import { LoadingButton } from "../components/LoadingButton";
@@ -146,7 +145,7 @@ export default observer(function WorkdayScreen() {
 
             <TextField placeholder='Projekt' field='project' formik={formik} />
 
-            <SelectField placeholder='Typ' options={codes} field='code' formik={formik} valueFormatter={(value) => parseInt(value)} />
+            <SelectField placeholder='Typ' options={codeMap} field='code' formik={formik} valueFormatter={(value) => parseInt(value)} />
 
             <TextField placeholder='Stunden' value={getTotalTime()} readonly />
 
