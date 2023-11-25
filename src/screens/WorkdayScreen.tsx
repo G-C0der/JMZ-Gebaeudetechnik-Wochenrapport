@@ -25,8 +25,18 @@ import TimePickerField from "../components/TimePickerField";
 export default observer(function WorkdayScreen() {
   const [isTimePickerModalOpen, setIsTimePickerModalOpen] = useState(false);
   const [currentPicker, setCurrentPicker] = useState<string>();
+  const [currentWorkdayDate, setCurrentWorkdayDate] = useState<Date>();
 
-  const { workScheduleStore: { saveWorkday, isSaveWorkdayLoading, fetchWorkweek, isFetchWorkweekLoading } } = store;
+  const {
+    workScheduleStore: {
+      saveWorkday,
+      isSaveWorkdayLoading,
+      fetchWorkweek,
+      isFetchWorkweekLoading,
+      getWorkdayFromCurrentWorkweek,
+      toWorkdayForm
+    }
+  } = store;
 
   const formik = useFormik<WorkdayFormInit>({
     initialValues: {
@@ -43,20 +53,34 @@ export default observer(function WorkdayScreen() {
   });
 
   useEffect(() => {
-    const fetchCurrentWorkweek = async () => await fetchWorkweek(formik.values.date);
-    fetchCurrentWorkweek();
-  }, [formik.initialValues]);
+    const syncWorkdayForm = async () => {
+      if (!formik.values.date) return;
+
+      await fetchWorkweek(formik.values.date);
+
+      const currentWorkday = getWorkdayFromCurrentWorkweek(formik.values.date);
+      if (currentWorkday) {
+        const currentWorkdayForm = toWorkdayForm(currentWorkday);
+
+        if (currentWorkdayForm.date.getTime() !== currentWorkdayDate?.getTime()) {
+          setCurrentWorkdayDate(formik.values.date);
+
+          await formik.setValues(currentWorkdayForm);
+        }
+      }
+    };
+
+    syncWorkdayForm();
+  }, [formik.values.date]);
 
   const decreaseDate = async () => {
     const dateMinusOneDay = moment(formik.values.date).subtract(1, "day").toDate();
     await formik.setFieldValue("date", dateMinusOneDay);
-    await fetchWorkweek(dateMinusOneDay);
   };
 
   const increaseDate = async () => {
     const datePlusOneDay = moment(formik.values.date).add(1, "day").toDate();
     await formik.setFieldValue("date", datePlusOneDay);
-    await fetchWorkweek(datePlusOneDay);
   };
 
   const getCurrentDate = () => timeToDate(formik.values[currentPicker!]);
@@ -110,10 +134,7 @@ export default observer(function WorkdayScreen() {
 
               <DatePicker
                 date={formik.values['date']}
-                onDateChange={async (date) => {
-                  await formik.setFieldValue("date", date);
-                  await fetchWorkweek(date);
-                }}
+                onDateChange={async (date) => await formik.setFieldValue("date", date)}
                 androidVariant='nativeAndroid' // TODO: change on IOS
                 mode='date'
                 textColor='#000000'
