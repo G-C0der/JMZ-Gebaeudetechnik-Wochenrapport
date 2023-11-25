@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {serverAPIBaseURL} from '../../config';
+import {serverAPIBaseURL} from '../../config/env';
 import { emitter, storage } from "../index";
 import Toast from "react-native-toast-message";
 

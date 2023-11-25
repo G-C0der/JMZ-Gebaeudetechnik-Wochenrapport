@@ -8,7 +8,8 @@ import WorkdayScreen from "./src/screens/WorkdayScreen";
 import Toast from "react-native-toast-message";
 import { store, StoreContext } from "./src/stores";
 import { navigationRef } from "./src/services";
-import { toastConfig } from "./src/toastConfig";
+import { toastConfig } from "./src/config/toast";
+import './src/config/moment';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,7 +19,7 @@ function App() {
       <NavigationContainer ref={navigationRef}>
         <StoreContext.Provider value={store}>
             <Stack.Navigator>
-              <Stack.Screen name='Login' component={LoginScreen} />
+              {/*<Stack.Screen name='Login' component={LoginScreen} />*/}
               <Stack.Screen name='Arbeitstag' component={WorkdayScreen} />
             </Stack.Navigator>
         </StoreContext.Provider>

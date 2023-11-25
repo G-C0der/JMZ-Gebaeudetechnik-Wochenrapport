@@ -2,7 +2,7 @@ import {makeAutoObservable, runInAction} from "mobx";
 import { Workday, WorkdayForm, Workweek, WorkweekIdAlt } from "../types";
 import { workdayApi, workweekApi } from "../services";
 import { logErrorMessage } from "./utils";
-import { toDateOnly } from "../utils";
+import { getWeekDateRange, toDateOnly } from "../utils";
 
 export class WorkScheduleStore {
   currentWorkweek: Workweek | null = null; // Workweek of the currently selected workday
@@ -14,9 +14,11 @@ export class WorkScheduleStore {
   constructor() {
     makeAutoObservable(this);
   }
-  // TODO: check with start and end date of workweek
-  private belongsToCurrentWorkWeek = (workdayDate: Date) =>
-    !!this.currentWorkweek?.workdays.find(workday => new Date(workday.date).getTime() === workdayDate.getTime());
+
+  private belongsToCurrentWorkWeek = (workdayDate: Date) => {
+    const { start, end } = getWeekDateRange(workdayDate);
+    return this.currentWorkweek?.start === start && this.currentWorkweek.end === end;
+  }
 
   saveWorkday = async (form: WorkdayForm) => {
     this.isSaveWorkdayLoading = true;
@@ -47,7 +49,7 @@ export class WorkScheduleStore {
     this.isFetchWorkweekLoading = true;
     try {
       const { workweek } = await workweekApi.fetch(workdayDate);
-      console.log('workweek', workweek)
+
       runInAction(() => {
         this.currentWorkweek = workweek;
 
