@@ -1,21 +1,19 @@
 import { StringNumberToNumber } from "./Common";
 import { codeMap } from "../constants";
+import { DateOnly } from "./Workweek";
 
 interface Workday {
-  date: Date;
-  from?: string;
-  to?: string;
-  from2?: string;
-  to2?: string;
-  project: string;
-  code: Code;
-}
-
-interface WorkdayForm extends Omit<Workday, 'from' | 'to' | 'from2' | 'to2'> {
+  date: DateOnly;
   from: string | null;
   to: string | null;
   from2: string | null;
   to2: string | null;
+  project: string;
+  code: Code;
+}
+
+interface WorkdayForm extends Omit<Workday, 'date'> {
+  date: Date;
 }
 
 interface WorkdayFormInit extends Omit<WorkdayForm, 'code'> {

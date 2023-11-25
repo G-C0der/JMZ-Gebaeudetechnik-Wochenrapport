@@ -6,7 +6,7 @@ class Storage {
       const tokenData = { token, tokenExpiration };
       await Keychain.setGenericPassword('tokenData', JSON.stringify(tokenData));
     } catch (err) {
-      console.log('Error storing token.', err);
+      console.error('Error storing token.', err);
     }
   }
 
@@ -16,7 +16,7 @@ class Storage {
       if (credentials && credentials.password) return JSON.parse(credentials.password);
       else console.log('No token found.');
     } catch (err) {
-      console.log('Error retrieving token.', err);
+      console.error('Error retrieving token.', err);
     }
   }
 
@@ -24,7 +24,7 @@ class Storage {
     try {
       await Keychain.resetGenericPassword();
     } catch (err) {
-      console.log('Error deleting token.', err);
+      console.error('Error deleting token.', err);
     }
   }
 }
