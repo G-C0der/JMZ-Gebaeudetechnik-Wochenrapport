@@ -20,6 +20,9 @@ export class WorkScheduleStore {
     return this.currentWorkweek?.start === start && this.currentWorkweek.end === end;
   }
 
+  private getWorkdayFromCurrentWorkweek = (workdayDate: Date) =>
+    this.currentWorkweek?.workdays.find(workday => new Date(workday.date).getTime() === workdayDate.getTime());
+
   saveWorkday = async (form: WorkdayForm) => {
     this.isSaveWorkdayLoading = true;
     try {
@@ -27,7 +30,7 @@ export class WorkScheduleStore {
 
       runInAction(() => {
         if (this.currentWorkweek) {
-          const currentWorkday = this.currentWorkweek.workdays.find(workday => new Date(workday.date) === form.date)
+          const currentWorkday = this.getWorkdayFromCurrentWorkweek(form.date);
 
           const workday: Workday = { ...form, date: toDateOnly(form.date) };
           if (currentWorkday) Object.assign(currentWorkday, workday);
