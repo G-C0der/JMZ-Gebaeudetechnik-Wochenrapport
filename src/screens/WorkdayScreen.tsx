@@ -67,6 +67,13 @@ export default observer(function WorkdayScreen() {
 
           await formik.setValues(currentWorkdayForm);
         }
+      } else {
+        formik.resetForm({
+          values: {
+            ...formik.initialValues,
+            date: formik.values.date
+          }
+        });
       }
     };
 
