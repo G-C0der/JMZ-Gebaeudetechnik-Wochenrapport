@@ -23,8 +23,9 @@ import { WorkdayForm, WorkdayFormInit } from "../types";
 import TimePickerField from "../components/TimePickerField";
 
 export default observer(function WorkdayScreen() {
+  type TimePicker = 'from' | 'to' | 'from2' | 'to2';
   const [isTimePickerModalOpen, setIsTimePickerModalOpen] = useState(false);
-  const [currentPicker, setCurrentPicker] = useState<string>();
+  const [currentTimePicker, setCurrentTimePicker] = useState<TimePicker>();
 
   const {
     workScheduleStore: {
@@ -32,8 +33,7 @@ export default observer(function WorkdayScreen() {
       isSaveWorkdayLoading,
       fetchWorkweek,
       isFetchWorkweekLoading,
-      getWorkdayFromCurrentWorkweek,
-      toWorkdayForm
+      getWorkdayFromCurrentWorkweek
     }
   } = store;
 
@@ -86,15 +86,15 @@ export default observer(function WorkdayScreen() {
     await formik.setFieldValue("date", datePlusOneDay);
   };
 
-  const getCurrentDate = () => timeToDate(formik.values[currentPicker!]);
+  const getCurrentDate = () => timeToDate(formik.values[currentTimePicker!]);
 
   const openTimePicker = (picker: string) => {
-    setCurrentPicker(picker);
+    setCurrentTimePicker(picker);
     setIsTimePickerModalOpen(true);
   };
 
   const onTimeChange = (newTime: Date) => {
-    formik.setFieldValue(currentPicker!, dateToTime(newTime));
+    formik.setFieldValue(currentTimePicker!, dateToTime(newTime));
     setIsTimePickerModalOpen(false);
   };
 
@@ -162,7 +162,7 @@ export default observer(function WorkdayScreen() {
               <TimePickerField placeholder='bis' field='to2' formik={formik} openTimePicker={openTimePicker} />
             </HStack>
 
-            {currentPicker && (
+            {currentTimePicker && (
               <DatePicker
                 modal
                 open={isTimePickerModalOpen}

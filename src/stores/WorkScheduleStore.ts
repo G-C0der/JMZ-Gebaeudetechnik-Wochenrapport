@@ -25,8 +25,6 @@ export class WorkScheduleStore {
 
   private toWorkday = (form: WorkdayForm): Workday => ({ ...form, date: toDateOnly(form.date) });
 
-  toWorkdayForm = (workday: Workday): WorkdayForm => ({ ...workday, date: new Date(workday.date) });
-
   saveWorkday = async (form: WorkdayForm) => {
     this.isSaveWorkdayLoading = true;
     try {
