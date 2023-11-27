@@ -8,9 +8,6 @@ import { codeMap, workdayValidationSchema } from "../constants";
 import {
   Box,
   Button,
-  ButtonIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
   HStack, ScrollView,
   VStack
 } from "@gluestack-ui/themed";
@@ -21,6 +18,7 @@ import { LoadingButton } from "../components/LoadingButton";
 import { store } from "../stores";
 import { WorkdayForm, WorkdayFormInit } from "../types";
 import TimePickerField from "../components/TimePickerField";
+import AntDesign from "react-native-vector-icons/AntDesign";
 
 export default observer(function WorkdayScreen() {
   type TimePicker = 'from' | 'to' | 'from2' | 'to2';
@@ -131,8 +129,8 @@ export default observer(function WorkdayScreen() {
         <Box padding={20}>
           <VStack space='md'>
             <HStack justifyContent="space-between" alignItems="center">
-              <Button w='10%' action="secondary" onPress={decreaseDate}>
-                <ButtonIcon as={ChevronLeftIcon} m="$2" w="$7" h="$7" />
+              <Button w='11%' action="secondary" onPress={decreaseDate} style={{ paddingLeft: 3, paddingRight: 3 }}>
+                <AntDesign name='caretleft' size={20} />
               </Button>
 
               <DatePicker
@@ -145,8 +143,8 @@ export default observer(function WorkdayScreen() {
                 style={{ flex: 1 }}
               />
 
-              <Button w='10%' action="secondary" onPress={increaseDate}>
-                <ButtonIcon as={ChevronRightIcon} m="$2" w="$7" h="$7" />
+              <Button w='11%' action="secondary" onPress={increaseDate} style={{ paddingLeft: 3, paddingRight: 3 }}>
+                <AntDesign name='caretright' size={20} />
               </Button>
             </HStack>
 
