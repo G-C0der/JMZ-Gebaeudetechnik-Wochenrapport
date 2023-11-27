@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from "react-native";
-import { TextField } from "./TextField";
+import { TextField } from "../TextField";
 import { Button, ButtonText } from "@gluestack-ui/themed";
 import { FormikProps } from "formik";
 
