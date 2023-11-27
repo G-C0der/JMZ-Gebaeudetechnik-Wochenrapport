@@ -18,7 +18,7 @@ import { LoadingButton } from "../components/LoadingButton";
 import { store } from "../stores";
 import { WorkdayForm, WorkdayFormInit } from "../types";
 import TimePickerField from "../components/TimePickerField";
-import AntDesign from "react-native-vector-icons/AntDesign";
+import Icon from "../components/Icon";
 
 export default observer(function WorkdayScreen() {
   type TimePicker = 'from' | 'to' | 'from2' | 'to2';
@@ -130,7 +130,7 @@ export default observer(function WorkdayScreen() {
           <VStack space='md'>
             <HStack justifyContent="space-between" alignItems="center">
               <Button w='11%' action="secondary" onPress={decreaseDate} style={{ paddingLeft: 3, paddingRight: 3 }}>
-                <AntDesign name='caretleft' size={20} />
+                <Icon name='caretleft' />
               </Button>
 
               <DatePicker
@@ -144,7 +144,7 @@ export default observer(function WorkdayScreen() {
               />
 
               <Button w='11%' action="secondary" onPress={increaseDate} style={{ paddingLeft: 3, paddingRight: 3 }}>
-                <AntDesign name='caretright' size={20} />
+                <Icon name='caretright' />
               </Button>
             </HStack>
 

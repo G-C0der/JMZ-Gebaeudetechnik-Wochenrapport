@@ -1,9 +1,9 @@
 import React from 'react';
 import { TouchableOpacity } from "react-native";
 import { TextField } from "../TextField";
-import { Button, ButtonText } from "@gluestack-ui/themed";
+import { Button } from "@gluestack-ui/themed";
 import { FormikProps } from "formik";
-import AntDesign from "react-native-vector-icons/AntDesign";
+import Icon from "../Icon";
 
 interface TimePickerFieldProps {
   placeholder: string;
@@ -31,7 +31,7 @@ export default function TimePickerField({ placeholder, field, openTimePicker, fo
         isDisabled={!formik.values[field]}
         onPress={() => formik.setFieldValue(field, null)}
       >
-        <AntDesign name='delete' size={20} />
+        <Icon name='delete' />
       </Button>
     </>
   );
