@@ -26,9 +26,12 @@ interface SelectFieldProps {
 }
 
 export function SelectField({ placeholder, options, field, formik, valueFormatter }: SelectFieldProps) {
+  const getValue = (value: string) => valueFormatter ? valueFormatter(value) : value;
+  const initialDisplay = options[formik.values[field]];
+
   return (
     <>
-      <Select onValueChange={(value) => formik.setFieldValue(field, valueFormatter ? valueFormatter(value) : value)}>
+      <Select selectedValue={initialDisplay} onValueChange={(value) => formik.setFieldValue(field, getValue(value))}>
         <SelectTrigger variant="outline" size="md">
           <SelectInput placeholder={placeholder} style={{ paddingTop: 0, paddingBottom: 0 }} />
           <SelectIcon mr="$3">

@@ -25,7 +25,6 @@ import TimePickerField from "../components/TimePickerField";
 export default observer(function WorkdayScreen() {
   const [isTimePickerModalOpen, setIsTimePickerModalOpen] = useState(false);
   const [currentPicker, setCurrentPicker] = useState<string>();
-  const [currentWorkdayDate, setCurrentWorkdayDate] = useState<Date>();
 
   const {
     workScheduleStore: {
@@ -60,13 +59,10 @@ export default observer(function WorkdayScreen() {
 
       const currentWorkday = getWorkdayFromCurrentWorkweek(formik.values.date);
       if (currentWorkday) {
-        const currentWorkdayForm = toWorkdayForm(currentWorkday);
-
-        if (currentWorkdayForm.date.getTime() !== currentWorkdayDate?.getTime()) {
-          setCurrentWorkdayDate(formik.values.date);
-
-          await formik.setValues(currentWorkdayForm);
-        }
+        await formik.setValues({
+          ...currentWorkday,
+          date: formik.values.date
+        });
       } else {
         formik.resetForm({
           values: {
