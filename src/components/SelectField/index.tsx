@@ -31,7 +31,11 @@ export function SelectField({ placeholder, options, field, formik, valueFormatte
 
   return (
     <>
-      <Select selectedValue={initialDisplay} onValueChange={(value) => formik.setFieldValue(field, getValue(value))}>
+      <Select
+        key={formik.values[field]} // Ensures that select field gets re-rendered on formik value change
+        selectedValue={initialDisplay}
+        onValueChange={(value) => formik.setFieldValue(field, getValue(value))}
+      >
         <SelectTrigger variant="outline" size="md">
           <SelectInput placeholder={placeholder} style={{ paddingTop: 0, paddingBottom: 0 }} />
           <SelectIcon mr="$3">
