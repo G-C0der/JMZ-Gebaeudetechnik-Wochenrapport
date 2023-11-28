@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {serverAPIBaseURL} from '../../config';
+import {serverAPIBaseURL} from '../../config/env';
 import { emitter, storage } from "../index";
 import Toast from "react-native-toast-message";
 
@@ -10,8 +10,8 @@ class Api {
 
   constructor() {
     this.api.interceptors.request.use(async (config) => {
-      const token = await storage.retrieveToken();
-      config.headers.Authorization = `Bearer ${token}`;
+      const tokenData = await storage.retrieveToken();
+      if (tokenData && tokenData.token) config.headers.Authorization = `Bearer ${tokenData.token}`;
       return config;
     });
 
@@ -31,14 +31,14 @@ class Api {
       },
       async (err) => {
         const { response: res } = err;
-        let severity, message;
+        let severity = 'error', message;
         if (!res) {
-          severity = 'error';
           message = 'Error trying to reach server.';
         } else if (res.status === 500) {
-          severity = 'error';
           message = 'An unexpected server error occurred.';
         } else if (res.status === 401) {
+          message = 'Unauthorized.';
+
           await storage.deleteToken();
 
           emitter.emit('unauthorized');
@@ -46,7 +46,7 @@ class Api {
           severity = res.data.severity ?? 'error';
           message = res.data.message ?? res.data;
         }
-        // console[severity === 'warning' ? 'warn' : 'error'](message);
+
         Toast.show({
           type: severity,
           text1: message

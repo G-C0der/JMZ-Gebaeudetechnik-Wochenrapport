@@ -3,28 +3,32 @@ import { Input, InputField, Text } from "@gluestack-ui/themed";
 import { FormikProps } from "formik";
 
 interface TextFieldProps {
-  formik: FormikProps<any>;
-  field: string;
   placeholder: string;
+  field?: string;
+  formik?: FormikProps<any>;
+  readonly?: boolean;
   [key: string]: any;
 }
 
-export function TextField({ formik, field, placeholder, ...props }: TextFieldProps) {
-  const { style, ...otherProps } = (props as any);
+export function TextField({ placeholder, field, formik, readonly, ...props }: TextFieldProps) {
+  const formikRelatedProps = formik && field ? {
+    onBlur: () => formik.handleBlur(field),
+    value: formik.values[field],
+    onChangeText: (text: string) => formik.setFieldValue(field, text)
+  } : {};
 
   return (
     <>
-      <Input>
+      <Input isReadOnly={readonly}>
         <InputField
-          style={{ paddingTop: 0, paddingBottom: 0, ...style }} // Fix for text area is too high per default
+          pt='$0' pb='$0' // Fix for content area is too high per default
           placeholder={placeholder}
-          onBlur={() => formik.handleBlur(field)}
-          value={formik.values[field]}
-          onChangeText={(text) => formik.setFieldValue(field, text)}
-          {...otherProps}
+          {...formikRelatedProps}
+          {...props}
         />
       </Input>
-      {formik.touched[field] && formik.errors[field] ? (
+
+      {formik && field && formik.touched[field] && formik.errors[field] ? (
         <Text color="red">{formik.errors[field]}</Text>
       ) : null}
     </>

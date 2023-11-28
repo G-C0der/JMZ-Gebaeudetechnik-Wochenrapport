@@ -3,23 +3,24 @@ import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { config } from "@gluestack-ui/config";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Login } from "./src/screens/Login";
-import { Home } from "./src/screens/Home";
+import LoginScreen from "./src/screens/LoginScreen";
+import WorkdayScreen from "./src/screens/WorkdayScreen";
 import Toast from "react-native-toast-message";
 import { store, StoreContext } from "./src/stores";
 import { navigationRef } from "./src/services";
-import { toastConfig } from "./src/toastConfig";
+import { toastConfig } from "./src/config/toast";
+import './src/config/moment';
 
 const Stack = createNativeStackNavigator();
 
-function App(): JSX.Element {
+export default function App() {
   return (
     <GluestackUIProvider config={config}>
       <NavigationContainer ref={navigationRef}>
         <StoreContext.Provider value={store}>
             <Stack.Navigator>
-              <Stack.Screen name='Login' component={Login} />
-              <Stack.Screen name='Home' component={Home} />
+              <Stack.Screen name='Login' component={LoginScreen} />
+              <Stack.Screen name='Arbeitstag' component={WorkdayScreen} />
             </Stack.Navigator>
         </StoreContext.Provider>
       </NavigationContainer>
@@ -28,5 +29,3 @@ function App(): JSX.Element {
     </GluestackUIProvider>
   );
 }
-
-export default App;

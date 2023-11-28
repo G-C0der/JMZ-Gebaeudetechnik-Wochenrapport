@@ -4,17 +4,17 @@ import { authApi, storage, userApi, navigate } from "../services";
 import { isTokenExpired, logErrorMessage } from "./utils";
 
 export class UserStore {
-  token: string | undefined;
-  tokenExpiration: string | undefined;
-  user: User | undefined;
+  token: string = '';
+  tokenExpiration: string = '';
+  user: User | null = null;
 
-  loginLoading = false;
-  registerLoading = false;
-  sendVerificationEmailLoading = false;
-  verifyLoading = false;
-  sendResetPasswordEmailLoading = false;
-  verifyResetPasswordTokenLoading = false;
-  resetPasswordLoading = false;
+  isLoginLoading = false;
+  isRegisterLoading = false;
+  isSendVerificationEmailLoading = false;
+  isVerifyLoading = false;
+  isSendResetPasswordEmailLoading = false;
+  isVerifyResetPasswordTokenLoading = false;
+  isResetPasswordLoading = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -61,7 +61,7 @@ export class UserStore {
   };
 
   login = async (credentials: Credentials) => {
-    this.loginLoading = true;
+    this.isLoginLoading = true;
     try {
       const { token, expiration, user } = await authApi.login(credentials);
 
@@ -72,20 +72,24 @@ export class UserStore {
         this.tokenExpiration = expiration;
         this.user = user;
 
-        this.loginLoading = false;
+        this.isLoginLoading = false;
       });
 
-      navigate('Home');
+      navigate('Arbeitstag');
+
+      return true;
     } catch (err) {
       logErrorMessage(err);
+
+      if (this.isLoginLoading) runInAction(() => this.isLoginLoading = false);
     }
   };
 
   logout = () => {
     runInAction(() => {
-      this.token = undefined;
-      this.tokenExpiration = undefined;
-      this.user = undefined;
+      this.token = '';
+      this.tokenExpiration = '';
+      this.user = null;
     });
     // TODO: storage deletion not needed, since this will be done via reaction, correct?
 
@@ -93,62 +97,74 @@ export class UserStore {
   };
 
   register = async (form: UserForm) => {
-    this.registerLoading = true;
+    this.isRegisterLoading = true;
     try {
       await userApi.register(form);
-      runInAction(() => this.registerLoading = false);
+      runInAction(() => this.isRegisterLoading = false);
     } catch (err) {
       logErrorMessage(err);
+
+      if (this.isRegisterLoading) runInAction(() => this.isRegisterLoading = false);
     }
   };
 
   sendVerificationEmail = async (email: string) => {
-    this.sendVerificationEmailLoading = true;
+    this.isSendVerificationEmailLoading = true;
     try {
       await userApi.sendVerificationEmail(email);
-      runInAction(() => this.sendVerificationEmailLoading = false);
+      runInAction(() => this.isSendVerificationEmailLoading = false);
     } catch (err) {
       logErrorMessage(err);
+
+      if (this.isSendVerificationEmailLoading) runInAction(() => this.isSendVerificationEmailLoading = false);
     }
   };
 
   verify = async (token: string) => {
-    this.verifyLoading = true;
+    this.isVerifyLoading = true;
     try {
       await userApi.verify(token);
-      runInAction(() => this.verifyLoading = false);
+      runInAction(() => this.isVerifyLoading = false);
     } catch (err) {
       logErrorMessage(err);
+
+      if (this.isVerifyLoading) runInAction(() => this.isVerifyLoading = false);
     }
   };
 
   sendResetPasswordEmail = async (email: string) => {
-    this.sendResetPasswordEmailLoading = true;
+    this.isSendResetPasswordEmailLoading = true;
     try {
       await userApi.sendResetPasswordEmail(email);
-      runInAction(() => this.sendResetPasswordEmailLoading = false);
+      runInAction(() => this.isSendResetPasswordEmailLoading = false);
     } catch (err) {
       logErrorMessage(err);
+
+      if (this.isSendResetPasswordEmailLoading) runInAction(() => this.isSendResetPasswordEmailLoading = false);
     }
   };
 
   verifyResetPasswordToken = async (token: string) => {
-    this.verifyResetPasswordTokenLoading = true;
+    this.isVerifyResetPasswordTokenLoading = true;
     try {
       await userApi.verifyResetPasswordToken(token);
-      runInAction(() => this.verifyResetPasswordTokenLoading = false);
+      runInAction(() => this.isVerifyResetPasswordTokenLoading = false);
     } catch (err) {
       logErrorMessage(err);
+
+      if (this.isVerifyResetPasswordTokenLoading) runInAction(() => this.isVerifyResetPasswordTokenLoading = false);
     }
   };
 
   resetPassword = async (password: string, token: string) => {
-    this.resetPasswordLoading = true;
+    this.isResetPasswordLoading = true;
     try {
       await userApi.resetPassword(password, token);
-      runInAction(() => this.resetPasswordLoading = false);
+      runInAction(() => this.isResetPasswordLoading = false);
     } catch (err) {
       logErrorMessage(err);
+
+      if (this.isResetPasswordLoading) runInAction(() => this.isResetPasswordLoading = false);
     }
   };
 }

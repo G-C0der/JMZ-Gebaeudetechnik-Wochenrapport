@@ -6,29 +6,31 @@ import { logErrorMessage } from "./utils";
 export class AdminStore {
   users: User[] = [];
 
-  listUsersLoading = false;
-  changeActiveStateLoading = false;
+  isListUsersLoading = false;
+  isChangeActiveStateLoading = false;
 
   constructor() {
     makeAutoObservable(this);
   }
 
   listUsers = async () => {
-    this.listUsersLoading = true;
+    this.isListUsersLoading = true;
     try {
-      const users = await userApi.list();
+      const { users } = await userApi.list();
       runInAction(() => {
         this.users = users;
 
-        this.listUsersLoading = false;
+        this.isListUsersLoading = false;
       });
     } catch (err) {
       logErrorMessage(err);
+
+      if (this.isListUsersLoading) runInAction(() => this.isListUsersLoading = false);
     }
   };
 
   changeActiveState = async (id: number) => {
-    this.changeActiveStateLoading = true;
+    this.isChangeActiveStateLoading = true;
     try {
       await userApi.changeActiveState(id);
       runInAction(() => {
@@ -38,10 +40,12 @@ export class AdminStore {
           this.users[updatedUserIndex] = { ...updatedUser, active: !updatedUser.active };
         }
 
-        this.changeActiveStateLoading = false;
+        this.isChangeActiveStateLoading = false;
       });
     } catch (err) {
       logErrorMessage(err);
+
+      if (this.isChangeActiveStateLoading) runInAction(() => this.isChangeActiveStateLoading = false);
     }
   };
 }
