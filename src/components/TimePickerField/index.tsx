@@ -1,9 +1,8 @@
 import React from 'react';
 import { TouchableOpacity } from "react-native";
 import { TextField } from "../TextField";
-import { Button } from "@gluestack-ui/themed";
+import Button from "../Button";
 import { FormikProps } from "formik";
-import Icon from "../Icon";
 
 interface TimePickerFieldProps {
   placeholder: string;
@@ -25,14 +24,12 @@ export default function TimePickerField({ placeholder, field, openTimePicker, fo
         />
       </TouchableOpacity>
       <Button
+        icon='delete'
         action="secondary"
         w='$10'
-        style={{ paddingLeft: 3, paddingRight: 3 }}
         isDisabled={!formik.values[field]}
         onPress={() => formik.setFieldValue(field, null)}
-      >
-        <Icon name='delete' />
-      </Button>
+      />
     </>
   );
 }

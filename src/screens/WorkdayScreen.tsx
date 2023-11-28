@@ -7,10 +7,10 @@ import { useFormik } from "formik";
 import { codeMap, workdayValidationSchema } from "../constants";
 import {
   Box,
-  Button,
   HStack, ScrollView,
   VStack
 } from "@gluestack-ui/themed";
+import Button from '../components/Button';
 import { SelectField } from "../components/SelectField";
 import moment from 'moment';
 import { round, toDateOnly } from "../utils";
@@ -87,7 +87,7 @@ export default observer(function WorkdayScreen() {
   const getCurrentDate = () => timeToDate(formik.values[currentTimePicker!]);
 
   const openTimePicker = (picker: string) => {
-    setCurrentTimePicker(picker);
+    setCurrentTimePicker(picker as TimePicker);
     setIsTimePickerModalOpen(true);
   };
 
@@ -129,9 +129,12 @@ export default observer(function WorkdayScreen() {
         <Box padding={20}>
           <VStack space='md'>
             <HStack justifyContent="space-between" alignItems="center">
-              <Button w='11%' action="secondary" onPress={decreaseDate} style={{ paddingLeft: 3, paddingRight: 3 }}>
-                <Icon name='caretleft' />
-              </Button>
+              <Button
+                icon='caretleft'
+                action="secondary"
+                w='11%'
+                onPress={decreaseDate}
+              />
 
               <DatePicker
                 date={formik.values['date']}
@@ -143,9 +146,12 @@ export default observer(function WorkdayScreen() {
                 style={{ flex: 1 }}
               />
 
-              <Button w='11%' action="secondary" onPress={increaseDate} style={{ paddingLeft: 3, paddingRight: 3 }}>
-                <Icon name='caretright' />
-              </Button>
+              <Button
+                icon='caretright'
+                action="secondary"
+                w='11%'
+                onPress={increaseDate}
+              />
             </HStack>
 
             <HStack space='md'>
@@ -185,9 +191,9 @@ export default observer(function WorkdayScreen() {
 
             <LoadingButton
               text='Speichern'
+              icon='save'
               onPress={() =>  formik.handleSubmit()}
               loading={isSaveWorkdayLoading}
-              icon='save'
             />
           </VStack>
         </Box>
