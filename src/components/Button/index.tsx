@@ -11,10 +11,10 @@ export interface ButtonProps {
 export default function({ icon, text, ...props }: ButtonProps) {
   return (
     <Button
-      style={{ paddingLeft: 3, paddingRight: 3 }} // Ensures content is visible on small button width
+      pr='$0' pl='$0' // Ensures content is visible on small button width
       {...props}
     >
-      {icon && typeof icon === 'string' ? <Icon name={icon} /> : icon}
+      {typeof icon === 'string' ? <Icon name={icon} /> : icon}
       {text && (
         <ButtonText ml='$1' fontWeight="$medium" fontSize="$sm">
           {text}

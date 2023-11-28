@@ -19,7 +19,7 @@ export default function App() {
       <NavigationContainer ref={navigationRef}>
         <StoreContext.Provider value={store}>
             <Stack.Navigator>
-              {/*<Stack.Screen name='Login' component={LoginScreen} />*/}
+              <Stack.Screen name='Login' component={LoginScreen} />
               <Stack.Screen name='Arbeitstag' component={WorkdayScreen} />
             </Stack.Navigator>
         </StoreContext.Provider>

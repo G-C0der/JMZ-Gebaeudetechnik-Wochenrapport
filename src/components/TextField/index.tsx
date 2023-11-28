@@ -11,7 +11,6 @@ interface TextFieldProps {
 }
 
 export function TextField({ placeholder, field, formik, readonly, ...props }: TextFieldProps) {
-  const { style, ...otherProps } = (props as any);
   const formikRelatedProps = formik && field ? {
     onBlur: () => formik.handleBlur(field),
     value: formik.values[field],
@@ -22,10 +21,10 @@ export function TextField({ placeholder, field, formik, readonly, ...props }: Te
     <>
       <Input isReadOnly={readonly}>
         <InputField
-          style={{ paddingTop: 0, paddingBottom: 0, ...style }} // Fix for content area is too high per default
+          pt='$0' pb='$0' // Fix for content area is too high per default
           placeholder={placeholder}
           {...formikRelatedProps}
-          {...otherProps}
+          {...props}
         />
       </Input>
 

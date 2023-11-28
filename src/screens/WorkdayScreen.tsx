@@ -18,7 +18,6 @@ import { LoadingButton } from "../components/LoadingButton";
 import { store } from "../stores";
 import { WorkdayForm, WorkdayFormInit } from "../types";
 import TimePickerField from "../components/TimePickerField";
-import Icon from "../components/Icon";
 
 export default observer(function WorkdayScreen() {
   type TimePicker = 'from' | 'to' | 'from2' | 'to2';
