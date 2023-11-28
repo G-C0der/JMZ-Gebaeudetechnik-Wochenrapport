@@ -1,22 +1,20 @@
 import React from 'react';
-import { Button, ButtonSpinner, ButtonText } from "@gluestack-ui/themed";
-import Icon from "../Icon";
+import { ButtonSpinner } from "@gluestack-ui/themed";
+import Button, { ButtonProps } from "../Button";
 
-interface LoadingButtonProps {
-  text: string;
-  onPress: () => unknown;
+interface LoadingButtonProps extends ButtonProps  {
   loading: boolean;
-  icon?: string;
   [key: string]: any;
 }
 
-export function LoadingButton({ onPress, text, loading, icon, ...props }: LoadingButtonProps) {
+export function LoadingButton({ text, loading, icon, ...props }: LoadingButtonProps) {
   return (
-    <Button onPress={onPress} isDisabled={loading} bg="$lightBlue600" {...props}>
-      {loading ? <ButtonSpinner /> : <Icon name={icon} />}
-      <ButtonText ml='$1' fontWeight="$medium" fontSize="$sm">
-        {loading ? 'Laden...' : text}
-      </ButtonText>
-    </Button>
+    <Button
+      bg="$lightBlue600"
+      {...props}
+      text={loading ? 'Laden...' : text}
+      icon={loading ? <ButtonSpinner /> : icon}
+      isDisabled={loading}
+    />
   );
 }

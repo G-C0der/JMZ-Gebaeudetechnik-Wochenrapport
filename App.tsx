@@ -13,7 +13,7 @@ import './src/config/moment';
 
 const Stack = createNativeStackNavigator();
 
-function App() {
+export default function App() {
   return (
     <GluestackUIProvider config={config}>
       <NavigationContainer ref={navigationRef}>
@@ -29,5 +29,3 @@ function App() {
     </GluestackUIProvider>
   );
 }
-
-export default App;
