@@ -1,11 +1,11 @@
 import { makeAutoObservable, reaction, runInAction } from "mobx";
 import { Credentials, User, UserForm } from "../types";
 import { authApi, storage, userApi, navigate } from "../services";
-import { isTokenExpired, logErrorMessage } from "./utils";
+import { isTokenExpired, logResponseErrorMessage } from "./utils";
 
 export class UserStore {
-  token: string = '';
-  tokenExpiration: string = '';
+  private token?: string = undefined;
+  private tokenExpiration?: string = undefined;
   user: User | null = null;
 
   isLoginLoading = false;
@@ -24,8 +24,16 @@ export class UserStore {
     reaction(
       () => [this.token, this.tokenExpiration],
       ([token, tokenExpiration]) => {
-        if (token && tokenExpiration) storage.storeToken(this.token!, this.tokenExpiration!); // TODO: wouldn't it be better if i in this condition also would check that token and tokenExpiration from state matches token and tokenExpiration from storage?
-        else storage.deleteToken(); // TODO: will be sufficient when called synchronously? will logout be called here indirectly? if not, why not calling logout instead?
+        if (token && tokenExpiration) {
+          console.log('-----------------STORE TOKEN-------------------')
+          const storeToken = async () => await storage.storeToken(this.token!, this.tokenExpiration!);
+          storeToken();
+        } // TODO: wouldn't it be better if i in this condition also would check that token and tokenExpiration from state matches token and tokenExpiration from storage?
+        else {
+          console.log('-----------------DELETE TOKEN-------------------')
+          const deleteToken = async () => await storage.deleteToken();
+          deleteToken();
+        } // TODO: will be sufficient when called synchronously? will logout be called here indirectly? if not, why not calling logout instead?
       }
     );
 
@@ -33,7 +41,11 @@ export class UserStore {
     reaction(
       () => this.tokenExpiration,
       (tokenExpiration) => {
-        if (isTokenExpired(tokenExpiration)) this.logout(); // TODO: will be sufficient when called synchronously?
+        console.log('-----------------REACTION TOKENEXP-------------')
+        if (isTokenExpired(tokenExpiration)) {
+          console.log('-----------------LOGOUT-------------')
+          this.logout();
+        } // TODO: will be sufficient when called synchronously?
       }
     );
 
@@ -42,10 +54,14 @@ export class UserStore {
       () => [this.token, this.user],
       ([token, user]) => {
         if (token && this.tokenExpiration && !user) {
-          authApi.getAuthenticatedUser().then(({ user }) => {
-            if (!user) this.logout; // TODO: will be sufficient when called synchronously?
-            else runInAction(() => this.user = user);
-          });
+          try {
+            authApi.getAuthenticatedUser().then(({ user }) => {
+              if (!user) this.logout(); // TODO: will be sufficient when called synchronously?
+              else runInAction(() => this.user = user);
+            });
+          } catch (err) {
+            logResponseErrorMessage(err);
+          }
         }
       }
     );
@@ -60,7 +76,7 @@ export class UserStore {
     });
   };
 
-  isLoggedIn = () => this.token && this.tokenExpiration && this.user;
+  isLoggedIn = () => !!(this.token && this.tokenExpiration && this.user);
 
   login = async (credentials: Credentials) => {
     this.isLoginLoading = true;
@@ -81,7 +97,7 @@ export class UserStore {
 
       return true;
     } catch (err) {
-      logErrorMessage(err);
+      logResponseErrorMessage(err);
 
       if (this.isLoginLoading) runInAction(() => this.isLoginLoading = false);
     }
@@ -104,7 +120,7 @@ export class UserStore {
       await userApi.register(form);
       runInAction(() => this.isRegisterLoading = false);
     } catch (err) {
-      logErrorMessage(err);
+      logResponseErrorMessage(err);
 
       if (this.isRegisterLoading) runInAction(() => this.isRegisterLoading = false);
     }
@@ -116,7 +132,7 @@ export class UserStore {
       await userApi.sendVerificationEmail(email);
       runInAction(() => this.isSendVerificationEmailLoading = false);
     } catch (err) {
-      logErrorMessage(err);
+      logResponseErrorMessage(err);
 
       if (this.isSendVerificationEmailLoading) runInAction(() => this.isSendVerificationEmailLoading = false);
     }
@@ -128,7 +144,7 @@ export class UserStore {
       await userApi.verify(token);
       runInAction(() => this.isVerifyLoading = false);
     } catch (err) {
-      logErrorMessage(err);
+      logResponseErrorMessage(err);
 
       if (this.isVerifyLoading) runInAction(() => this.isVerifyLoading = false);
     }
@@ -140,7 +156,7 @@ export class UserStore {
       await userApi.sendResetPasswordEmail(email);
       runInAction(() => this.isSendResetPasswordEmailLoading = false);
     } catch (err) {
-      logErrorMessage(err);
+      logResponseErrorMessage(err);
 
       if (this.isSendResetPasswordEmailLoading) runInAction(() => this.isSendResetPasswordEmailLoading = false);
     }
@@ -152,7 +168,7 @@ export class UserStore {
       await userApi.verifyResetPasswordToken(token);
       runInAction(() => this.isVerifyResetPasswordTokenLoading = false);
     } catch (err) {
-      logErrorMessage(err);
+      logResponseErrorMessage(err);
 
       if (this.isVerifyResetPasswordTokenLoading) runInAction(() => this.isVerifyResetPasswordTokenLoading = false);
     }
@@ -164,7 +180,7 @@ export class UserStore {
       await userApi.resetPassword(password, token);
       runInAction(() => this.isResetPasswordLoading = false);
     } catch (err) {
-      logErrorMessage(err);
+      logResponseErrorMessage(err);
 
       if (this.isResetPasswordLoading) runInAction(() => this.isResetPasswordLoading = false);
     }

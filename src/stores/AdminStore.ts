@@ -1,7 +1,7 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import { User } from "../types";
 import { userApi } from "../services";
-import { logErrorMessage } from "./utils";
+import { logResponseErrorMessage } from "./utils";
 
 export class AdminStore {
   users: User[] = [];
@@ -23,7 +23,7 @@ export class AdminStore {
         this.isListUsersLoading = false;
       });
     } catch (err) {
-      logErrorMessage(err);
+      logResponseErrorMessage(err);
 
       if (this.isListUsersLoading) runInAction(() => this.isListUsersLoading = false);
     }
@@ -43,7 +43,7 @@ export class AdminStore {
         this.isChangeActiveStateLoading = false;
       });
     } catch (err) {
-      logErrorMessage(err);
+      logResponseErrorMessage(err);
 
       if (this.isChangeActiveStateLoading) runInAction(() => this.isChangeActiveStateLoading = false);
     }
