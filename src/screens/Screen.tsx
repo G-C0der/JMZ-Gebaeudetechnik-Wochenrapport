@@ -9,8 +9,6 @@ interface MainScreenProps {
 }
 
 export default function Screen({ scrollable, children }: MainScreenProps) {
-  const { userStore: { isLoggedIn } } = useStore();
-
   const node = (
     <Box padding={20}>
       <VStack space='md'>
@@ -28,4 +26,4 @@ export default function Screen({ scrollable, children }: MainScreenProps) {
       ): node}
     </SafeAreaView>
   );
-};
+}
