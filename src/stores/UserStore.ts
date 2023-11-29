@@ -60,7 +60,9 @@ export class UserStore {
     });
   };
 
-  isLoggedIn = () => this.token && this.tokenExpiration && this.user;
+  isLoggedIn = (): boolean => !!(this.token && this.tokenExpiration && this.user);
+
+  isAdmin = (): boolean => this.isLoggedIn() && this.user!.admin;
 
   login = async (credentials: Credentials) => {
     this.isLoginLoading = true;

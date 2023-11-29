@@ -13,7 +13,7 @@ import { SelectField } from "../components/SelectField";
 import moment from 'moment';
 import { round, toDateOnly } from "../utils";
 import { LoadingButton } from "../components/LoadingButton";
-import { store } from "../stores";
+import { useStore } from "../stores";
 import { WorkdayForm, WorkdayFormInit } from "../types";
 import TimePickerField from "../components/TimePickerField";
 
@@ -30,7 +30,7 @@ export default observer(function WorkdayScreen() {
       isFetchWorkweekLoading,
       getWorkdayFromCurrentWorkweek
     }
-  } = store;
+  } = useStore();
 
   const formik = useFormik<WorkdayFormInit>({
     initialValues: {
