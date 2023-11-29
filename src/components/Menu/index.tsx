@@ -8,7 +8,7 @@ export default function() {
       placement="bottom right"
       offset={0}
       ml='$20'
-      mt='$8'
+      mt='$10'
       trigger={({ ...triggerProps }) => {
         const { 'aria-expanded': isOpen } = triggerProps;
         return (
