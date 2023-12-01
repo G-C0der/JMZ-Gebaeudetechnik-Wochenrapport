@@ -79,7 +79,7 @@ export class UserStore {
         this.isLoginLoading = false;
       });
 
-      navigate('Arbeitstag');
+      navigate('Rapport');
 
       return true;
     } catch (err) {

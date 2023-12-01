@@ -1,8 +1,13 @@
 import React from 'react';
-import { Menu, MenuItem, Icon, MenuItemLabel, PhoneIcon } from "@gluestack-ui/themed";
+import { Menu, MenuItem, MenuItemLabel } from "@gluestack-ui/themed";
+import Icon from '../Icon';
 import Button from '../Button';
 
-export default function() {
+interface MenuProps {
+  options: { icon: string, text: string, onPress: () => void }[];
+}
+
+export default function({ options }: MenuProps) {
   return (
     <Menu
       placement="bottom right"
@@ -23,38 +28,14 @@ export default function() {
         );
       }}
     >
-      <MenuItem key="Community" textValue="Community">
-        <Icon as={PhoneIcon} size="sm" mr='$2'/>
-        <MenuItemLabel size='sm'>
-          Community
-        </MenuItemLabel>
-      </MenuItem>
-      <MenuItem key="Plugins" textValue="Plugins">
-        {/* PuzzleIcon is imported from 'lucide-react-native' */}
-        <Icon as={PhoneIcon} size="sm" mr='$2'/>
-        <MenuItemLabel size='sm'>
-          Plugins
-        </MenuItemLabel>
-      </MenuItem>
-      <MenuItem key="Theme" textValue="Theme">
-        {/* PaintBucket is imported from 'lucide-react-native' */}
-        <Icon as={PhoneIcon} size="sm" mr='$2'/>
-        <MenuItemLabel size='sm'>
-          Theme
-        </MenuItemLabel>
-      </MenuItem>
-      <MenuItem key="Settings" textValue="Settings">
-        <Icon as={PhoneIcon} size="sm" mr='$2'/>
-        <MenuItemLabel size='sm'>
-          Settings
-        </MenuItemLabel>
-      </MenuItem>
-      <MenuItem key="Add account" textValue="Add account">
-        <Icon as={PhoneIcon} size="sm" mr='$2'/>
-        <MenuItemLabel size='sm'>
-          Add account
-        </MenuItemLabel>
-      </MenuItem>
+      {options.map(({ icon, text, onPress }) => (
+        <MenuItem key={text} onPress={onPress}>
+          <Icon name={icon} color='#000' />
+          <MenuItemLabel size='sm' ml='$1'>
+            {text}
+          </MenuItemLabel>
+        </MenuItem>
+      ))}
     </Menu>
   );
 }
