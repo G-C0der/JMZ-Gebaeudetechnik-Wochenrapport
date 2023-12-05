@@ -10,8 +10,6 @@ interface MenuProps {
 export default function({ options }: MenuProps) {
   return (
     <Menu
-      placement="bottom right"
-      offset={0}
       ml='$20'
       mt='$10'
       trigger={({ ...triggerProps }) => {
