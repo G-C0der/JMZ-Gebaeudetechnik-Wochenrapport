@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
-import { SafeAreaView } from "react-native";
-import DatePicker from "react-native-date-picker";
-import { TextField } from "../components/TextField";
 import { useFormik } from "formik";
 import { codeMap, workdayValidationSchema } from "../constants";
+import Screen from "./Screen";
 import {
-  Box,
-  HStack, ScrollView,
-  VStack
+  HStack,
 } from "@gluestack-ui/themed";
+import DatePicker from "react-native-date-picker";
+import { TextField } from "../components/TextField";
 import Button from '../components/Button';
 import { SelectField } from "../components/SelectField";
 import moment from 'moment';
 import { round, toDateOnly } from "../utils";
 import { LoadingButton } from "../components/LoadingButton";
-import { store } from "../stores";
+import { useStore } from "../stores";
 import { WorkdayForm, WorkdayFormInit } from "../types";
 import TimePickerField from "../components/TimePickerField";
 
@@ -32,7 +30,7 @@ export default observer(function WorkdayScreen() {
       isFetchWorkweekLoading,
       getWorkdayFromCurrentWorkweek
     }
-  } = store;
+  } = useStore();
 
   const formik = useFormik<WorkdayFormInit>({
     initialValues: {
@@ -123,80 +121,74 @@ export default observer(function WorkdayScreen() {
     return total ? `${totalHours}h ${totalMinutes}m` : null;
   };
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Box padding={20}>
-          <VStack space='md'>
-            <HStack justifyContent="space-between" alignItems="center">
-              <Button
-                icon='caretleft'
-                action="secondary"
-                w='11%'
-                onPress={decreaseDate}
-              />
+    <Screen scrollable>
+      <HStack justifyContent="space-between" alignItems="center">
+        <Button
+          icon='caretleft'
+          action="secondary"
+          w='11%'
+          onPress={decreaseDate}
+        />
 
-              <DatePicker
-                date={formik.values['date']}
-                onDateChange={async (date) => await formik.setFieldValue("date", date)}
-                androidVariant='nativeAndroid' // TODO: change on IOS
-                mode='date'
-                textColor='#000000'
-                locale='de'
-                style={{ flex: 1 }}
-              />
+        <DatePicker
+          date={formik.values['date']}
+          onDateChange={async (date) => await formik.setFieldValue("date", date)}
+          androidVariant='nativeAndroid' // TODO: change on IOS
+          mode='date'
+          textColor='#000000'
+          locale='de'
+          style={{ flex: 1 }}
+        />
 
-              <Button
-                icon='caretright'
-                action="secondary"
-                w='11%'
-                onPress={increaseDate}
-              />
-            </HStack>
+        <Button
+          icon='caretright'
+          action="secondary"
+          w='11%'
+          onPress={increaseDate}
+        />
+      </HStack>
 
-            <HStack space='md'>
-              <TimePickerField placeholder='von' field='from' formik={formik} openTimePicker={openTimePicker} />
+      <HStack space='md'>
+        <TimePickerField placeholder='von' field='from' formik={formik} openTimePicker={openTimePicker} />
 
-              <TimePickerField placeholder='bis' field='to' formik={formik} openTimePicker={openTimePicker} />
-            </HStack>
+        <TimePickerField placeholder='bis' field='to' formik={formik} openTimePicker={openTimePicker} />
+      </HStack>
 
-            <HStack space='md'>
-              <TimePickerField placeholder='von' field='from2' formik={formik} openTimePicker={openTimePicker} />
+      <HStack space='md'>
+        <TimePickerField placeholder='von' field='from2' formik={formik} openTimePicker={openTimePicker} />
 
-              <TimePickerField placeholder='bis' field='to2' formik={formik} openTimePicker={openTimePicker} />
-            </HStack>
+        <TimePickerField placeholder='bis' field='to2' formik={formik} openTimePicker={openTimePicker} />
+      </HStack>
 
-            {currentTimePicker && (
-              <DatePicker
-                modal
-                open={isTimePickerModalOpen}
-                date={getCurrentDate()}
-                onConfirm={(date) => {
-                  setIsTimePickerModalOpen(false);
-                  onTimeChange(date);
-                }}
-                onCancel={() => setIsTimePickerModalOpen(false)}
-                androidVariant='nativeAndroid' // TODO: change on IOS
-                mode='time'
-                locale='de'
-                is24hourSource='device'
-              />
-            )}
+      {currentTimePicker && (
+        <DatePicker
+          modal
+          open={isTimePickerModalOpen}
+          date={getCurrentDate()}
+          onConfirm={(date) => {
+            setIsTimePickerModalOpen(false);
+            onTimeChange(date);
+          }}
+          onCancel={() => setIsTimePickerModalOpen(false)}
+          androidVariant='nativeAndroid' // TODO: change on IOS
+          mode='time'
+          locale='de'
+          is24hourSource='device'
+        />
+      )}
 
-            <TextField placeholder='Projekt' field='project' formik={formik} />
+      <TextField placeholder='Projekt' field='project' formik={formik} />
 
-            <SelectField placeholder='Typ' options={codeMap} field='code' formik={formik} valueFormatter={(value) => parseInt(value)} />
+      <SelectField placeholder='Typ' options={codeMap} field='code' formik={formik} valueFormatter={(value) => parseInt(value)} />
 
-            <TextField placeholder='Stunden' value={getTotalTime()} readonly />
+      <TextField placeholder='Stunden' value={getTotalTime()} readonly />
 
-            <LoadingButton
-              text='Speichern'
-              icon='save'
-              onPress={() =>  formik.handleSubmit()}
-              loading={isSaveWorkdayLoading}
-            />
-          </VStack>
-        </Box>
-      </ScrollView>
-    </SafeAreaView>
+      <LoadingButton
+        text='Speichern'
+        icon='save'
+        onPress={() =>  formik.handleSubmit()}
+        loading={isSaveWorkdayLoading}
+      />
+    </Screen>
   );
 });

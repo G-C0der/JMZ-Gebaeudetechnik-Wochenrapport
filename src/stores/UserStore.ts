@@ -60,6 +60,10 @@ export class UserStore {
     });
   };
 
+  isLoggedIn = (): boolean => !!(this.token && this.tokenExpiration && this.user);
+
+  isAdmin = (): boolean => this.isLoggedIn() && this.user!.admin;
+
   login = async (credentials: Credentials) => {
     this.isLoginLoading = true;
     try {
@@ -75,7 +79,7 @@ export class UserStore {
         this.isLoginLoading = false;
       });
 
-      navigate('Arbeitstag');
+      navigate('Rapport');
 
       return true;
     } catch (err) {
