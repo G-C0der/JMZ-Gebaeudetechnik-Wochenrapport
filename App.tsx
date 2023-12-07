@@ -11,7 +11,7 @@ import { navigate, navigationRef } from "./src/services";
 import { toastConfig } from "./src/config/toast";
 import './src/config/moment';
 import Menu from "./src/components/Menu";
-import EmployeesScreen from "./src/screens/EmployeesScreen";
+import UsersScreen from "./src/screens/UsersScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +28,7 @@ export default function App() {
             <Stack.Navigator>
               <Stack.Screen name='Login' component={LoginScreen} />
               <Stack.Screen name='Rapport' component={WorkdayScreen} options={{ headerRight: () => menu }} />
-              <Stack.Screen name='Mitarbeiter' component={EmployeesScreen} options={{ headerRight: () => menu }} />
+              <Stack.Screen name='Mitarbeiter' component={UsersScreen} options={{ headerRight: () => menu }} />
             </Stack.Navigator>
         </StoreContext.Provider>
       </NavigationContainer>

@@ -5,7 +5,7 @@ import { useStore } from "../stores";
 import { TextField } from "../components/TextField";
 import { TouchableOpacity } from "react-native";
 
-export default observer(function EmployeesScreen() {
+export default observer(function UsersScreen() {
   const { adminStore: { users, listUsers, isListUsersLoading } } = useStore();
 
   useEffect(() => {
