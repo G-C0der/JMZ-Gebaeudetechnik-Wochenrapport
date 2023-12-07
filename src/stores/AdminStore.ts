@@ -2,6 +2,7 @@ import {makeAutoObservable, runInAction} from "mobx";
 import { User, Workweek, WorkweekIdAlt } from "../types";
 import { userApi, workweekApi } from "../services";
 import { logErrorMessage } from "./utils";
+import { store } from "./index";
 
 export class AdminStore {
   users: User[] = [];
@@ -16,7 +17,13 @@ export class AdminStore {
     makeAutoObservable(this);
   }
 
+  private authorize = () => {
+    if (!store.userStore.isAdmin) throw new Error('No permission.');
+  };
+
   listUsers = async () => {
+    this.authorize();
+
     this.isListUsersLoading = true;
     try {
       const { users } = await userApi.list();
@@ -33,6 +40,8 @@ export class AdminStore {
   };
 
   listWorkweeks = async (userId: number) => {
+    this.authorize();
+
     this.isListWorkweeksLoading = true;
     try {
       const { workweeks } = await workweekApi.list(userId);
@@ -45,6 +54,8 @@ export class AdminStore {
   };
 
   approveWorkweek = async (workweekIdAlt: WorkweekIdAlt) => {
+    this.authorize();
+
     this.isApproveWorkweekLoading = true;
     try {
       await workweekApi.approve(workweekIdAlt);
@@ -57,6 +68,8 @@ export class AdminStore {
   };
 
   changeUserActiveState = async (id: number) => {
+    this.authorize();
+
     this.isChangeUserActiveStateLoading = true;
     try {
       await userApi.changeActiveState(id);
