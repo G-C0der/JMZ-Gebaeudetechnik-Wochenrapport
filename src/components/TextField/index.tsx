@@ -3,7 +3,7 @@ import { Input, InputField, Text } from "@gluestack-ui/themed";
 import { FormikProps } from "formik";
 
 interface TextFieldProps {
-  placeholder: string;
+  placeholder?: string;
   field?: string;
   formik?: FormikProps<any>;
   readonly?: boolean;
