@@ -5,12 +5,12 @@ class WorkweekApi extends Api {
   basePath = '/workweeks';
 
   fetch = async (workdayDate: Date)=> {
-    const { data } = await this.api.get(`${this.basePath}/${workdayDate}`);
+    const { data } = await this.api.get(`${this.basePath}/fetch/${workdayDate}`);
     return data;
   };
 
   list = async (userId: number) => {
-    const { data } = await this.api.get(`${this.basePath}/${userId}`);
+    const { data } = await this.api.get(`${this.basePath}/list/${userId}`);
     return data;
   };
 
