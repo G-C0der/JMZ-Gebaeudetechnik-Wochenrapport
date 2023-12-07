@@ -1,5 +1,5 @@
 import {makeAutoObservable, runInAction} from "mobx";
-import { User, Workweek, WorkweekIdAlt } from "../types";
+import { User, Workweek } from "../types";
 import { userApi, workweekApi } from "../services";
 import { logErrorMessage } from "./utils";
 import { store } from "./index";
@@ -53,12 +53,12 @@ export class AdminStore {
     }
   };
 
-  approveWorkweek = async (workweekIdAlt: WorkweekIdAlt) => {
+  approveWorkweeks = async (workweekIds: Workweek['id'][]) => {
     this.authorize();
 
     this.isApproveWorkweekLoading = true;
     try {
-      await workweekApi.approve(workweekIdAlt);
+      await workweekApi.approve(workweekIds);
       runInAction(() => this.isApproveWorkweekLoading = false);
     } catch (err) {
       logErrorMessage(err);

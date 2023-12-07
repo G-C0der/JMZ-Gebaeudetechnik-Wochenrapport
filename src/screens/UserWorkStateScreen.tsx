@@ -10,6 +10,7 @@ import moment from "moment";
 import CheckBox from "../components/CheckBox";
 import { HStack } from "@gluestack-ui/themed";
 import { LoadingButton } from "../components/LoadingButton";
+import PopUpDialog from "../components/PopUpDialog";
 
 interface UserWorkStateScreenParams {
   user: User;
@@ -23,10 +24,11 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
   const { user } = route.params;
 
   const {
-    adminStore: { userWorkweeks, listWorkweeks, isListWorkweeksLoading, approveWorkweek, isApproveWorkweekLoading }
+    adminStore: { userWorkweeks, listWorkweeks, isListWorkweeksLoading, approveWorkweeks, isApproveWorkweekLoading }
   } = useStore();
 
-  const [checkboxStates, setCheckboxStates] = useState({});
+  const [workweekCheckboxStates, setWorkweekCheckboxStates] = useState({});
+  const [isApprovalPopUpDialogOpen, setIsApprovalPopUpDialogOpen] = useState(false);
 
   useEffect(() => {
     if (!userWorkweeks.length || (userWorkweeks.length && userWorkweeks[0].userId !== user.id)) {
@@ -36,11 +38,12 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
   }, [userWorkweeks]);
 
   const handleCheckboxChange = (workweekId: number, isChecked: boolean) => {
-    setCheckboxStates({ ...checkboxStates, [workweekId]: isChecked });
+    setWorkweekCheckboxStates({ ...workweekCheckboxStates, [workweekId]: isChecked });
   };
 
   const handleApproveClick = async () => {
-    console.log('checkboxes', checkboxStates)
+    const workweekIds = Object.keys(Object.fromEntries(Object.entries(workweekCheckboxStates).filter(([_, state]) => state)));
+    await approveWorkweeks(workweekIds);
   };
 
   return (
@@ -58,7 +61,7 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
             />
           </TouchableOpacity>
           <CheckBox
-            value={checkboxStates[workweek.id] || false}
+            value={workweekCheckboxStates[workweek.id] || false}
             onChange={(isChecked: boolean) => handleCheckboxChange(workweek.id, isChecked)}
           />
         </HStack>
@@ -67,8 +70,16 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
       <LoadingButton
         text='Bewilligen'
         icon='checkcircleo'
-        onPress={handleApproveClick}
+        onPress={() => setIsApprovalPopUpDialogOpen(true)}
         loading={isApproveWorkweekLoading}
+      />
+      <PopUpDialog
+        isOpen={isApprovalPopUpDialogOpen}
+        setIsOpen={setIsApprovalPopUpDialogOpen}
+        title='Arbeitswoche bewilligen'
+        text='Möchtest du die Arbeitswoche bewilligen?'
+        actionButtonText='Bewilligen'
+        callback={handleApproveClick}
       />
     </Screen>
   );

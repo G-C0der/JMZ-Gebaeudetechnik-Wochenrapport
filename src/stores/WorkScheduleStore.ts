@@ -1,5 +1,5 @@
 import {makeAutoObservable, runInAction} from "mobx";
-import { Workday, WorkdayForm, Workweek, WorkweekIdAlt } from "../types";
+import { Workday, WorkdayForm, Workweek } from "../types";
 import { workdayApi, workweekApi } from "../services";
 import { logErrorMessage } from "./utils";
 import { getWeekDateRange, toDateOnly } from "../utils";

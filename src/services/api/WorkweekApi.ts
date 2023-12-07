@@ -1,5 +1,5 @@
 import { Api } from "./Api";
-import { WorkweekIdAlt } from "../../types";
+import { Workweek } from "../../types";
 
 class WorkweekApi extends Api {
   basePath = '/workweeks';
@@ -14,8 +14,8 @@ class WorkweekApi extends Api {
     return data;
   };
 
-  approve = async (workweekIdAlt: WorkweekIdAlt) => {
-    const { data } = await this.api.patch(this.basePath, workweekIdAlt);
+  approve = async (workweekIds: Workweek['id'][]) => {
+    const { data } = await this.api.patch(this.basePath, { ids: workweekIds });
     return data;
   };
 }
