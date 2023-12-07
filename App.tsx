@@ -12,6 +12,7 @@ import { toastConfig } from "./src/config/toast";
 import './src/config/moment';
 import Menu from "./src/components/Menu";
 import UsersScreen from "./src/screens/UsersScreen";
+import UserWorkStateScreen from "./src/screens/UserWorkStateScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,9 +27,10 @@ export default function App() {
       <NavigationContainer ref={navigationRef}>
         <StoreContext.Provider value={store}>
             <Stack.Navigator>
-              <Stack.Screen name='Login' component={LoginScreen} />
+              {/*<Stack.Screen name='Login' component={LoginScreen} />*/}
               <Stack.Screen name='Rapport' component={WorkdayScreen} options={{ headerRight: () => menu }} />
               <Stack.Screen name='Mitarbeiter' component={UsersScreen} options={{ headerRight: () => menu }} />
+              <Stack.Screen name='Arbeitszeit' component={UserWorkStateScreen} options={{ headerRight: () => menu }} />
             </Stack.Navigator>
         </StoreContext.Provider>
       </NavigationContainer>

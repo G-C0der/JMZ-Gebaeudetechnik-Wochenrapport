@@ -4,6 +4,7 @@ import Screen from "./Screen";
 import { useStore } from "../stores";
 import { TextField } from "../components/TextField";
 import { TouchableOpacity } from "react-native";
+import { navigate } from "../services";
 
 export default observer(function UsersScreen() {
   const { adminStore: { users, listUsers, isListUsersLoading } } = useStore();
@@ -18,7 +19,7 @@ export default observer(function UsersScreen() {
   return (
     <Screen>
       {users.map(user => (
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={() => navigate('Arbeitszeit')}>
           <TextField
             value={`${user.fname} ${user.lname}`}
             readonly
