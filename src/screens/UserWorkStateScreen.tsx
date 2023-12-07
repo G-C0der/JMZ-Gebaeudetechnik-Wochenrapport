@@ -3,15 +3,22 @@ import { observer } from "mobx-react-lite";
 import { User } from "../types";
 import Screen from "./Screen";
 import { Text } from "@gluestack-ui/themed";
+import { RouteProp } from "@react-navigation/native";
 
-interface UserWorkStateScreenProps {
+interface UserWorkStateScreenParams {
   user: User;
 }
 
-export default observer(function UserWorkStateScreen({ user }: UserWorkStateScreenProps){
+interface UserWorkStateScreenProps {
+  route: RouteProp<{ params: UserWorkStateScreenParams }, 'params'>;
+}
+
+export default observer(function UserWorkStateScreen({ route }: UserWorkStateScreenProps){
+  const user = route.params;
+
   return (
     <Screen>
-      <Text>work state</Text>
+      <Text>user = {JSON.stringify(user)}</Text>
     </Screen>
   );
 });
