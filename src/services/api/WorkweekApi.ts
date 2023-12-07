@@ -9,6 +9,11 @@ class WorkweekApi extends Api {
     return data;
   };
 
+  list = async (userId: number) => {
+    const { data } = await this.api.get(`${this.basePath}/${userId}`);
+    return data;
+  };
+
   approve = async (workweekIdAlt: WorkweekIdAlt) => {
     const { data } = await this.api.patch(this.basePath, workweekIdAlt);
     return data;

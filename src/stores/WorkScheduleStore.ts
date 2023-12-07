@@ -9,7 +9,6 @@ export class WorkScheduleStore {
 
   isSaveWorkdayLoading = false;
   isFetchWorkweekLoading = false;
-  isApproveWorkweekLoading = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -64,18 +63,6 @@ export class WorkScheduleStore {
       logErrorMessage(err);
 
       if (this.isFetchWorkweekLoading) runInAction(() => this.isFetchWorkweekLoading = false);
-    }
-  };
-
-  approveWorkweek = async (workweekIdAlt: WorkweekIdAlt) => {
-    this.isApproveWorkweekLoading = true;
-    try {
-      await workweekApi.approve(workweekIdAlt);
-      runInAction(() => this.isApproveWorkweekLoading = false);
-    } catch (err) {
-      logErrorMessage(err);
-
-      if (this.isApproveWorkweekLoading) runInAction(() => this.isApproveWorkweekLoading = false);
     }
   };
 }

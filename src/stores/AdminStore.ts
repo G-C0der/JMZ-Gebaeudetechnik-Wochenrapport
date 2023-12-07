@@ -1,13 +1,16 @@
 import {makeAutoObservable, runInAction} from "mobx";
-import { User } from "../types";
-import { userApi } from "../services";
+import { User, Workweek, WorkweekIdAlt } from "../types";
+import { userApi, workweekApi } from "../services";
 import { logErrorMessage } from "./utils";
 
 export class AdminStore {
   users: User[] = [];
+  userWorkweeks: Workweek[] = []; // Workweeks of the currently selected user
 
   isListUsersLoading = false;
-  isChangeActiveStateLoading = false;
+  isListWorkweeksLoading = false;
+  isApproveWorkweekLoading = false;
+  isChangeUserActiveStateLoading = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -29,8 +32,32 @@ export class AdminStore {
     }
   };
 
-  changeActiveState = async (id: number) => {
-    this.isChangeActiveStateLoading = true;
+  listWorkweeks = async (userId: number) => {
+    this.isListWorkweeksLoading = true;
+    try {
+      const { workweeks } = await workweekApi.list(userId);
+      runInAction(() => this.userWorkweeks = workweeks);
+    } catch (err) {
+      logErrorMessage(err);
+
+      if (this.isListWorkweeksLoading) runInAction(() => this.isListWorkweeksLoading = false);
+    }
+  };
+
+  approveWorkweek = async (workweekIdAlt: WorkweekIdAlt) => {
+    this.isApproveWorkweekLoading = true;
+    try {
+      await workweekApi.approve(workweekIdAlt);
+      runInAction(() => this.isApproveWorkweekLoading = false);
+    } catch (err) {
+      logErrorMessage(err);
+
+      if (this.isApproveWorkweekLoading) runInAction(() => this.isApproveWorkweekLoading = false);
+    }
+  };
+
+  changeUserActiveState = async (id: number) => {
+    this.isChangeUserActiveStateLoading = true;
     try {
       await userApi.changeActiveState(id);
       runInAction(() => {
@@ -40,12 +67,12 @@ export class AdminStore {
           this.users[updatedUserIndex] = { ...updatedUser, active: !updatedUser.active };
         }
 
-        this.isChangeActiveStateLoading = false;
+        this.isChangeUserActiveStateLoading = false;
       });
     } catch (err) {
       logErrorMessage(err);
 
-      if (this.isChangeActiveStateLoading) runInAction(() => this.isChangeActiveStateLoading = false);
+      if (this.isChangeUserActiveStateLoading) runInAction(() => this.isChangeUserActiveStateLoading = false);
     }
   };
 }
