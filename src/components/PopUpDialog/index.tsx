@@ -7,7 +7,7 @@ import {
   Center, CloseIcon,
   Heading, Icon, Text
 } from "@gluestack-ui/themed";
-import { Button } from '../Button';
+import Button from '../Button';
 
 interface PopUpDialogProps {
   isOpen: boolean;
