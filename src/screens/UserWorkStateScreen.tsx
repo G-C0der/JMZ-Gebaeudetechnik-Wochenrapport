@@ -76,8 +76,8 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
       <PopUpDialog
         isOpen={isApprovalPopUpDialogOpen}
         setIsOpen={setIsApprovalPopUpDialogOpen}
-        title='Arbeitswoche bewilligen'
-        text='Möchtest du die Arbeitswoche bewilligen?'
+        title='Bestätigung'
+        text='Möchtest du die selektierten Arbeitswochen bewilligen?'
         actionButtonText='Bewilligen'
         callback={handleApproveClick}
       />

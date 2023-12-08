@@ -39,15 +39,17 @@ export default function PopUpDialog({ isOpen, setIsOpen, title, text, actionButt
           <AlertDialogFooter>
             <ButtonGroup space="lg">
               <Button
-                text='Cancel'
+                text='Abbrechen'
                 variant="outline"
                 action="secondary"
+                bg="$grey"
+                pr='$2' pl='$1'
                 onPress={() => setIsOpen(false)}
               />
               <Button
                 text={actionButtonText}
-                bg="$error600"
-                action="negative"
+                action="positive"
+                pr='$2' pl='$1'
                 onPress={() => {
                   callback();
                   setIsOpen(false);
