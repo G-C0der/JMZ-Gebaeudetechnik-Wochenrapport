@@ -13,10 +13,11 @@ import './src/config/moment';
 import Menu from "./src/components/Menu";
 import UsersScreen from "./src/screens/UsersScreen";
 import UserWorkStateScreen from "./src/screens/UserWorkStateScreen";
+import { observer } from "mobx-react-lite";
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+export default observer(function App() {
   const { userStore: { isLoggedIn } } = useStore();
   console.log('LOGGED IN', isLoggedIn)
 
@@ -29,16 +30,16 @@ export default function App() {
     <GluestackUIProvider config={config}>
       <NavigationContainer ref={navigationRef}>
         <StoreContext.Provider value={store}>
-            <Stack.Navigator>
-              {!isLoggedIn && <Stack.Screen name='Login' component={LoginScreen} />}
-              {isLoggedIn && <Stack.Screen name='Rapport' component={WorkdayScreen} options={{ headerRight: () => menu }} />}
-              <Stack.Screen name='Mitarbeiter' component={UsersScreen} options={{ headerRight: () => menu }} />
-              <Stack.Screen name='Arbeitszeit' component={UserWorkStateScreen} options={{ headerRight: () => menu }} />
-            </Stack.Navigator>
+          <Stack.Navigator>
+            {!isLoggedIn && <Stack.Screen name='Login' component={LoginScreen} />}
+            {isLoggedIn && <Stack.Screen name='Rapport' component={WorkdayScreen} options={{ headerRight: () => menu }} />}
+            <Stack.Screen name='Mitarbeiter' component={UsersScreen} options={{ headerRight: () => menu }} />
+            <Stack.Screen name='Arbeitszeit' component={UserWorkStateScreen} options={{ headerRight: () => menu }} />
+          </Stack.Navigator>
         </StoreContext.Provider>
       </NavigationContainer>
 
       <Toast config={toastConfig} />
     </GluestackUIProvider>
   );
-}
+});
