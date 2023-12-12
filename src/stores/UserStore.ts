@@ -84,7 +84,7 @@ export class UserStore {
   };
 
   get isLoggedIn (): boolean {
-    return !!(this.token && this.tokenExpiration && this.user);
+    return !!(this.token && this.tokenExpiration);
   }
 
   get isAdmin (): boolean {
