@@ -8,6 +8,8 @@ export class UserStore {
   private tokenExpiration?: string = undefined;
   user: User | null = null;
 
+  isSetupDone = false;
+
   isLoginLoading = false;
   isRegisterLoading = false;
   isSendVerificationEmailLoading = false;
@@ -69,11 +71,13 @@ export class UserStore {
 
   setup = async () => {
     const tokenData = await storage.retrieveToken();
-    if (!tokenData) return;
-    runInAction(() => {
-      this.token = tokenData.token;
-      this.tokenExpiration = tokenData.tokenExpiration;
-    });
+    if (tokenData) {
+      runInAction(() => {
+        this.token = tokenData.token;
+        this.tokenExpiration = tokenData.tokenExpiration;
+      });
+    }
+    runInAction(() => this.isSetupDone = true);
   };
 
   get isLoggedIn (): boolean {

@@ -1,5 +1,5 @@
 import React from "react";
-import { GluestackUIProvider } from "@gluestack-ui/themed";
+import { GluestackUIProvider, Spinner } from "@gluestack-ui/themed";
 import { config } from "@gluestack-ui/config";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -18,15 +18,18 @@ import { observer } from "mobx-react-lite";
 const Stack = createNativeStackNavigator();
 
 export default observer(function App() {
-  const { userStore: { isLoggedIn } } = useStore();
+  const { userStore: { logout, isSetupDone, isLoggedIn } } = useStore();
   console.log('LOGGED IN', isLoggedIn)
 
   const menu = <Menu options={[
     { icon: 'calendar', text: 'Rapport', onPress: () => navigate('Rapport') },
-    { icon: 'addusergroup', text: 'Mitarbeiter', onPress: () => navigate('Mitarbeiter') }
+    { icon: 'addusergroup', text: 'Mitarbeiter', onPress: () => navigate('Mitarbeiter') },
+    { icon: 'logout', text: 'Ausloggen', onPress: logout }
   ]} />
 
-  return (
+  return !isSetupDone ? (
+      <Spinner size="large" />
+    ) : (
     <GluestackUIProvider config={config}>
       <NavigationContainer ref={navigationRef}>
         <StoreContext.Provider value={store}>
