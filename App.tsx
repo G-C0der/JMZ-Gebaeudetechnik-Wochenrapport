@@ -19,7 +19,6 @@ const Stack = createNativeStackNavigator();
 
 export default observer(function App() {
   const { userStore: { logout, isSetupDone, isLoggedIn } } = useStore();
-  console.log('LOGGED IN', isLoggedIn)
 
   const menu = <Menu options={[
     { icon: 'calendar', text: 'Rapport', onPress: () => navigate('Rapport') },

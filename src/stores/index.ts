@@ -26,7 +26,10 @@ const store: Store = {
   }
 })();
 
-emitter.on('unauthorized', store.userStore.logout);
+emitter.on('unauthorized', () => {
+  console.log('EMIT LOGOUT')
+  store.userStore.logout()
+});
 
 const StoreContext = createContext(store);
 

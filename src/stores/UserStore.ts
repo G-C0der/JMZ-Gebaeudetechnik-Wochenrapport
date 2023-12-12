@@ -47,10 +47,7 @@ export class UserStore {
       () => this.tokenExpiration,
       (tokenExpiration) => {
         console.log('-----------------REACTION TOKENEXP-------------')
-        if (isTokenExpired(tokenExpiration)) {
-          console.log('-----------------LOGOUT-------------')
-          this.logout();
-        }
+        this.tokenExpirationHandling(tokenExpiration);
       }
     );
 
@@ -81,6 +78,13 @@ export class UserStore {
       });
     }
     runInAction(() => this.isSetupDone = true);
+  };
+
+  private tokenExpirationHandling = (tokenExpiration?: string) => {
+    if (isTokenExpired(tokenExpiration ?? this.tokenExpiration)) {
+      console.log('-----------------LOGOUT-------------')
+      this.logout();
+    }
   };
 
   get isLoggedIn (): boolean {
@@ -117,6 +121,7 @@ export class UserStore {
   };
 
   logout = () => {
+    console.log('LOGOUT ORIGINAL')
     runInAction(() => {
       this.token = '';
       this.tokenExpiration = '';

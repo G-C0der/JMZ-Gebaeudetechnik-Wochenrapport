@@ -1,25 +1,13 @@
-import React, { useEffect } from "react";
-import { useStore } from "../stores";
+import React from "react";
 import { SafeAreaView } from "react-native";
 import { ScrollView, Box, VStack } from "@gluestack-ui/themed";
-import { observer } from "mobx-react-lite";
 
 interface MainScreenProps {
   scrollable?: boolean;
   children: React.ReactNode;
 }
 
-export default observer(function Screen({ scrollable, children }: MainScreenProps) {
-  const { userStore: { isLoggedIn, token, tokenExpiration, user } } = useStore();
-
-
-  console.log('isLoggedIn',isLoggedIn)
-  console.log('isLoggedInval',isLoggedIn)
-  console.log('token',token)
-  console.log('tokenExpiration',tokenExpiration)
-  console.log('tokenExpirationdate',new Date(tokenExpiration))
-  console.log('user',user)
-
+export default function Screen({ scrollable, children }: MainScreenProps) {
   const node = (
     <Box padding={20}>
       <VStack space='md'>
@@ -37,4 +25,4 @@ export default observer(function Screen({ scrollable, children }: MainScreenProp
       ): node}
     </SafeAreaView>
   );
-})
+}
