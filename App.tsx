@@ -27,20 +27,22 @@ export default observer(function App() {
     { icon: 'logout', text: 'Ausloggen', onPress: logout }
   ]} />
 
-  return !isSetupDone ? (
-      <Spinner size="large" style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} />
-    ) : (
+  return (
     <GluestackUIProvider config={config}>
-      <NavigationContainer ref={navigationRef}>
-        <StoreContext.Provider value={store}>
-          <Stack.Navigator>
-            {!isLoggedIn && <Stack.Screen name='Login' component={LoginScreen} />}
-            {isLoggedIn && <Stack.Screen name='Rapport' component={WorkdayScreen} options={{ headerRight: () => menu }} />}
-            <Stack.Screen name='Mitarbeiter' component={UsersScreen} options={{ headerRight: () => menu }} />
-            <Stack.Screen name='Arbeitszeit' component={UserWorkStateScreen} options={{ headerRight: () => menu }} />
-          </Stack.Navigator>
-        </StoreContext.Provider>
-      </NavigationContainer>
+      {!isSetupDone ? (
+        <Spinner size="large" style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} />
+      ) : (
+        <NavigationContainer ref={navigationRef}>
+          <StoreContext.Provider value={store}>
+            <Stack.Navigator>
+              {!isLoggedIn && <Stack.Screen name='Login' component={LoginScreen} />}
+              {isLoggedIn && <Stack.Screen name='Rapport' component={WorkdayScreen} options={{ headerRight: () => menu }} />}
+              <Stack.Screen name='Mitarbeiter' component={UsersScreen} options={{ headerRight: () => menu }} />
+              <Stack.Screen name='Arbeitszeit' component={UserWorkStateScreen} options={{ headerRight: () => menu }} />
+            </Stack.Navigator>
+          </StoreContext.Provider>
+        </NavigationContainer>
+      )}
 
       <Toast config={toastConfig} />
     </GluestackUIProvider>

@@ -33,12 +33,12 @@ export class UserStore {
           console.log('-----------------STORE TOKEN-------------------')
           const storeToken = async () => await storage.storeToken(this.token!, this.tokenExpiration!);
           storeToken();
-        } // TODO: wouldn't it be better if i in this condition also would check that token and tokenExpiration from state matches token and tokenExpiration from storage?
+        }
         else {
           console.log('-----------------DELETE TOKEN-------------------')
           const deleteToken = async () => await storage.deleteToken();
           deleteToken();
-        } // TODO: will be sufficient when called synchronously? will logout be called here indirectly? if not, why not calling logout instead?
+        }
       }
     );
 
@@ -50,7 +50,7 @@ export class UserStore {
         if (isTokenExpired(tokenExpiration)) {
           console.log('-----------------LOGOUT-------------')
           this.logout();
-        } // TODO: will be sufficient when called synchronously?
+        }
       }
     );
 
@@ -61,7 +61,7 @@ export class UserStore {
         if (token && this.tokenExpiration && !user) {
           try {
             authApi.getAuthenticatedUser().then(({ user }) => {
-              if (!user) this.logout(); // TODO: will be sufficient when called synchronously?
+              if (!user) this.logout();
               else runInAction(() => this.user = user);
             });
           } catch (err) {
@@ -122,7 +122,6 @@ export class UserStore {
       this.tokenExpiration = '';
       this.user = null;
     });
-    // TODO: storage deletion not needed, since this will be done via reaction, correct?
 
     navigate('Login');
   };
