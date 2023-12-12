@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction } from "mobx";
+import { computed, makeAutoObservable, reaction, runInAction } from "mobx";
 import { Credentials, User, UserForm } from "../types";
 import { authApi, storage, userApi, navigate } from "../services";
 import { isTokenExpired, logResponseErrorMessage } from "./utils";
@@ -19,7 +19,10 @@ export class UserStore {
   isResetPasswordLoading = false;
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {
+      isLoggedIn: computed,
+      isAdmin: computed
+    });
     this.logout = this.logout.bind(this);
 
     // Storage update
