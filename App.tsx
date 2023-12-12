@@ -28,7 +28,7 @@ export default observer(function App() {
   ]} />
 
   return !isSetupDone ? (
-      <Spinner size="large" />
+      <Spinner size="large" style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} />
     ) : (
     <GluestackUIProvider config={config}>
       <NavigationContainer ref={navigationRef}>
