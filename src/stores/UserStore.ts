@@ -76,7 +76,13 @@ export class UserStore {
     });
   };
 
-  isLoggedIn = () => !!(this.token && this.tokenExpiration && this.user);
+  get isLoggedIn (): boolean {
+    return !!(this.token && this.tokenExpiration && this.user);
+  }
+
+  get isAdmin (): boolean {
+    return this.isLoggedIn && this.user!.admin;
+  }
 
   login = async (credentials: Credentials) => {
     this.isLoginLoading = true;
@@ -93,7 +99,7 @@ export class UserStore {
         this.isLoginLoading = false;
       });
 
-      navigate('Arbeitstag');
+      navigate('Rapport');
 
       return true;
     } catch (err) {

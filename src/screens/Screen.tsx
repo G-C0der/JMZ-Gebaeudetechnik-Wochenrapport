@@ -14,7 +14,7 @@ export default observer(function Screen({ scrollable, children }: MainScreenProp
 
 
   console.log('isLoggedIn',isLoggedIn)
-  console.log('isLoggedInval',isLoggedIn())
+  console.log('isLoggedInval',isLoggedIn)
   console.log('token',token)
   console.log('tokenExpiration',tokenExpiration)
   console.log('tokenExpirationdate',new Date(tokenExpiration))

@@ -1,5 +1,5 @@
 import {makeAutoObservable, runInAction} from "mobx";
-import { Workday, WorkdayForm, Workweek, WorkweekIdAlt } from "../types";
+import { Workday, WorkdayForm, Workweek } from "../types";
 import { workdayApi, workweekApi } from "../services";
 import { logResponseErrorMessage } from "./utils";
 import { getWeekDateRange, toDateOnly } from "../utils";
@@ -9,7 +9,6 @@ export class WorkScheduleStore {
 
   isSaveWorkdayLoading = false;
   isFetchWorkweekLoading = false;
-  isApproveWorkweekLoading = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -64,18 +63,6 @@ export class WorkScheduleStore {
       logResponseErrorMessage(err);
 
       if (this.isFetchWorkweekLoading) runInAction(() => this.isFetchWorkweekLoading = false);
-    }
-  };
-
-  approveWorkweek = async (workweekIdAlt: WorkweekIdAlt) => {
-    this.isApproveWorkweekLoading = true;
-    try {
-      await workweekApi.approve(workweekIdAlt);
-      runInAction(() => this.isApproveWorkweekLoading = false);
-    } catch (err) {
-      logResponseErrorMessage(err);
-
-      if (this.isApproveWorkweekLoading) runInAction(() => this.isApproveWorkweekLoading = false);
     }
   };
 }
