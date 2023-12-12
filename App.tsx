@@ -11,15 +11,16 @@ import { navigate, navigationRef } from "./src/services";
 import { toastConfig } from "./src/config/toast";
 import './src/config/moment';
 import Menu from "./src/components/Menu";
-import EmployeesScreen from "./src/screens/EmployeesScreen";
+import UsersScreen from "./src/screens/UsersScreen";
+import UserWorkStateScreen from "./src/screens/UserWorkStateScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const menuOptions = [
+  const menu = <Menu options={[
     { icon: 'calendar', text: 'Rapport', onPress: () => navigate('Rapport') },
     { icon: 'addusergroup', text: 'Mitarbeiter', onPress: () => navigate('Mitarbeiter') }
-  ];
+  ]} />
 
   return (
     <GluestackUIProvider config={config}>
@@ -27,8 +28,9 @@ export default function App() {
         <StoreContext.Provider value={store}>
             <Stack.Navigator>
               {/*<Stack.Screen name='Login' component={LoginScreen} />*/}
-              <Stack.Screen name='Rapport' component={WorkdayScreen} options={{ headerRight: () => <Menu options={menuOptions} /> }} />
-              <Stack.Screen name='Mitarbeiter' component={EmployeesScreen} options={{ headerRight: () => <Menu options={menuOptions} /> }} />
+              <Stack.Screen name='Rapport' component={WorkdayScreen} options={{ headerRight: () => menu }} />
+              <Stack.Screen name='Mitarbeiter' component={UsersScreen} options={{ headerRight: () => menu }} />
+              <Stack.Screen name='Arbeitszeit' component={UserWorkStateScreen} options={{ headerRight: () => menu }} />
             </Stack.Navigator>
         </StoreContext.Provider>
       </NavigationContainer>
