@@ -28,7 +28,7 @@ export class AdminStore {
     try {
       const { users } = await userApi.list();
       runInAction(() => {
-        this.users = users;
+        this.users = users.filter((user: User) => !user.admin);
 
         this.isListUsersLoading = false;
       });
