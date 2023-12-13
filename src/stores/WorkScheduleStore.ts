@@ -1,7 +1,7 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import { Workday, WorkdayForm, Workweek } from "../types";
 import { workdayApi, workweekApi } from "../services";
-import { logErrorMessage } from "./utils";
+import { logResponseErrorMessage } from "./utils";
 import { getWeekDateRange, toDateOnly } from "../utils";
 
 export class WorkScheduleStore {
@@ -41,7 +41,7 @@ export class WorkScheduleStore {
         this.isSaveWorkdayLoading = false;
       });
     } catch (err) {
-      logErrorMessage(err);
+      logResponseErrorMessage(err);
 
       if (this.isSaveWorkdayLoading) runInAction(() => this.isSaveWorkdayLoading = false);
     }
@@ -60,7 +60,7 @@ export class WorkScheduleStore {
         this.isFetchWorkweekLoading = false;
       });
     } catch (err) {
-      logErrorMessage(err);
+      logResponseErrorMessage(err);
 
       if (this.isFetchWorkweekLoading) runInAction(() => this.isFetchWorkweekLoading = false);
     }

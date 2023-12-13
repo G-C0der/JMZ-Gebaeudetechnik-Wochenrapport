@@ -1,7 +1,7 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import { User, Workweek } from "../types";
 import { userApi, workweekApi } from "../services";
-import { logErrorMessage } from "./utils";
+import { logResponseErrorMessage } from "./utils";
 import { store } from "./index";
 
 export class AdminStore {
@@ -33,7 +33,7 @@ export class AdminStore {
         this.isListUsersLoading = false;
       });
     } catch (err) {
-      logErrorMessage(err);
+      logResponseErrorMessage(err);
 
       if (this.isListUsersLoading) runInAction(() => this.isListUsersLoading = false);
     }
@@ -47,7 +47,7 @@ export class AdminStore {
       const { workweeks } = await workweekApi.list(userId);
       runInAction(() => this.userWorkweeks = workweeks);
     } catch (err) {
-      logErrorMessage(err);
+      logResponseErrorMessage(err);
 
       if (this.isListWorkweeksLoading) runInAction(() => this.isListWorkweeksLoading = false);
     }
@@ -61,7 +61,7 @@ export class AdminStore {
       await workweekApi.approve(workweekIds);
       runInAction(() => this.isApproveWorkweekLoading = false);
     } catch (err) {
-      logErrorMessage(err);
+      logResponseErrorMessage(err);
 
       if (this.isApproveWorkweekLoading) runInAction(() => this.isApproveWorkweekLoading = false);
     }
@@ -83,7 +83,7 @@ export class AdminStore {
         this.isChangeUserActiveStateLoading = false;
       });
     } catch (err) {
-      logErrorMessage(err);
+      logResponseErrorMessage(err);
 
       if (this.isChangeUserActiveStateLoading) runInAction(() => this.isChangeUserActiveStateLoading = false);
     }

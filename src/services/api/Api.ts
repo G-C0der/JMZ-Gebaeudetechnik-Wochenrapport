@@ -37,8 +37,7 @@ class Api {
         } else if (res.status === 500) {
           message = 'An unexpected server error occurred.';
         } else if (res.status === 401) {
-          message = 'Unauthorized.';
-
+          message = res.data;
           await storage.deleteToken();
 
           emitter.emit('unauthorized');

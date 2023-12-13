@@ -26,7 +26,9 @@ const store: Store = {
   }
 })();
 
-emitter.on('unauthorized', store.userStore.logout);
+setInterval(() => store.userStore.handleTokenExpiration, 1000 * 60);
+
+emitter.on('unauthorized', () => store.userStore.logout());
 
 const StoreContext = createContext(store);
 
