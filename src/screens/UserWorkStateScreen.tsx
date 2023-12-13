@@ -42,7 +42,7 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
   };
 
   const handleApproveClick = async () => {
-    const workweekIds = Object.keys(Object.fromEntries(Object.entries(workweekCheckboxStates).filter(([_, state]) => state)));
+    const workweekIds = Object.keys(Object.fromEntries(Object.entries(workweekCheckboxStates).filter(([_, state]) => state))).map(Number);
     await approveWorkweeks(workweekIds);
   };
 
