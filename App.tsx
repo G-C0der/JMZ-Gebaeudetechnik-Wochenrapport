@@ -35,9 +35,13 @@ export default observer(function App() {
           <StoreContext.Provider value={store}>
             <Stack.Navigator>
               {!isLoggedIn && <Stack.Screen name='Login' component={LoginScreen} />}
-              {isLoggedIn && <Stack.Screen name='Rapport' component={WorkdayScreen} options={{ headerRight: () => menu }} />}
-              <Stack.Screen name='Mitarbeiter' component={UsersScreen} options={{ headerRight: () => menu }} />
-              <Stack.Screen name='Arbeitszeit' component={UserWorkStateScreen} options={{ headerRight: () => menu }} />
+              {isLoggedIn && (
+                <>
+                  <Stack.Screen name='Rapport' component={WorkdayScreen} options={{ headerRight: () => menu }} />
+                  <Stack.Screen name='Mitarbeiter' component={UsersScreen} options={{ headerRight: () => menu }} />
+                  <Stack.Screen name='Arbeitszeit' component={UserWorkStateScreen} options={{ headerRight: () => menu }} />
+                </>
+              )}
             </Stack.Navigator>
           </StoreContext.Provider>
         </NavigationContainer>
