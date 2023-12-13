@@ -2,6 +2,7 @@ import { computed, makeAutoObservable, reaction, runInAction } from "mobx";
 import { Credentials, User, UserForm } from "../types";
 import { authApi, storage, userApi, navigate } from "../services";
 import { isTokenExpired, logResponseErrorMessage } from "./utils";
+import Toast from "react-native-toast-message";
 
 export class UserStore {
   private token?: string = undefined;
@@ -30,12 +31,10 @@ export class UserStore {
       () => [this.token, this.tokenExpiration],
       ([token, tokenExpiration]) => {
         if (token && tokenExpiration) {
-          console.log('-----------------STORE TOKEN-------------------')
           const storeToken = async () => await storage.storeToken(this.token!, this.tokenExpiration!);
           storeToken();
         }
         else {
-          console.log('-----------------DELETE TOKEN-------------------')
           const deleteToken = async () => await storage.deleteToken();
           deleteToken();
         }
@@ -45,10 +44,7 @@ export class UserStore {
     // Token expiration handling
     reaction(
       () => this.tokenExpiration,
-      (tokenExpiration) => {
-        console.log('-----------------REACTION TOKENEXP-------------')
-        this.tokenExpirationHandling(tokenExpiration);
-      }
+      (tokenExpiration) => this.handleTokenExpiration(tokenExpiration)
     );
 
     // User sync
@@ -80,10 +76,14 @@ export class UserStore {
     runInAction(() => this.isSetupDone = true);
   };
 
-  private tokenExpirationHandling = (tokenExpiration?: string) => {
-    if (isTokenExpired(tokenExpiration ?? this.tokenExpiration)) {
-      console.log('-----------------LOGOUT-------------')
+  handleTokenExpiration = (tokenExpiration?: string) => {
+    if (this.isLoggedIn && isTokenExpired(tokenExpiration ?? this.tokenExpiration)) {
       this.logout();
+
+      Toast.show({
+        type: 'error',
+        text1: 'Session expired.'
+      });
     }
   };
 
@@ -121,7 +121,6 @@ export class UserStore {
   };
 
   logout = () => {
-    console.log('LOGOUT ORIGINAL')
     runInAction(() => {
       this.token = '';
       this.tokenExpiration = '';

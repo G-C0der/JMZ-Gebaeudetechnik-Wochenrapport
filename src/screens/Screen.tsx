@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { SafeAreaView } from "react-native";
 import { ScrollView, Box, VStack } from "@gluestack-ui/themed";
 
