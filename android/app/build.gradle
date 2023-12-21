@@ -2,6 +2,10 @@ apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 apply from: project(":react-native-config").projectDir.getPath() + "/dotenv.gradle"
 
+project.ext.react = [
+    entryFile: "index.ts"
+]
+
 project.ext.vectoricons = [
     iconFontNames: [ 'AntDesign.ttf' ] // Add font files that you want to include
 ]
