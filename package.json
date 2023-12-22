@@ -9,6 +9,7 @@
     "start": "react-native start",
     "cleanstart": "cd android && .\\gradlew clean && react-native start --reset-cache",
     "bump": "npm version patch",
+    "build": "cd android && .\\gradlew clean && .\\gradlew assembleRelease",
     "test": "jest"
   },
   "dependencies": {
