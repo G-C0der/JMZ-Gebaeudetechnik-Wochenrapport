@@ -1,5 +1,10 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
+
+project.ext.envConfigFiles = [
+    debug: ".env.development",
+    release: ".env.production",
+]
 apply from: project(":react-native-config").projectDir.getPath() + "/dotenv.gradle"
 
 project.ext.vectoricons = [
