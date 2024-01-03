@@ -21,6 +21,8 @@ DerivedData
 *.ipa
 *.xcuserstate
 ios/.xcode.env.local
+ios/jmzgebaeudetechnikwochenrapport.xcworkspace/contents.xcworkspacedata
+ios/jmzgebaeudetechnikwochenrapport.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
 
 # Android/IntelliJ
 #
