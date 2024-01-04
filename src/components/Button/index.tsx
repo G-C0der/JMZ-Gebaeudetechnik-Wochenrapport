@@ -10,7 +10,7 @@ export interface ButtonProps {
   [key: string]: any;
 }
 
-export default function({ text, icon, iconSize, contentColor, ...props }: ButtonProps) {
+export default function({ text, icon, iconSize, contentColor = '#fff', ...props }: ButtonProps) {
   return (
     <Button
       pr='$0' pl='$0' // Ensures content is visible on small button width
