@@ -38,6 +38,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = jmzgebaeudetechnikwochenrapport/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F4F487B2B45BC7B00B19907 /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = AntDesign.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
+		1FC692F92B46FD3700F92C98 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-jmzgebaeudetechnikwochenrapport.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jmzgebaeudetechnikwochenrapport.debug.xcconfig"; path = "Target Support Files/Pods-jmzgebaeudetechnikwochenrapport/Pods-jmzgebaeudetechnikwochenrapport.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-jmzgebaeudetechnikwochenrapport.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jmzgebaeudetechnikwochenrapport.release.xcconfig"; path = "Target Support Files/Pods-jmzgebaeudetechnikwochenrapport/Pods-jmzgebaeudetechnikwochenrapport.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.debug.xcconfig"; path = "Target Support Files/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests/Pods-jmzgebaeudetechnikwochenrapport-jmzgebaeudetechnikwochenrapportTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -125,6 +126,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				1FC692F92B46FD3700F92C98 /* Config.xcconfig */,
 				1F4F48782B459A8B00B19907 /* Resources */,
 				13B07FAE1A68108700A75B9A /* jmzgebaeudetechnikwochenrapport */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -188,6 +190,7 @@
 			buildPhases = (
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
+				1F4F487E2B45CA3B00B19907 /* React Native Config set environment Vars from .env */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -292,6 +295,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-jmzgebaeudetechnikwochenrapport/Pods-jmzgebaeudetechnikwochenrapport-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		1F4F487E2B45CA3B00B19907 /* React Native Config set environment Vars from .env */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "React Native Config set environment Vars from .env";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"ENVFILE is set to '$ENVFILE'\"\n\"${SRCROOT}/../node_modules/react-native-config/ios/ReactNativeConfig/BuildDotenvConfig.rb\"\n";
 		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -546,6 +567,7 @@
 		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FC692F92B46FD3700F92C98 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -619,6 +641,9 @@
 					"-ld_classic",
 					"-Wl",
 					"-ld_classic",
+					"-Wl",
+					"-ld_classic",
+					"-Wl -ld_classic ",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -627,6 +652,7 @@
 		};
 		83CBBA211A601CBA00E9B192 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FC692F92B46FD3700F92C98 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -695,6 +721,9 @@
 					"-ld_classic",
 					"-Wl",
 					"-ld_classic",
+					"-Wl",
+					"-ld_classic",
+					"-Wl -ld_classic ",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
