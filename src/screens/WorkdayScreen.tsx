@@ -133,7 +133,7 @@ export default observer(function WorkdayScreen() {
         <DatePicker
           date={formik.values['date']}
           onDateChange={async (date) => await formik.setFieldValue("date", date)}
-          androidVariant='nativeAndroid' // TODO: change on IOS
+          androidVariant='nativeAndroid'
           mode='date'
           textColor='#000000'
           locale='de'
@@ -170,7 +170,7 @@ export default observer(function WorkdayScreen() {
             onTimeChange(date);
           }}
           onCancel={() => setIsTimePickerModalOpen(false)}
-          androidVariant='nativeAndroid' // TODO: change on IOS
+          androidVariant='nativeAndroid'
           mode='time'
           locale='de'
           is24hourSource='device'
