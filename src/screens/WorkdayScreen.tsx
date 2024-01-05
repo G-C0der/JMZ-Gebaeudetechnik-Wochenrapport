@@ -11,7 +11,7 @@ import { TextField } from "../components/TextField";
 import Button from '../components/Button';
 import { SelectField } from "../components/SelectField";
 import moment from 'moment';
-import { round, toDateOnly } from "../utils";
+import { round, toDateOnly, toDateWithLocalMidnight } from "../utils";
 import { LoadingButton } from "../components/LoadingButton";
 import { useStore } from "../stores";
 import { WorkdayForm, WorkdayFormInit } from "../types";
@@ -34,7 +34,7 @@ export default observer(function WorkdayScreen() {
 
   const formik = useFormik<WorkdayFormInit>({
     initialValues: {
-      date: new Date(toDateOnly()),
+      date: toDateWithLocalMidnight(toDateOnly()),
       from: null,
       to: null,
       from2: null,
@@ -133,7 +133,7 @@ export default observer(function WorkdayScreen() {
         <DatePicker
           date={formik.values['date']}
           onDateChange={async (date) => await formik.setFieldValue("date", date)}
-          androidVariant='nativeAndroid' // TODO: change on IOS
+          androidVariant='nativeAndroid'
           mode='date'
           textColor='#000000'
           locale='de'
@@ -170,7 +170,7 @@ export default observer(function WorkdayScreen() {
             onTimeChange(date);
           }}
           onCancel={() => setIsTimePickerModalOpen(false)}
-          androidVariant='nativeAndroid' // TODO: change on IOS
+          androidVariant='nativeAndroid'
           mode='time'
           locale='de'
           is24hourSource='device'

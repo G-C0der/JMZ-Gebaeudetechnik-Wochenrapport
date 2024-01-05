@@ -2,7 +2,7 @@ import {makeAutoObservable, runInAction} from "mobx";
 import { Workday, WorkdayForm, Workweek } from "../types";
 import { workdayApi, workweekApi } from "../services";
 import { logResponseErrorMessage } from "./utils";
-import { getWeekDateRange, toDateOnly } from "../utils";
+import { getWeekDateRange, toDateOnly, toDateWithLocalMidnight } from "../utils";
 
 export class WorkScheduleStore {
   currentWorkweek: Workweek | null = null; // Workweek of the currently selected workday
@@ -20,7 +20,7 @@ export class WorkScheduleStore {
   }
 
   getWorkdayFromCurrentWorkweek = (workdayDate: Date): Workday | undefined =>
-    this.currentWorkweek?.workdays.find(workday => new Date(workday.date).getTime() === workdayDate.getTime());
+    this.currentWorkweek?.workdays.find(workday => toDateWithLocalMidnight(workday.date).getTime() === workdayDate.getTime());
 
   private toWorkday = (form: WorkdayForm): Workday => ({ ...form, date: toDateOnly(form.date) });
 
