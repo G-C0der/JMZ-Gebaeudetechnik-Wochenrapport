@@ -1,24 +1,36 @@
+import { Store, stores } from "./index";
 import {makeAutoObservable, runInAction} from "mobx";
 import { User, Workweek } from "../types";
 import { userApi, workweekApi } from "../services";
 import { logResponseErrorMessage } from "./utils";
-import { store } from "./index";
 
-export class AdminStore {
-  users: User[] = [];
-  userWorkweeks: Workweek[] = []; // Workweeks of the currently selected user
+const initialState = {
+  users: [],
+  userWorkweeks: [],
 
-  isListUsersLoading = false;
-  isListWorkweeksLoading = false;
-  isApproveWorkweekLoading = false;
-  isChangeUserActiveStateLoading = false;
+  isListUsersLoading: false,
+  isListWorkweeksLoading: false,
+  isApproveWorkweekLoading: false,
+  isChangeUserActiveStateLoading: false
+};
+
+export class AdminStore implements Store {
+  users: User[] = initialState.users;
+  userWorkweeks: Workweek[] = initialState.userWorkweeks; // Workweeks of the currently selected user
+
+  isListUsersLoading = initialState.isListUsersLoading;
+  isListWorkweeksLoading = initialState.isListWorkweeksLoading;
+  isApproveWorkweekLoading = initialState.isApproveWorkweekLoading;
+  isChangeUserActiveStateLoading = initialState.isChangeUserActiveStateLoading;
 
   constructor() {
     makeAutoObservable(this);
   }
 
+  reset = () => Object.assign(this, initialState);
+
   private authorize = () => {
-    if (!store.userStore.isAdmin) throw new Error('No permission.');
+    if (!stores.userStore.isAdmin) throw new Error('No permission.');
   };
 
   listUsers = async () => {
