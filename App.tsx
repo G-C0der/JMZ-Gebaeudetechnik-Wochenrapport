@@ -28,16 +28,16 @@ export default observer(function App() {
         <NavigationContainer ref={navigationRef}>
           <StoreContext.Provider value={store}>
             <Stack.Navigator>
-              {!isLoggedIn && <Stack.Screen name='Login' component={LoginScreen} />}
+              {!isLoggedIn && <Stack.Screen name='loginScreen' component={LoginScreen} />}
               {isLoggedIn && (
                 <>
-                  <Stack.Screen name='Rapport' component={ReportScreen} options={{
+                  <Stack.Screen name='reportScreen' component={ReportScreen} options={{
                     header: () => <ScreenHeader />
                   }} />
-                  <Stack.Screen name='Mitarbeiter' component={UsersScreen} options={{
+                  <Stack.Screen name='usersScreen' component={UsersScreen} options={{
                     header: () => <ScreenHeader />
                   }} />
-                  <Stack.Screen name='Arbeitszeit' component={UserWorkStateScreen} options={{
+                  <Stack.Screen name='workStateScreen' component={UserWorkStateScreen} options={{
                     header: () => <ScreenHeader />
                   }} />
                 </>
