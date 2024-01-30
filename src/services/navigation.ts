@@ -5,7 +5,7 @@ interface RootStackParamList {
   loginScreen: undefined;
   reportScreen: undefined;
   employeesScreen: undefined;
-  workStateScreen: { user: User };
+  workStateScreen: { employee: User };
 }
 
 type Screen = 'loginScreen' | 'reportScreen' | 'employeesScreen' | 'workStateScreen';

@@ -7,10 +7,10 @@ import { TouchableOpacity } from "react-native";
 import { navigate } from "../services";
 
 export default observer(function UsersScreen() {
-  const { adminStore: { users, listUsers, isListUsersLoading } } = useStore();
+  const { adminStore: { employees, listUsers, isListUsersLoading } } = useStore();
 
   useEffect(() => {
-    if (!users.length) {
+    if (!employees.length) {
       const fetchUsers = async () => await listUsers();
       fetchUsers();
     }
@@ -18,13 +18,13 @@ export default observer(function UsersScreen() {
 
   return (
     <Screen>
-      {users.map(user => (
+      {employees.map(employee => (
         <TouchableOpacity
-          key={user.id}
-          onPress={() => navigate('workStateScreen', { user })}
+          key={employee.id}
+          onPress={() => navigate('workStateScreen', { employee })}
         >
           <TextField
-            value={`${user.fname} ${user.lname}`}
+            value={`${employee.fname} ${employee.lname}`}
             readonly
           />
         </TouchableOpacity>
