@@ -10,21 +10,15 @@ import { store, StoreContext, useStore } from "./src/stores";
 import { navigate, navigationRef } from "./src/services";
 import { toastConfig } from "./src/config/toast";
 import './src/config/moment';
-import Menu from "./src/components/Menu";
 import UsersScreen from "./src/screen/UsersScreen";
 import UserWorkStateScreen from "./src/screen/UserWorkStateScreen";
 import { observer } from "mobx-react-lite";
+import ScreenHeader from "./src/screen/ScreenHeader";
 
 const Stack = createNativeStackNavigator();
 
 export default observer(function App() {
-  const { userStore: { logout, isSetupDone, isLoggedIn } } = useStore();
-
-  const menu = <Menu options={[
-    { icon: 'calendar', text: 'Rapport', onPress: () => navigate('Rapport') },
-    { icon: 'addusergroup', text: 'Mitarbeiter', onPress: () => navigate('Mitarbeiter') },
-    { icon: 'logout', text: 'Ausloggen', onPress: logout }
-  ]} />
+  const { userStore: { isSetupDone, isLoggedIn } } = useStore();
 
   return (
     <GluestackUIProvider config={config}>
@@ -37,9 +31,15 @@ export default observer(function App() {
               {!isLoggedIn && <Stack.Screen name='Login' component={LoginScreen} />}
               {isLoggedIn && (
                 <>
-                  <Stack.Screen name='Rapport' component={WorkdayScreen} options={{ headerRight: () => menu }} />
-                  <Stack.Screen name='Mitarbeiter' component={UsersScreen} options={{ headerRight: () => menu }} />
-                  <Stack.Screen name='Arbeitszeit' component={UserWorkStateScreen} options={{ headerRight: () => menu }} />
+                  <Stack.Screen name='Rapport' component={WorkdayScreen} options={{
+                    header: () => <ScreenHeader />
+                  }} />
+                  <Stack.Screen name='Mitarbeiter' component={UsersScreen} options={{
+                    header: () => <ScreenHeader />
+                  }} />
+                  <Stack.Screen name='Arbeitszeit' component={UserWorkStateScreen} options={{
+                    header: () => <ScreenHeader />
+                  }} />
                 </>
               )}
             </Stack.Navigator>

@@ -2,13 +2,13 @@ import { createNavigationContainerRef, NavigationProp } from "@react-navigation/
 import { User } from "../types";
 
 interface RootStackParamList {
-  Login: undefined;
-  Rapport: undefined;
-  Mitarbeiter: undefined;
-  Arbeitszeit: { user: User };
+  loginScreen: undefined;
+  reportScreen: undefined;
+  employeesScreen: undefined;
+  workStateScreen: { user: User };
 }
 
-type Screen = 'Login' | 'Rapport' | 'Mitarbeiter' | 'Arbeitszeit';
+type Screen = 'loginScreen' | 'reportScreen' | 'employeesScreen' | 'workStateScreen';
 
 const navigationRef = createNavigationContainerRef<RootStackParamList>();
 
