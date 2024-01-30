@@ -28,7 +28,7 @@ export default observer(function App() {
         <NavigationContainer ref={navigationRef}>
           <StoreContext.Provider value={store}>
             <Stack.Navigator>
-              {!isLoggedIn && <Stack.Screen name='loginScreen' component={LoginScreen} />}
+              {!isLoggedIn && <Stack.Screen name='loginScreen' component={LoginScreen} options={{ title: 'Login' }} />}
               {isLoggedIn && (
                 <>
                   <Stack.Screen name='reportScreen' component={ReportScreen} options={{

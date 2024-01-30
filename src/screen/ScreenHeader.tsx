@@ -4,6 +4,7 @@ import { Text } from "@gluestack-ui/themed";
 import Menu from "../components/Menu";
 import { navigate } from "../services";
 import { useStore } from "../stores";
+import { appColorTheme } from "../config/env";
 
 interface ScreenHeaderProps {
   title: string;
@@ -14,7 +15,7 @@ export default function ScreenHeader({ title }: ScreenHeaderProps) {
 
   return (
     <View style={styles.headerContainer}>
-      <Text style={styles.headerText}>{title}</Text>
+      <Text style={styles.headerTitle}>{title}</Text>
 
       <Text style={styles.userName}>{`${user?.fname} ${user?.lname?.slice(0, 1)}.`}</Text>
 
@@ -33,9 +34,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    backgroundColor: '#fff'
+    backgroundColor: appColorTheme
   },
-  headerText: {
+  headerTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     // You can adjust the margin to position the text as you like

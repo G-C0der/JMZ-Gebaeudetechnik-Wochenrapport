@@ -1,6 +1,7 @@
 import React from 'react';
 import { ButtonSpinner } from "@gluestack-ui/themed";
 import Button, { ButtonProps } from "../Button";
+import { appColorTheme } from "../../config/env";
 
 interface LoadingButtonProps extends ButtonProps  {
   loading: boolean;
@@ -15,6 +16,7 @@ export function LoadingButton({ text, loading, icon, ...props }: LoadingButtonPr
       text={loading ? 'Laden...' : text}
       icon={loading ? <ButtonSpinner /> : icon}
       isDisabled={loading}
+      style={{ backgroundColor: appColorTheme }}
     />
   );
 }
