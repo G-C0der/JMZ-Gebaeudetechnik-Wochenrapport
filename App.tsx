@@ -32,13 +32,13 @@ export default observer(function App() {
               {isLoggedIn && (
                 <>
                   <Stack.Screen name='reportScreen' component={ReportScreen} options={{
-                    header: () => <ScreenHeader />
+                    header: () => <ScreenHeader title='Rapport' />
                   }} />
                   <Stack.Screen name='usersScreen' component={UsersScreen} options={{
-                    header: () => <ScreenHeader />
+                    header: () => <ScreenHeader title='Mitarbeiter' />
                   }} />
                   <Stack.Screen name='workStateScreen' component={UserWorkStateScreen} options={{
-                    header: () => <ScreenHeader />
+                    header: () => <ScreenHeader title='Arbeitszeit' />
                   }} />
                 </>
               )}

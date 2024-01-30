@@ -5,12 +5,16 @@ import Menu from "../components/Menu";
 import { navigate } from "../services";
 import { useStore } from "../stores";
 
-export default function ScreenHeader() {
+interface ScreenHeaderProps {
+  title: string;
+}
+
+export default function ScreenHeader({ title }: ScreenHeaderProps) {
   const { userStore: { logout, user } } = useStore();
 
   return (
     <View style={styles.headerContainer}>
-      <Text style={styles.headerText}>Rapport</Text>
+      <Text style={styles.headerText}>{title}</Text>
 
       <Text style={styles.userName}>{`${user?.fname} ${user?.lname?.slice(0, 1)}.`}</Text>
 
