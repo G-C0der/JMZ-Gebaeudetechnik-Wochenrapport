@@ -17,7 +17,7 @@ import { useStore } from "../stores";
 import { WorkdayForm, WorkdayFormInit } from "../types";
 import TimePickerField from "../components/TimePickerField";
 
-export default observer(function WorkdayScreen() {
+export default observer(function ReportScreen() {
   type TimePicker = 'from' | 'to' | 'from2' | 'to2';
   const [isTimePickerModalOpen, setIsTimePickerModalOpen] = useState(false);
   const [currentTimePicker, setCurrentTimePicker] = useState<TimePicker>();

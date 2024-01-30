@@ -21,7 +21,7 @@ export default observer(function UsersScreen() {
       {users.map(user => (
         <TouchableOpacity
           key={user.id}
-          onPress={() => navigate('Arbeitszeit', { user })}
+          onPress={() => navigate('workStateScreen', { user })}
         >
           <TextField
             value={`${user.fname} ${user.lname}`}

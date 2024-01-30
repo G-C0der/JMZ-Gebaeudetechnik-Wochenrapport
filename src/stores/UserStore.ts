@@ -129,7 +129,7 @@ export class UserStore implements Store {
         this.isLoginLoading = false;
       });
 
-      navigate('Rapport');
+      navigate('reportScreen');
 
       return true;
     } catch (err) {
@@ -142,7 +142,7 @@ export class UserStore implements Store {
   logout = () => {
     resetStores();
 
-    navigate('Login');
+    navigate('loginScreen');
   };
 
   register = async (form: UserForm) => {
