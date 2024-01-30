@@ -110,7 +110,7 @@ export class UserStore {
         this.isLoginLoading = false;
       });
 
-      navigate('Rapport');
+      navigate('reportScreen');
 
       return true;
     } catch (err) {
@@ -127,7 +127,7 @@ export class UserStore {
       this.user = null;
     });
 
-    navigate('Login');
+    navigate('loginScreen');
   };
 
   register = async (form: UserForm) => {
