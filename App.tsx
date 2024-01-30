@@ -10,7 +10,7 @@ import { store, StoreContext, useStore } from "./src/stores";
 import { navigate, navigationRef } from "./src/services";
 import { toastConfig } from "./src/config/toast";
 import './src/config/moment';
-import UsersScreen from "./src/screen/EmployeesScreen";
+import UsersScreen from "./src/screen/UsersScreen";
 import UserWorkStateScreen from "./src/screen/UserWorkStateScreen";
 import { observer } from "mobx-react-lite";
 import ScreenHeader from "./src/screen/ScreenHeader";

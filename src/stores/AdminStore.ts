@@ -5,7 +5,7 @@ import { logResponseErrorMessage } from "./utils";
 import { store } from "./index";
 
 export class AdminStore {
-  employees: User[] = [];
+  users: User[] = [];
   userWorkweeks: Workweek[] = []; // Workweeks of the currently selected user
 
   isListUsersLoading = false;
@@ -28,7 +28,7 @@ export class AdminStore {
     try {
       const { users } = await userApi.list();
       runInAction(() => {
-        this.employees = users.filter((user: User) => !user.admin);
+        this.users = users.filter((user: User) => !user.admin);
 
         this.isListUsersLoading = false;
       });
@@ -74,10 +74,10 @@ export class AdminStore {
     try {
       await userApi.changeActiveState(id);
       runInAction(() => {
-        const updatedUserIndex = this.employees.findIndex(user => user.id === id);
-        const updatedUser = this.employees[updatedUserIndex];
+        const updatedUserIndex = this.users.findIndex(user => user.id === id);
+        const updatedUser = this.users[updatedUserIndex];
         if (updatedUserIndex !== 1) {
-          this.employees[updatedUserIndex] = { ...updatedUser, active: !updatedUser.active };
+          this.users[updatedUserIndex] = { ...updatedUser, active: !updatedUser.active };
         }
 
         this.isChangeUserActiveStateLoading = false;
