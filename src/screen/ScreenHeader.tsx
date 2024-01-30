@@ -16,7 +16,7 @@ export default function ScreenHeader() {
 
       <Menu options={[
         { icon: 'calendar', text: 'Rapport', onPress: () => navigate('reportScreen') },
-        { icon: 'addusergroup', text: 'Mitarbeiter', onPress: () => navigate('employeesScreen') },
+        { icon: 'addusergroup', text: 'Mitarbeiter', onPress: () => navigate('usersScreen') },
         { icon: 'logout', text: 'Ausloggen', onPress: logout }
       ]} />
     </View>

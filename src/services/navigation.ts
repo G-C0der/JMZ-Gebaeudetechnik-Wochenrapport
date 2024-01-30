@@ -4,11 +4,11 @@ import { User } from "../types";
 interface RootStackParamList {
   loginScreen: undefined;
   reportScreen: undefined;
-  employeesScreen: undefined;
+  usersScreen: undefined;
   workStateScreen: { user: User };
 }
 
-type Screen = 'loginScreen' | 'reportScreen' | 'employeesScreen' | 'workStateScreen';
+type Screen = 'loginScreen' | 'reportScreen' | 'usersScreen' | 'workStateScreen';
 
 const navigationRef = createNavigationContainerRef<RootStackParamList>();
 
