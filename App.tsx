@@ -1,18 +1,18 @@
 import React from "react";
-import { GluestackUIProvider, Spinner } from "@gluestack-ui/themed";
+import { GluestackUIProvider, Spinner, Text } from "@gluestack-ui/themed";
 import { config } from "@gluestack-ui/config";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from "./src/screens/LoginScreen";
-import WorkdayScreen from "./src/screens/WorkdayScreen";
+import LoginScreen from "./src/screen/LoginScreen";
+import WorkdayScreen from "./src/screen/WorkdayScreen";
 import Toast from "react-native-toast-message";
 import { store, StoreContext, useStore } from "./src/stores";
 import { navigate, navigationRef } from "./src/services";
 import { toastConfig } from "./src/config/toast";
 import './src/config/moment';
 import Menu from "./src/components/Menu";
-import UsersScreen from "./src/screens/UsersScreen";
-import UserWorkStateScreen from "./src/screens/UserWorkStateScreen";
+import UsersScreen from "./src/screen/UsersScreen";
+import UserWorkStateScreen from "./src/screen/UserWorkStateScreen";
 import { observer } from "mobx-react-lite";
 
 const Stack = createNativeStackNavigator();
