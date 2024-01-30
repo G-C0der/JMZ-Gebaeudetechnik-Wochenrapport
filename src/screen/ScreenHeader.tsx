@@ -15,15 +15,13 @@ export default function ScreenHeader({ title }: ScreenHeaderProps) {
 
   return (
     <View style={styles.headerContainer}>
-      <Text style={styles.headerTitle}>{title}</Text>
-
       <Text style={styles.userName}>{`${user?.fname} ${user?.lname?.slice(0, 1)}.`}</Text>
-
-      <Menu options={[
-        { icon: 'calendar', text: 'Rapport', onPress: () => navigate('reportScreen') },
-        { icon: 'addusergroup', text: 'Mitarbeiter', onPress: () => navigate('usersScreen') },
-        { icon: 'logout', text: 'Ausloggen', onPress: logout }
-      ]} />
+      <Text style={styles.headerTitle}>{title}</Text>
+        <Menu options={[
+          { icon: 'calendar', text: 'Rapport', onPress: () => navigate('reportScreen') },
+          { icon: 'addusergroup', text: 'Mitarbeiter', onPress: () => navigate('usersScreen') },
+          { icon: 'logout', text: 'Ausloggen', onPress: logout }
+        ]} />
     </View>
   );
 }
@@ -34,14 +32,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    backgroundColor: appColorTheme
+    backgroundColor: appColorTheme,
+    padding: 2
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    // You can adjust the margin to position the text as you like
+    textAlign: 'center',
+    flex: 1,
   },
   userName: {
-    // Style for the user name text
-  },
+    marginLeft: 20
+  }
 });
