@@ -1,13 +1,13 @@
 import React from "react";
-import { GluestackUIProvider, Spinner, Text } from "@gluestack-ui/themed";
+import { GluestackUIProvider, Spinner } from "@gluestack-ui/themed";
 import { config } from "@gluestack-ui/config";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from "./src/screen/LoginScreen";
-import WorkdayScreen from "./src/screen/WorkdayScreen";
+import ReportScreen from "./src/screen/ReportScreen";
 import Toast from "react-native-toast-message";
 import { store, StoreContext, useStore } from "./src/stores";
-import { navigate, navigationRef } from "./src/services";
+import { navigationRef } from "./src/services";
 import { toastConfig } from "./src/config/toast";
 import './src/config/moment';
 import UsersScreen from "./src/screen/UsersScreen";
@@ -31,7 +31,7 @@ export default observer(function App() {
               {!isLoggedIn && <Stack.Screen name='Login' component={LoginScreen} />}
               {isLoggedIn && (
                 <>
-                  <Stack.Screen name='Rapport' component={WorkdayScreen} options={{
+                  <Stack.Screen name='Rapport' component={ReportScreen} options={{
                     header: () => <ScreenHeader />
                   }} />
                   <Stack.Screen name='Mitarbeiter' component={UsersScreen} options={{
