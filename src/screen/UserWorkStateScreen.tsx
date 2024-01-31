@@ -8,7 +8,7 @@ import { TextField } from "../components/TextField";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import moment from "moment";
 import CheckBox from "../components/CheckBox";
-import { HStack, Text } from "@gluestack-ui/themed";
+import { Box, HStack, ScrollView, Text } from "@gluestack-ui/themed";
 import { LoadingButton } from "../components/LoadingButton";
 import PopUpDialog from "../components/PopUpDialog";
 
@@ -52,26 +52,29 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
     <Screen>
       <Text style={styles.userName}>{user.fname} {user.lname}</Text>
 
-      {userWorkweeks.map(workweek => (
-        <HStack space='md'>
-          <TouchableOpacity
-            key={workweek.id}
-            onPress={() => {}}
-            style={{ flex: 1 }}
-          >
-            <TextField
-              value={`${moment(workweek.start).format('DD.MM.')} - ${moment(workweek.end).format('DD.MM.')}`}
-              isReadOnly
-            />
-          </TouchableOpacity>
-          <CheckBox
-            value={workweekCheckboxStates[workweek.id] || false}
-            onChange={(isChecked: boolean) => handleCheckboxChange(workweek.id, isChecked)}
-            isDisabled={user.admin}
-          />
-        </HStack>
-      ))}
-
+      <ScrollView style={styles.workweeksContainer}>
+        <Box gap={12}>
+          {userWorkweeks.map(workweek => (
+            <HStack space='md'>
+              <TouchableOpacity
+                key={workweek.id}
+                onPress={() => {}}
+                style={{ flex: 1 }}
+              >
+                <TextField
+                  value={`${moment(workweek.start).format('DD.MM.')} - ${moment(workweek.end).format('DD.MM.')}`}
+                  isReadOnly
+                />
+              </TouchableOpacity>
+              <CheckBox
+                value={workweekCheckboxStates[workweek.id] || false}
+                onChange={(isChecked: boolean) => handleCheckboxChange(workweek.id, isChecked)}
+                isDisabled={user.admin}
+              />
+            </HStack>
+          ))}
+        </Box>
+      </ScrollView>
       <LoadingButton
         text='Bewilligen'
         icon='checkcircleo'
@@ -87,6 +90,7 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
         actionButtonText='Bewilligen'
         callback={handleApproveClick}
       />
+
     </Screen>
   );
 });
@@ -95,5 +99,9 @@ const styles = StyleSheet.create({
   userName: {
     fontWeight: "bold",
     textAlign: "center"
+  },
+  workweeksContainer: {
+    height: '33%',
+    overflow: "scroll"
   }
 });
