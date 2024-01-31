@@ -5,10 +5,10 @@ import Screen from "./Screen";
 import { RouteProp } from "@react-navigation/native";
 import { useStore } from "../stores";
 import { TextField } from "../components/TextField";
-import { TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import moment from "moment";
 import CheckBox from "../components/CheckBox";
-import { HStack } from "@gluestack-ui/themed";
+import { HStack, Text } from "@gluestack-ui/themed";
 import { LoadingButton } from "../components/LoadingButton";
 import PopUpDialog from "../components/PopUpDialog";
 
@@ -48,6 +48,8 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
 
   return (
     <Screen>
+      <Text style={styles.userName}>{user.fname} {user.lname}</Text>
+
       {userWorkweeks.map(workweek => (
         <HStack space='md'>
           <TouchableOpacity
@@ -83,4 +85,11 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
       />
     </Screen>
   );
+});
+
+const styles = StyleSheet.create({
+  userName: {
+    fontWeight: "bold",
+    textAlign: "center"
+  }
 });
