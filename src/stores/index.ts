@@ -35,7 +35,10 @@ setInterval(() => stores.userStore.handleTokenExpiration, 1000 * 60);
 
 emitter.on('unauthorized', () => stores.userStore.logout());
 
-const resetStores = () => Object.entries(stores).forEach(([_, store]) => store.reset());
+const resetStores = () => Object.entries(stores).forEach(([_, store]) => {
+  store.reset();
+  setTimeout(() => store.setup?.(), 0); // Push to end of event queue
+});
 
 const StoreContext = createContext(stores);
 

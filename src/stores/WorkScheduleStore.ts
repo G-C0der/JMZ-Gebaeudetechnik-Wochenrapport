@@ -22,7 +22,9 @@ export class WorkScheduleStore implements Store {
     makeAutoObservable(this);
   }
 
-  reset = () => Object.assign(this, initialState);
+  reset = () => {
+    Object.assign(this, initialState);
+  };
 
   private belongsToCurrentWorkWeek = (workdayDate: Date) => {
     const { start, end } = getWeekDateRange(workdayDate);

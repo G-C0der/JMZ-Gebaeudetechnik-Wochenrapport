@@ -93,7 +93,9 @@ export class UserStore implements Store {
     runInAction(() => this.isSetupDone = true);
   };
 
-  reset = () => Object.assign(this, initialState);
+  reset = () => {
+    Object.assign(this, initialState);
+  };
 
   handleTokenExpiration = (tokenExpiration?: string) => {
     if (this.isLoggedIn && isTokenExpired(tokenExpiration ?? this.tokenExpiration)) {
@@ -142,7 +144,7 @@ export class UserStore implements Store {
   logout = () => {
     resetStores();
 
-    navigate('loginScreen');
+    setTimeout(() => navigate('loginScreen'), 0); // Push to end of event queue
   };
 
   register = async (form: UserForm) => {
