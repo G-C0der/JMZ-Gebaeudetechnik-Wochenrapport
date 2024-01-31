@@ -20,7 +20,7 @@ export default function TimePickerField({ placeholder, field, openTimePicker, fo
           field={field}
           formik={formik}
           value={formik.values[field]}
-          readonly
+          isReadonly
         />
       </TouchableOpacity>
       <Button

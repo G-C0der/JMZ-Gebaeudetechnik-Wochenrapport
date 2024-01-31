@@ -25,7 +25,7 @@ export default observer(function UsersScreen() {
         >
           <TextField
             value={`${user.fname} ${user.lname}`}
-            readonly
+            isReadonly
           />
         </TouchableOpacity>
       ))}

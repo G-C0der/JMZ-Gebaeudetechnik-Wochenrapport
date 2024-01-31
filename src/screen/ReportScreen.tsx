@@ -181,7 +181,7 @@ export default observer(function ReportScreen() {
 
       <SelectField placeholder='Typ' options={codeMap} field='code' formik={formik} valueFormatter={(value) => parseInt(value)} />
 
-      <TextField placeholder='Stunden' value={getTotalTime()} readonly />
+      <TextField placeholder='Stunden' value={getTotalTime()} isReadonly />
 
       <LoadingButton
         text='Speichern'
