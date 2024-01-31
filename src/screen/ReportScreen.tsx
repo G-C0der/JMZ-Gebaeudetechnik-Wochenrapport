@@ -27,6 +27,7 @@ export default observer(function ReportScreen() {
       saveWorkday,
       isSaveWorkdayLoading,
       fetchWorkweek,
+      currentWorkweek,
       isFetchWorkweekLoading,
       getWorkdayFromCurrentWorkweek
     }
@@ -188,6 +189,7 @@ export default observer(function ReportScreen() {
         icon='save'
         onPress={() =>  formik.handleSubmit()}
         loading={isSaveWorkdayLoading}
+        isDisabled={currentWorkweek?.approved}
       />
     </Screen>
   );

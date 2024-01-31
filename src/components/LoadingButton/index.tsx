@@ -12,10 +12,10 @@ export function LoadingButton({ text, loading, icon, ...props }: LoadingButtonPr
   return (
     <Button
       bg="$lightBlue600"
+      isDisabled={loading}
       {...props}
       text={loading ? 'Laden...' : text}
       icon={loading ? <ButtonSpinner /> : icon}
-      isDisabled={loading}
       style={{ backgroundColor: appColorTheme }}
     />
   );
