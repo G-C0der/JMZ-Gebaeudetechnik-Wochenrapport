@@ -4,11 +4,12 @@ import { Checkbox, CheckboxIndicator, CheckboxIcon, CheckIcon } from "@gluestack
 interface CheckBoxProps {
   value: boolean;
   onChange: () => void;
+  isDisabled?: boolean;
 }
 
-export default function CheckBox({ value, onChange }: CheckBoxProps) {
+export default function CheckBox({ value, onChange, isDisabled }: CheckBoxProps) {
   return (
-    <Checkbox size="md" isChecked={value} onChange={onChange}>
+    <Checkbox size="md" isChecked={value} onChange={onChange} isDisabled={isDisabled}>
       <CheckboxIndicator mr="$2">
         <CheckboxIcon as={CheckIcon} />
       </CheckboxIndicator>

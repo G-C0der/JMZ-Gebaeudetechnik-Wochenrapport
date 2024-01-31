@@ -67,6 +67,7 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
           <CheckBox
             value={workweekCheckboxStates[workweek.id] || false}
             onChange={(isChecked: boolean) => handleCheckboxChange(workweek.id, isChecked)}
+            isDisabled={user.admin}
           />
         </HStack>
       ))}
@@ -76,7 +77,7 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
         icon='checkcircleo'
         onPress={() => setIsApprovalPopUpDialogOpen(true)}
         loading={isApproveWorkweekLoading}
-        isDisabled={!isACheckboxChecked()}
+        isDisabled={user.admin || !isACheckboxChecked()}
       />
       <PopUpDialog
         isOpen={isApprovalPopUpDialogOpen}
