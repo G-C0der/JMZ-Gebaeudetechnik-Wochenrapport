@@ -46,6 +46,8 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
     await approveWorkweeks(workweekIds);
   };
 
+  const isACheckboxChecked = () => !!Object.entries(workweekCheckboxStates).find(([_, checked]) => checked);
+
   return (
     <Screen>
       <Text style={styles.userName}>{user.fname} {user.lname}</Text>
@@ -74,6 +76,7 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
         icon='checkcircleo'
         onPress={() => setIsApprovalPopUpDialogOpen(true)}
         loading={isApproveWorkweekLoading}
+        isDisabled={!isACheckboxChecked()}
       />
       <PopUpDialog
         isOpen={isApprovalPopUpDialogOpen}
