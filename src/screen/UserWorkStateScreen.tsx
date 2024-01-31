@@ -34,6 +34,12 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
     if (!userWorkweeks.length || (userWorkweeks.length && userWorkweeks[0].userId !== user.id)) {
       const fetchWorkweeks = async () => await listWorkweeks(user.id);
       fetchWorkweeks();
+    } else {
+      const userWorkweekApprovalStates: { [key: string]: boolean } = {};
+      for (const userWorkweek of userWorkweeks) {
+        userWorkweekApprovalStates[userWorkweek.id] = userWorkweek.approved;
+      }
+      setWorkweekCheckboxStates({ ...workweekCheckboxStates, ...userWorkweekApprovalStates });
     }
   }, [userWorkweeks]);
 
