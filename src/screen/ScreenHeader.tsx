@@ -5,6 +5,7 @@ import Menu from "../components/Menu";
 import { navigate } from "../services";
 import { useStore } from "../stores";
 import { appColorTheme } from "../config/env";
+import { shortenString } from "../utils";
 
 interface ScreenHeaderProps {
   title: string;
@@ -13,9 +14,15 @@ interface ScreenHeaderProps {
 export default function ScreenHeader({ title }: ScreenHeaderProps) {
   const { userStore: { logout, user } } = useStore();
 
+  const shortenName = (name?: string)  => {
+    if (!name) return;
+
+    return shortenString(name, ' ').toUpperCase();
+  };
+
   return (
     <View style={styles.headerContainer}>
-      <Text style={styles.userName}>{`${user?.fname} ${user?.lname?.slice(0, 1)}.`}</Text>
+      <Text style={styles.userName}>{user?.fname} {shortenName(user?.lname)}</Text>
       <Text style={styles.headerTitle}>{title}</Text>
         <Menu options={[
           { icon: 'calendar', text: 'Rapport', onPress: () => navigate('reportScreen') },

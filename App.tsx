@@ -18,11 +18,11 @@ import ScreenHeader from "./src/screen/ScreenHeader";
 const Stack = createNativeStackNavigator();
 
 export default observer(function App() {
-  const { userStore: { isSetupDone, isLoggedIn } } = useStore();
+  const { userStore: { isSetupDone, isLoggedIn, user } } = useStore();
 
   return (
     <GluestackUIProvider config={config}>
-      {!isSetupDone ? (
+      {!isSetupDone || (isLoggedIn && !user) ? (
         <Spinner size="large" style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} />
       ) : (
         <NavigationContainer ref={navigationRef}>
