@@ -1,18 +1,30 @@
+import { Store } from "./index";
 import {makeAutoObservable, runInAction} from "mobx";
 import { Workday, WorkdayForm, Workweek } from "../types";
 import { workdayApi, workweekApi } from "../services";
 import { logResponseErrorMessage } from "./utils";
 import { getWeekDateRange, toDateOnly, toDateWithLocalMidnight } from "../utils";
 
-export class WorkScheduleStore {
-  currentWorkweek: Workweek | null = null; // Workweek of the currently selected workday
+const initialState = {
+  currentWorkweek: null,
 
-  isSaveWorkdayLoading = false;
-  isFetchWorkweekLoading = false;
+  isSaveWorkdayLoading: false,
+  isFetchWorkweekLoading: false
+};
+
+export class WorkScheduleStore implements Store {
+  currentWorkweek: Workweek | null = initialState.currentWorkweek; // Workweek of the currently selected workday
+
+  isSaveWorkdayLoading = initialState.isSaveWorkdayLoading;
+  isFetchWorkweekLoading = initialState.isFetchWorkweekLoading;
 
   constructor() {
     makeAutoObservable(this);
   }
+
+  reset = () => {
+    Object.assign(this, initialState);
+  };
 
   private belongsToCurrentWorkWeek = (workdayDate: Date) => {
     const { start, end } = getWeekDateRange(workdayDate);

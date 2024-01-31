@@ -1,23 +1,40 @@
+import { resetStores, Store } from "./index";
 import { computed, makeAutoObservable, reaction, runInAction } from "mobx";
 import { Credentials, User, UserForm } from "../types";
 import { authApi, storage, userApi, navigate } from "../services";
 import { isTokenExpired, logResponseErrorMessage } from "./utils";
 import Toast from "react-native-toast-message";
 
-export class UserStore {
-  private token?: string = undefined;
-  private tokenExpiration?: string = undefined;
-  user: User | null = null;
+const initialState = {
+  token: undefined,
+  tokenExpiration: undefined,
+  user: null,
 
-  isSetupDone = false;
+  isSetupDone: false,
 
-  isLoginLoading = false;
-  isRegisterLoading = false;
-  isSendVerificationEmailLoading = false;
-  isVerifyLoading = false;
-  isSendResetPasswordEmailLoading = false;
-  isVerifyResetPasswordTokenLoading = false;
-  isResetPasswordLoading = false;
+  isLoginLoading: false,
+  isRegisterLoading: false,
+  isSendVerificationEmailLoading: false,
+  isVerifyLoading: false,
+  isSendResetPasswordEmailLoading: false,
+  isVerifyResetPasswordTokenLoading: false,
+  isResetPasswordLoading: false
+};
+
+export class UserStore implements Store {
+  private token?: string = initialState.token;
+  private tokenExpiration?: string = initialState.tokenExpiration;
+  user: User | null = initialState.user;
+
+  isSetupDone = initialState.isSetupDone;
+
+  isLoginLoading = initialState.isLoginLoading;
+  isRegisterLoading = initialState.isRegisterLoading;
+  isSendVerificationEmailLoading = initialState.isSendVerificationEmailLoading;
+  isVerifyLoading = initialState.isVerifyLoading;
+  isSendResetPasswordEmailLoading = initialState.isSendResetPasswordEmailLoading;
+  isVerifyResetPasswordTokenLoading = initialState.isVerifyResetPasswordTokenLoading;
+  isResetPasswordLoading = initialState.isResetPasswordLoading;
 
   constructor() {
     makeAutoObservable(this, {
@@ -76,6 +93,10 @@ export class UserStore {
     runInAction(() => this.isSetupDone = true);
   };
 
+  reset = () => {
+    Object.assign(this, initialState);
+  };
+
   handleTokenExpiration = (tokenExpiration?: string) => {
     if (this.isLoggedIn && isTokenExpired(tokenExpiration ?? this.tokenExpiration)) {
       this.logout();
@@ -121,13 +142,9 @@ export class UserStore {
   };
 
   logout = () => {
-    runInAction(() => {
-      this.token = '';
-      this.tokenExpiration = '';
-      this.user = null;
-    });
+    resetStores();
 
-    navigate('loginScreen');
+    setTimeout(() => navigate('loginScreen'), 0); // Push to end of event queue
   };
 
   register = async (form: UserForm) => {

@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from "./src/screen/LoginScreen";
 import ReportScreen from "./src/screen/ReportScreen";
 import Toast from "react-native-toast-message";
-import { store, StoreContext, useStore } from "./src/stores";
+import { stores, StoreContext, useStore } from "./src/stores";
 import { navigationRef } from "./src/services";
 import { toastConfig } from "./src/config/toast";
 import './src/config/moment';
@@ -26,7 +26,7 @@ export default observer(function App() {
         <Spinner size="large" style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} />
       ) : (
         <NavigationContainer ref={navigationRef}>
-          <StoreContext.Provider value={store}>
+          <StoreContext.Provider value={stores}>
             <Stack.Navigator>
               {!isLoggedIn && <Stack.Screen name='loginScreen' component={LoginScreen} options={{ title: 'Login' }} />}
               {isLoggedIn && (
