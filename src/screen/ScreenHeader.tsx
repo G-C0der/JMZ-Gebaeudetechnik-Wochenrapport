@@ -13,9 +13,22 @@ interface ScreenHeaderProps {
 export default function ScreenHeader({ title }: ScreenHeaderProps) {
   const { userStore: { logout, user } } = useStore();
 
+  const shortenName = (name?: string)  => {
+    if (!name) return;
+
+    let shortenedName = '';
+    const nameParts = name.split(' ');
+
+    for (let i = 0; i < nameParts.length; i++) {
+      shortenedName += `${nameParts[i].slice(0, 1)}.${i === nameParts.length -1 ? '' : ' '}`.toUpperCase();
+    }
+
+    return shortenedName;
+  };
+
   return (
     <View style={styles.headerContainer}>
-      <Text style={styles.userName}>{`${user?.fname} ${user?.lname?.slice(0, 1)}.`}</Text>
+      <Text style={styles.userName}>{user?.fname} {shortenName(user?.lname)}</Text>
       <Text style={styles.headerTitle}>{title}</Text>
         <Menu options={[
           { icon: 'calendar', text: 'Rapport', onPress: () => navigate('reportScreen') },
