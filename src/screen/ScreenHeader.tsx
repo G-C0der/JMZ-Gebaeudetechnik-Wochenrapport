@@ -5,6 +5,7 @@ import Menu from "../components/Menu";
 import { navigate } from "../services";
 import { useStore } from "../stores";
 import { appColorTheme } from "../config/env";
+import { shortenString } from "../utils";
 
 interface ScreenHeaderProps {
   title: string;
@@ -16,14 +17,7 @@ export default function ScreenHeader({ title }: ScreenHeaderProps) {
   const shortenName = (name?: string)  => {
     if (!name) return;
 
-    let shortenedName = '';
-    const nameParts = name.split(' ');
-
-    for (let i = 0; i < nameParts.length; i++) {
-      shortenedName += `${nameParts[i].slice(0, 1)}.${i === nameParts.length -1 ? '' : ' '}`.toUpperCase();
-    }
-
-    return shortenedName;
+    return shortenString(name, ' ').toUpperCase();
   };
 
   return (
