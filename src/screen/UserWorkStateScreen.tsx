@@ -57,7 +57,7 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
           >
             <TextField
               value={`${moment(workweek.start).format('DD.MM.')} - ${moment(workweek.end).format('DD.MM.')}`}
-              readonly
+              isReadOnly
             />
           </TouchableOpacity>
           <CheckBox

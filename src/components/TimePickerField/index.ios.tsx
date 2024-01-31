@@ -1,37 +1,48 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import { TextField } from "../TextField";
 import Button from "../Button";
 import { FormikProps } from "formik";
+import { Box } from "@gluestack-ui/themed";
 
 interface TimePickerFieldProps {
   placeholder: string;
   field: string;
   formik: FormikProps<any>;
   openTimePicker: (picker: string) => void;
+  isReadOnly?: boolean;
 }
 
-export default function TimePickerField({ placeholder, field, openTimePicker, formik }: TimePickerFieldProps) {
+export default function TimePickerField({
+  placeholder,
+  field,
+  openTimePicker,
+  formik,
+  isReadOnly
+}: TimePickerFieldProps) {
   return (
     <>
-      <View style={styles.textFieldContainer}>
+      <Box style={styles.textFieldContainer}>
         <TextField
           placeholder={placeholder}
           field={field}
           formik={formik}
           value={formik.values[field]}
-          readonly
+          isReadOnly
         />
-        <TouchableOpacity
-          style={styles.overlayTouchable}
-          onPress={() => openTimePicker(field)}
-        />
-      </View>
+        {!isReadOnly && (
+          <TouchableOpacity
+            style={styles.overlayTouchable}
+            onPress={() => openTimePicker(field)}
+          />
+        )}
+      </Box>
+
       <Button
         icon='delete'
         action="secondary"
         w='$10'
-        isDisabled={!formik.values[field]}
+        isDisabled={isReadOnly || !formik.values[field]}
         onPress={() => formik.setFieldValue(field, null)}
       />
     </>
