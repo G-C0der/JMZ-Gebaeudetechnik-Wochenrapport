@@ -150,15 +150,39 @@ export default observer(function ReportScreen() {
       </HStack>
 
       <HStack space='md'>
-        <TimePickerField placeholder='von' field='from' formik={formik} openTimePicker={openTimePicker} />
+        <TimePickerField
+          placeholder='von'
+          field='from'
+          formik={formik}
+          openTimePicker={openTimePicker}
+          isReadOnly={currentWorkweek?.approved}
+        />
 
-        <TimePickerField placeholder='bis' field='to' formik={formik} openTimePicker={openTimePicker} />
+        <TimePickerField
+          placeholder='bis'
+          field='to'
+          formik={formik}
+          openTimePicker={openTimePicker}
+          isReadOnly={currentWorkweek?.approved}
+        />
       </HStack>
 
       <HStack space='md'>
-        <TimePickerField placeholder='von' field='from2' formik={formik} openTimePicker={openTimePicker} />
+        <TimePickerField
+          placeholder='von'
+          field='from2'
+          formik={formik}
+          openTimePicker={openTimePicker}
+          isReadOnly={currentWorkweek?.approved}
+        />
 
-        <TimePickerField placeholder='bis' field='to2' formik={formik} openTimePicker={openTimePicker} />
+        <TimePickerField
+          placeholder='bis'
+          field='to2'
+          formik={formik}
+          openTimePicker={openTimePicker}
+          isReadOnly={currentWorkweek?.approved}
+        />
       </HStack>
 
       {currentTimePicker && (
@@ -178,11 +202,18 @@ export default observer(function ReportScreen() {
         />
       )}
 
-      <TextField placeholder='Projekt' field='project' formik={formik} />
+      <TextField placeholder='Projekt' field='project' formik={formik} isReadOnly={currentWorkweek?.approved} />
 
-      <SelectField placeholder='Typ' options={codeMap} field='code' formik={formik} valueFormatter={(value) => parseInt(value)} />
+      <SelectField
+        placeholder='Typ'
+        options={codeMap}
+        field='code'
+        formik={formik}
+        valueFormatter={(value) => parseInt(value)}
+        isReadOnly={currentWorkweek?.approved}
+      />
 
-      <TextField placeholder='Stunden' value={getTotalTime()} isReadonly />
+      <TextField placeholder='Stunden' value={getTotalTime()} isReadOnly />
 
       <LoadingButton
         text='Speichern'

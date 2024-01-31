@@ -23,9 +23,10 @@ interface SelectFieldProps {
   field: string;
   formik: FormikProps<any>;
   valueFormatter?: (value: string) => unknown;
+  isReadOnly?: boolean;
 }
 
-export function SelectField({ placeholder, options, field, formik, valueFormatter }: SelectFieldProps) {
+export function SelectField({ placeholder, options, field, formik, valueFormatter, isReadOnly }: SelectFieldProps) {
   const getValue = (value: string) => valueFormatter ? valueFormatter(value) : value;
   const initialDisplay = options[formik.values[field]];
 
@@ -36,7 +37,7 @@ export function SelectField({ placeholder, options, field, formik, valueFormatte
         selectedValue={initialDisplay}
         onValueChange={(value) => formik.setFieldValue(field, getValue(value))}
       >
-        <SelectTrigger variant="outline" size="md">
+        <SelectTrigger disabled={isReadOnly} variant="outline" size="md">
           <SelectInput placeholder={placeholder} style={{ paddingTop: 0, paddingBottom: 0 }} />
           <SelectIcon mr="$3">
             <Icon as={ChevronDownIcon} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 import { Text } from "@gluestack-ui/themed";
 import Menu from "../components/Menu";
 import { navigate } from "../services";
@@ -21,7 +21,7 @@ export default function ScreenHeader({ title }: ScreenHeaderProps) {
   };
 
   return (
-    <View style={styles.headerContainer}>
+    <SafeAreaView style={styles.headerContainer}>
       <Text style={styles.userName}>{user?.fname} {shortenName(user?.lname)}</Text>
       <Text style={styles.headerTitle}>{title}</Text>
         <Menu options={[
@@ -29,7 +29,7 @@ export default function ScreenHeader({ title }: ScreenHeaderProps) {
           { icon: 'addusergroup', text: 'Mitarbeiter', onPress: () => navigate('usersScreen') },
           { icon: 'logout', text: 'Ausloggen', onPress: logout }
         ]} />
-    </View>
+    </SafeAreaView>
   );
 }
 

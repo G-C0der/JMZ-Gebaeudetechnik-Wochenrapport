@@ -22,7 +22,7 @@ export default function Screen({ scrollable, children }: MainScreenProps) {
         <ScrollView>
           {node}
         </ScrollView>
-      ): node}
+      ) : node}
     </SafeAreaView>
   );
 }
