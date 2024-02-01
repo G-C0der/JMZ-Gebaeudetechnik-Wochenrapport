@@ -22,7 +22,7 @@ interface UserWorkStateScreenProps {
 
 export default observer(function UserWorkStateScreen({ route }: UserWorkStateScreenProps){
   interface UserWorkweekApprovalStates {
-    [key: string]: { approved: boolean, readonly?: boolean };
+    [key: string]: { approved: boolean, readonly: boolean };
   }
 
   const { user } = route.params;
@@ -51,7 +51,7 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
   }, [userWorkweeks]);
 
   const handleCheckboxChange = (workweekId: number, isChecked: boolean) => {
-    setWorkweekCheckboxStates({ ...workweekCheckboxStates, [workweekId]: { approved: isChecked } });
+    setWorkweekCheckboxStates({ ...workweekCheckboxStates, [workweekId]: { approved: isChecked, readonly: false } });
   };
 
   const handleApproveClick = async () => {
