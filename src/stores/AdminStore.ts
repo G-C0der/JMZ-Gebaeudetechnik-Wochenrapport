@@ -59,25 +59,33 @@ export class AdminStore implements Store {
     this.isListWorkweeksLoading = true;
     try {
       const { workweeks } = await workweekApi.list(userId);
-      runInAction(() => this.userWorkweeks = workweeks);
+      runInAction(() => {
+        this.userWorkweeks = workweeks;
+        this.isListWorkweeksLoading = initialState.isListWorkweeksLoading;
+      });
     } catch (err) {
       logResponseErrorMessage(err);
 
-      if (this.isListWorkweeksLoading) runInAction(() => this.isListWorkweeksLoading = false);
+      runInAction(() => {
+        this.userWorkweeks = initialState.userWorkweeks;
+        this.isListWorkweeksLoading = initialState.isListWorkweeksLoading;
+      });
     }
   };
 
-  approveWorkweeks = async (workweekIds: Workweek['id'][]) => {
+  approveWorkweeks = async (workweekIds: Workweek['id'][]): Promise<Workweek['id'][]> => {
     this.authorize();
 
     this.isApproveWorkweekLoading = true;
     try {
-      await workweekApi.approve(workweekIds);
-      runInAction(() => this.isApproveWorkweekLoading = false);
+      const { approvedWorkweekIds } = await workweekApi.approve(workweekIds);
+      runInAction(() => this.isApproveWorkweekLoading = initialState.isApproveWorkweekLoading);
+      return approvedWorkweekIds;
     } catch (err) {
       logResponseErrorMessage(err);
 
-      if (this.isApproveWorkweekLoading) runInAction(() => this.isApproveWorkweekLoading = false);
+      runInAction(() => this.isApproveWorkweekLoading = initialState.isApproveWorkweekLoading);
+      return [];
     }
   };
 

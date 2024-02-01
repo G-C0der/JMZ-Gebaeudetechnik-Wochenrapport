@@ -15,7 +15,7 @@ class WorkweekApi extends Api {
   };
 
   approve = async (workweekIds: Workweek['id'][]) => {
-    const { data } = await this.api.patch(this.basePath, { ids: workweekIds });
+    const { data: { data } } = await this.api.patch(this.basePath, { ids: workweekIds });
     return data;
   };
 }

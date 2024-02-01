@@ -28,7 +28,13 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
   const { user } = route.params;
 
   const {
-    adminStore: { userWorkweeks, listWorkweeks, isListWorkweeksLoading, approveWorkweeks, isApproveWorkweekLoading }
+    adminStore: {
+      listWorkweeks,
+      userWorkweeks,
+      isListWorkweeksLoading,
+      approveWorkweeks,
+      isApproveWorkweekLoading
+    }
   } = useStore();
 
   const [workweekCheckboxStates, setWorkweekCheckboxStates] = useState<UserWorkweekApprovalStates>({});
@@ -58,13 +64,14 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
     const approvedPendingWorkweekIds = Object.keys(Object.fromEntries(
       Object.entries(workweekCheckboxStates).filter(([_, { approved, readonly }]) => approved && !readonly))
     ).map(Number);
-    await approveWorkweeks(approvedPendingWorkweekIds);
+    const approvedUserWorkweekIds = await approveWorkweeks(approvedPendingWorkweekIds);
 
     const approvedUserWorkweekCheckboxStates: UserWorkweekApprovalStates = {};
     Object.entries(workweekCheckboxStates).forEach(([workweekId]) => {
-      if (approvedPendingWorkweekIds.includes(parseInt(workweekId))) {
-        approvedUserWorkweekCheckboxStates[workweekId] = { approved: true, readonly: true };
-      }
+      approvedUserWorkweekCheckboxStates[workweekId] = approvedUserWorkweekIds.includes(parseInt(workweekId))
+        || workweekCheckboxStates[workweekId].readonly
+        ? { approved: true, readonly: true }
+        : { approved: false, readonly: false }
     });
     setWorkweekCheckboxStates({ ...workweekCheckboxStates, ...approvedUserWorkweekCheckboxStates });
   };
