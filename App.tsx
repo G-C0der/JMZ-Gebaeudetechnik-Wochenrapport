@@ -25,8 +25,8 @@ export default observer(function App() {
       {!isSetupDone || (isLoggedIn && !user) ? (
         <Spinner size="large" style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} />
       ) : (
-        <NavigationContainer ref={navigationRef}>
-          <StoreContext.Provider value={stores}>
+        <StoreContext.Provider value={stores}>
+          <NavigationContainer ref={navigationRef}>
             <Stack.Navigator>
               {!isLoggedIn && <Stack.Screen name='loginScreen' component={LoginScreen} options={{ title: 'Login' }} />}
               {isLoggedIn && (
@@ -43,8 +43,8 @@ export default observer(function App() {
                 </>
               )}
             </Stack.Navigator>
-          </StoreContext.Provider>
-        </NavigationContainer>
+          </NavigationContainer>
+        </StoreContext.Provider>
       )}
 
       <Toast config={toastConfig} />
