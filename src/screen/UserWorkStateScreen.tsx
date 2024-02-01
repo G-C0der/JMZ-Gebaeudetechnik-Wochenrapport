@@ -55,11 +55,14 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
   };
 
   const handleApproveClick = async () => {
-    const workweekIds = Object.keys(Object.fromEntries(Object.entries(workweekCheckboxStates).filter(([_, state]) => state))).map(Number);
+    const workweekIds = Object.keys(Object.fromEntries(
+      Object.entries(workweekCheckboxStates).filter(([_, { approved }]) => approved))
+    ).map(Number);
     await approveWorkweeks(workweekIds);
   };
 
-  const isACheckboxChecked = () => !!Object.entries(workweekCheckboxStates).find(([_, checked]) => checked);
+  const isAPendingWorkweekCheckboxChecked = () => !!Object.entries(workweekCheckboxStates)
+    .find(([_, { approved, readonly }]) => approved && !readonly);
 
   return (
     <Screen>
@@ -94,7 +97,7 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
         icon='checkcircleo'
         onPress={() => setIsApprovalPopUpDialogOpen(true)}
         loading={isApproveWorkweekLoading}
-        isDisabled={user.admin || !isACheckboxChecked()}
+        isDisabled={user.admin || !isAPendingWorkweekCheckboxChecked()}
       />
       <PopUpDialog
         isOpen={isApprovalPopUpDialogOpen}
