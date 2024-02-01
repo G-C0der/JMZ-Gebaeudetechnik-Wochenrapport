@@ -128,7 +128,7 @@ export class UserStore implements Store {
         this.tokenExpiration = expiration;
         this.user = user;
 
-        this.isLoginLoading = false;
+        this.isLoginLoading = initialState.isLoginLoading;
       });
 
       navigate('reportScreen');
@@ -137,7 +137,7 @@ export class UserStore implements Store {
     } catch (err) {
       logResponseErrorMessage(err);
 
-      if (this.isLoginLoading) runInAction(() => this.isLoginLoading = false);
+      runInAction(() => this.isLoginLoading = initialState.isLoginLoading);
     }
   };
 
@@ -151,11 +151,11 @@ export class UserStore implements Store {
     this.isRegisterLoading = true;
     try {
       await userApi.register(form);
-      runInAction(() => this.isRegisterLoading = false);
+      runInAction(() => this.isRegisterLoading = initialState.isRegisterLoading);
     } catch (err) {
       logResponseErrorMessage(err);
 
-      if (this.isRegisterLoading) runInAction(() => this.isRegisterLoading = false);
+      runInAction(() => this.isRegisterLoading = initialState.isRegisterLoading);
     }
   };
 
@@ -163,11 +163,11 @@ export class UserStore implements Store {
     this.isSendVerificationEmailLoading = true;
     try {
       await userApi.sendVerificationEmail(email);
-      runInAction(() => this.isSendVerificationEmailLoading = false);
+      runInAction(() => this.isSendVerificationEmailLoading = initialState.isSendVerificationEmailLoading);
     } catch (err) {
       logResponseErrorMessage(err);
 
-      if (this.isSendVerificationEmailLoading) runInAction(() => this.isSendVerificationEmailLoading = false);
+      runInAction(() => this.isSendVerificationEmailLoading = initialState.isSendVerificationEmailLoading);
     }
   };
 
@@ -175,11 +175,11 @@ export class UserStore implements Store {
     this.isVerifyLoading = true;
     try {
       await userApi.verify(token);
-      runInAction(() => this.isVerifyLoading = false);
+      runInAction(() => this.isVerifyLoading = initialState.isVerifyLoading);
     } catch (err) {
       logResponseErrorMessage(err);
 
-      if (this.isVerifyLoading) runInAction(() => this.isVerifyLoading = false);
+      runInAction(() => this.isVerifyLoading = initialState.isVerifyLoading);
     }
   };
 
@@ -187,11 +187,11 @@ export class UserStore implements Store {
     this.isSendResetPasswordEmailLoading = true;
     try {
       await userApi.sendResetPasswordEmail(email);
-      runInAction(() => this.isSendResetPasswordEmailLoading = false);
+      runInAction(() => this.isSendResetPasswordEmailLoading = initialState.isSendResetPasswordEmailLoading);
     } catch (err) {
       logResponseErrorMessage(err);
 
-      if (this.isSendResetPasswordEmailLoading) runInAction(() => this.isSendResetPasswordEmailLoading = false);
+      runInAction(() => this.isSendResetPasswordEmailLoading = initialState.isSendResetPasswordEmailLoading);
     }
   };
 
@@ -199,11 +199,11 @@ export class UserStore implements Store {
     this.isVerifyResetPasswordTokenLoading = true;
     try {
       await userApi.verifyResetPasswordToken(token);
-      runInAction(() => this.isVerifyResetPasswordTokenLoading = false);
+      runInAction(() => this.isVerifyResetPasswordTokenLoading = initialState.isVerifyResetPasswordTokenLoading);
     } catch (err) {
       logResponseErrorMessage(err);
 
-      if (this.isVerifyResetPasswordTokenLoading) runInAction(() => this.isVerifyResetPasswordTokenLoading = false);
+      runInAction(() => this.isVerifyResetPasswordTokenLoading = initialState.isVerifyResetPasswordTokenLoading);
     }
   };
 
@@ -211,11 +211,11 @@ export class UserStore implements Store {
     this.isResetPasswordLoading = true;
     try {
       await userApi.resetPassword(password, token);
-      runInAction(() => this.isResetPasswordLoading = false);
+      runInAction(() => this.isResetPasswordLoading = initialState.isResetPasswordLoading);
     } catch (err) {
       logResponseErrorMessage(err);
 
-      if (this.isResetPasswordLoading) runInAction(() => this.isResetPasswordLoading = false);
+      runInAction(() => this.isResetPasswordLoading = initialState.isResetPasswordLoading);
     }
   };
 }

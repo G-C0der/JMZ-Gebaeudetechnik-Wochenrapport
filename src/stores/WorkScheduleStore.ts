@@ -50,12 +50,12 @@ export class WorkScheduleStore implements Store {
           else this.currentWorkweek.workdays.push(workday);
         }
 
-        this.isSaveWorkdayLoading = false;
+        this.isSaveWorkdayLoading = initialState.isSaveWorkdayLoading;
       });
     } catch (err) {
       logResponseErrorMessage(err);
 
-      if (this.isSaveWorkdayLoading) runInAction(() => this.isSaveWorkdayLoading = false);
+      runInAction(() => this.isSaveWorkdayLoading = initialState.isSaveWorkdayLoading);
     }
   };
 
@@ -68,13 +68,15 @@ export class WorkScheduleStore implements Store {
 
       runInAction(() => {
         this.currentWorkweek = workweek;
-
-        this.isFetchWorkweekLoading = false;
+        this.isFetchWorkweekLoading = initialState.isFetchWorkweekLoading;
       });
     } catch (err) {
       logResponseErrorMessage(err);
 
-      if (this.isFetchWorkweekLoading) runInAction(() => this.isFetchWorkweekLoading = false);
+      runInAction(() => {
+        this.currentWorkweek = initialState.currentWorkweek;
+        this.isFetchWorkweekLoading = initialState.isFetchWorkweekLoading;
+      });
     }
   };
 }

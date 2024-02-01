@@ -5,10 +5,10 @@ import Screen from "./Screen";
 import { RouteProp } from "@react-navigation/native";
 import { useStore } from "../stores";
 import { TextField } from "../components/TextField";
-import { TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import moment from "moment";
 import CheckBox from "../components/CheckBox";
-import { HStack } from "@gluestack-ui/themed";
+import { Box, HStack, ScrollView, Text } from "@gluestack-ui/themed";
 import { LoadingButton } from "../components/LoadingButton";
 import PopUpDialog from "../components/PopUpDialog";
 
@@ -21,57 +21,88 @@ interface UserWorkStateScreenProps {
 }
 
 export default observer(function UserWorkStateScreen({ route }: UserWorkStateScreenProps){
+  interface UserWorkweekApprovalStates {
+    [key: string]: { approved: boolean, readonly: boolean };
+  }
+
   const { user } = route.params;
 
   const {
-    adminStore: { userWorkweeks, listWorkweeks, isListWorkweeksLoading, approveWorkweeks, isApproveWorkweekLoading }
+    adminStore: {
+      listWorkweeks,
+      userWorkweeks,
+      isListWorkweeksLoading,
+      approveWorkweeks,
+      isApproveWorkweekLoading
+    }
   } = useStore();
 
-  const [workweekCheckboxStates, setWorkweekCheckboxStates] = useState({});
+  const [workweekCheckboxStates, setWorkweekCheckboxStates] = useState<UserWorkweekApprovalStates>({});
   const [isApprovalPopUpDialogOpen, setIsApprovalPopUpDialogOpen] = useState(false);
 
   useEffect(() => {
     if (!userWorkweeks.length || (userWorkweeks.length && userWorkweeks[0].userId !== user.id)) {
       const fetchWorkweeks = async () => await listWorkweeks(user.id);
       fetchWorkweeks();
+    } else {
+      const userWorkweekApprovalStates: UserWorkweekApprovalStates = {};
+      for (const userWorkweek of userWorkweeks) {
+        userWorkweekApprovalStates[userWorkweek.id] = {
+          approved: userWorkweek.approved,
+          readonly: userWorkweek.approved
+        };
+      }
+      setWorkweekCheckboxStates({ ...workweekCheckboxStates, ...userWorkweekApprovalStates });
     }
   }, [userWorkweeks]);
 
   const handleCheckboxChange = (workweekId: number, isChecked: boolean) => {
-    setWorkweekCheckboxStates({ ...workweekCheckboxStates, [workweekId]: isChecked });
+    setWorkweekCheckboxStates({ ...workweekCheckboxStates, [workweekId]: { approved: isChecked, readonly: false } });
   };
 
   const handleApproveClick = async () => {
-    const workweekIds = Object.keys(Object.fromEntries(Object.entries(workweekCheckboxStates).filter(([_, state]) => state))).map(Number);
-    await approveWorkweeks(workweekIds);
+    const approvedPendingWorkweekIds = Object.keys(Object.fromEntries(
+      Object.entries(workweekCheckboxStates).filter(([_, { approved, readonly }]) => approved && !readonly))
+    ).map(Number);
+    await approveWorkweeks(approvedPendingWorkweekIds);
   };
+
+  const isAPendingWorkweekCheckboxChecked = () => !!Object.entries(workweekCheckboxStates)
+    .find(([_, { approved, readonly }]) => approved && !readonly);
 
   return (
     <Screen>
-      {userWorkweeks.map(workweek => (
-        <HStack space='md'>
-          <TouchableOpacity
-            key={workweek.id}
-            onPress={() => {}}
-            style={{ flex: 1 }}
-          >
-            <TextField
-              value={`${moment(workweek.start).format('DD.MM.')} - ${moment(workweek.end).format('DD.MM.')}`}
-              isReadOnly
-            />
-          </TouchableOpacity>
-          <CheckBox
-            value={workweekCheckboxStates[workweek.id] || false}
-            onChange={(isChecked: boolean) => handleCheckboxChange(workweek.id, isChecked)}
-          />
-        </HStack>
-      ))}
+      <Text style={styles.userName}>{user.fname} {user.lname}</Text>
 
+      <ScrollView style={styles.workweeksContainer}>
+        <Box gap={12}>
+          {userWorkweeks.map(workweek => (
+            <HStack key={workweek.id} space='md'>
+              <TouchableOpacity
+                onPress={() => {}}
+                style={{ flex: 1 }}
+              >
+                <TextField
+                  value={`${moment(workweek.start).format('DD.MM.')} - ${moment(workweek.end).format('DD.MM.')}`}
+                  isReadOnly
+                />
+              </TouchableOpacity>
+              <CheckBox
+                value={workweekCheckboxStates[workweek.id]?.approved || false}
+                onChange={(isChecked: boolean) => handleCheckboxChange(workweek.id, isChecked)}
+                isDisabled={user.admin}
+                isReadOnly={workweekCheckboxStates[workweek.id]?.readonly}
+              />
+            </HStack>
+          ))}
+        </Box>
+      </ScrollView>
       <LoadingButton
         text='Bewilligen'
         icon='checkcircleo'
         onPress={() => setIsApprovalPopUpDialogOpen(true)}
         loading={isApproveWorkweekLoading}
+        isDisabled={user.admin || !isAPendingWorkweekCheckboxChecked()}
       />
       <PopUpDialog
         isOpen={isApprovalPopUpDialogOpen}
@@ -81,6 +112,18 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
         actionButtonText='Bewilligen'
         callback={handleApproveClick}
       />
+
     </Screen>
   );
+});
+
+const styles = StyleSheet.create({
+  userName: {
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  workweeksContainer: {
+    height: '33%',
+    overflow: "scroll"
+  }
 });

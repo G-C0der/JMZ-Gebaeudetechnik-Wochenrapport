@@ -44,12 +44,12 @@ export class AdminStore implements Store {
       runInAction(() => {
         this.users = users;
 
-        this.isListUsersLoading = false;
+        this.isListUsersLoading = initialState.isListUsersLoading;
       });
     } catch (err) {
       logResponseErrorMessage(err);
 
-      if (this.isListUsersLoading) runInAction(() => this.isListUsersLoading = false);
+      runInAction(() => this.isListUsersLoading = initialState.isListUsersLoading);
     }
   };
 
@@ -59,11 +59,17 @@ export class AdminStore implements Store {
     this.isListWorkweeksLoading = true;
     try {
       const { workweeks } = await workweekApi.list(userId);
-      runInAction(() => this.userWorkweeks = workweeks);
+      runInAction(() => {
+        this.userWorkweeks = workweeks;
+        this.isListWorkweeksLoading = initialState.isListWorkweeksLoading;
+      });
     } catch (err) {
       logResponseErrorMessage(err);
 
-      if (this.isListWorkweeksLoading) runInAction(() => this.isListWorkweeksLoading = false);
+      runInAction(() => {
+        this.userWorkweeks = initialState.userWorkweeks;
+        this.isListWorkweeksLoading = initialState.isListWorkweeksLoading;
+      });
     }
   };
 
@@ -72,12 +78,17 @@ export class AdminStore implements Store {
 
     this.isApproveWorkweekLoading = true;
     try {
-      await workweekApi.approve(workweekIds);
-      runInAction(() => this.isApproveWorkweekLoading = false);
+      const { approvedWorkweekIds } = await workweekApi.approve(workweekIds);
+      runInAction(() => {
+        this.userWorkweeks = this.userWorkweeks.map(workweek => approvedWorkweekIds.includes(workweek.id)
+          ? ({ ...workweek, approved: true })
+          : workweek);
+        this.isApproveWorkweekLoading = initialState.isApproveWorkweekLoading;
+      });
     } catch (err) {
       logResponseErrorMessage(err);
 
-      if (this.isApproveWorkweekLoading) runInAction(() => this.isApproveWorkweekLoading = false);
+      runInAction(() => this.isApproveWorkweekLoading = initialState.isApproveWorkweekLoading);
     }
   };
 
@@ -94,12 +105,12 @@ export class AdminStore implements Store {
           this.users[updatedUserIndex] = { ...updatedUser, active: !updatedUser.active };
         }
 
-        this.isChangeUserActiveStateLoading = false;
+        this.isChangeUserActiveStateLoading = initialState.isChangeUserActiveStateLoading;
       });
     } catch (err) {
       logResponseErrorMessage(err);
 
-      if (this.isChangeUserActiveStateLoading) runInAction(() => this.isChangeUserActiveStateLoading = false);
+      runInAction(() => this.isChangeUserActiveStateLoading = initialState.isChangeUserActiveStateLoading);
     }
   };
 }
