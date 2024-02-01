@@ -59,6 +59,13 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
       Object.entries(workweekCheckboxStates).filter(([_, { approved }]) => approved))
     ).map(Number);
     await approveWorkweeks(workweekIds);
+
+    const approvedUserWorkweekCheckboxStates: UserWorkweekApprovalStates = Object.fromEntries(
+      Object.entries(workweekCheckboxStates)
+        .filter(([workweekId]) => workweekIds.includes(parseInt(workweekId)))
+        .map(([workweekId]) => [workweekId, { approved: true, readonly: true }])
+    );
+    setWorkweekCheckboxStates({ ...workweekCheckboxStates, ...approvedUserWorkweekCheckboxStates });
   };
 
   const isAPendingWorkweekCheckboxChecked = () => !!Object.entries(workweekCheckboxStates)
