@@ -21,13 +21,17 @@ interface UserWorkStateScreenProps {
 }
 
 export default observer(function UserWorkStateScreen({ route }: UserWorkStateScreenProps){
+  interface UserWorkweekApprovalStates {
+    [key: string]: { approved: boolean, readonly?: boolean };
+  }
+
   const { user } = route.params;
 
   const {
     adminStore: { userWorkweeks, listWorkweeks, isListWorkweeksLoading, approveWorkweeks, isApproveWorkweekLoading }
   } = useStore();
 
-  const [workweekCheckboxStates, setWorkweekCheckboxStates] = useState({});
+  const [workweekCheckboxStates, setWorkweekCheckboxStates] = useState<UserWorkweekApprovalStates>({});
   const [isApprovalPopUpDialogOpen, setIsApprovalPopUpDialogOpen] = useState(false);
 
   useEffect(() => {
@@ -35,16 +39,19 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
       const fetchWorkweeks = async () => await listWorkweeks(user.id);
       fetchWorkweeks();
     } else {
-      const userWorkweekApprovalStates: { [key: string]: boolean } = {};
+      const userWorkweekApprovalStates: UserWorkweekApprovalStates = {};
       for (const userWorkweek of userWorkweeks) {
-        userWorkweekApprovalStates[userWorkweek.id] = userWorkweek.approved;
+        userWorkweekApprovalStates[userWorkweek.id] = {
+          approved: userWorkweek.approved,
+          readonly: userWorkweek.approved
+        };
       }
       setWorkweekCheckboxStates({ ...workweekCheckboxStates, ...userWorkweekApprovalStates });
     }
   }, [userWorkweeks]);
 
   const handleCheckboxChange = (workweekId: number, isChecked: boolean) => {
-    setWorkweekCheckboxStates({ ...workweekCheckboxStates, [workweekId]: isChecked });
+    setWorkweekCheckboxStates({ ...workweekCheckboxStates, [workweekId]: { approved: isChecked } });
   };
 
   const handleApproveClick = async () => {
@@ -73,9 +80,10 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
                 />
               </TouchableOpacity>
               <CheckBox
-                value={workweekCheckboxStates[workweek.id] || false}
+                value={workweekCheckboxStates[workweek.id]?.approved || false}
                 onChange={(isChecked: boolean) => handleCheckboxChange(workweek.id, isChecked)}
                 isDisabled={user.admin}
+                isReadOnly={workweekCheckboxStates[workweek.id]?.readonly}
               />
             </HStack>
           ))}
