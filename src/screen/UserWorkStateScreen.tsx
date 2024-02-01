@@ -86,9 +86,8 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
       <ScrollView style={styles.workweeksContainer}>
         <Box gap={12}>
           {userWorkweeks.map(workweek => (
-            <HStack space='md'>
+            <HStack key={workweek.id} space='md'>
               <TouchableOpacity
-                key={workweek.id}
                 onPress={() => {}}
                 style={{ flex: 1 }}
               >
