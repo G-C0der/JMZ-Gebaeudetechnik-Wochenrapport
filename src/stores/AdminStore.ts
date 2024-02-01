@@ -73,19 +73,22 @@ export class AdminStore implements Store {
     }
   };
 
-  approveWorkweeks = async (workweekIds: Workweek['id'][]): Promise<Workweek['id'][]> => {
+  approveWorkweeks = async (workweekIds: Workweek['id'][]) => {
     this.authorize();
 
     this.isApproveWorkweekLoading = true;
     try {
       const { approvedWorkweekIds } = await workweekApi.approve(workweekIds);
-      runInAction(() => this.isApproveWorkweekLoading = initialState.isApproveWorkweekLoading);
-      return approvedWorkweekIds;
+      runInAction(() => {
+        this.userWorkweeks = this.userWorkweeks.map(workweek => approvedWorkweekIds.includes(workweek.id)
+          ? ({ ...workweek, approved: true })
+          : workweek);
+        this.isApproveWorkweekLoading = initialState.isApproveWorkweekLoading;
+      });
     } catch (err) {
       logResponseErrorMessage(err);
 
       runInAction(() => this.isApproveWorkweekLoading = initialState.isApproveWorkweekLoading);
-      return [];
     }
   };
 
