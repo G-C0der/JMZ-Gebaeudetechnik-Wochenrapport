@@ -20,6 +20,16 @@ if (isDevEnv) {
     }
     originalConsoleWarn.apply(console, args);
   };
+  const originalConsoleError = console.error;
+  console.error = (...args) => {
+    const errorsToIgnore = [
+      /Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?/i,
+    ];
+    if (errorsToIgnore.some(pattern => pattern.test(args[0]))) {
+      return;
+    }
+    originalConsoleError.apply(console, args);
+  };
 }
 
 AppRegistry.registerComponent(appName, () => App);
