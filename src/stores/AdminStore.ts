@@ -35,6 +35,10 @@ export class AdminStore implements Store {
     if (!stores.userStore.isAdmin) throw new Error('No permission.');
   };
 
+  clearWorkweeks = () => {
+    runInAction(() => this.userWorkweeks.length = 0);
+  };
+
   listUsers = async () => {
     this.authorize();
 

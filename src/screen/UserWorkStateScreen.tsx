@@ -29,6 +29,7 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
   const {
     adminStore: {
       listWorkweeks,
+      clearWorkweeks,
       userWorkweeks,
       isListWorkweeksLoading,
       approveWorkweeks,
@@ -42,7 +43,11 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
   const spinnerMinHeight = getScreenHeight() * 0.27;
 
   useEffect(() => {
-    if (!userWorkweeks.length || !areWorkweeksFromCurrentUserLoaded()) {
+    return () => clearWorkweeks();
+  }, []);
+
+  useEffect(() => {
+    if (!userWorkweeks.length) {
       const fetchWorkweeks = async () => await listWorkweeks(user.id);
       fetchWorkweeks();
     } else {
@@ -68,8 +73,6 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
     await approveWorkweeks(approvedPendingWorkweekIds);
   };
 
-  const areWorkweeksFromCurrentUserLoaded = () => userWorkweeks[0]?.userId === user.id;
-
   const isAPendingWorkweekCheckboxChecked = () => !!Object.entries(workweekCheckboxStates)
     .find(([_, { approved, readonly }]) => approved && !readonly);
 
@@ -78,7 +81,7 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
       <Text style={styles.userName}>{user.fname} {user.lname}</Text>
 
       <ScrollView style={styles.workweeksContainer}>
-        {!areWorkweeksFromCurrentUserLoaded() || isListWorkweeksLoading ? (
+        {isListWorkweeksLoading ? (
           <Spinner style={{ minHeight: spinnerMinHeight }} />
         ) : (
           <Box gap={12}>
