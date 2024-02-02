@@ -15,6 +15,7 @@ import UserWorkStateScreen from "./src/screen/UserWorkStateScreen";
 import { observer } from "mobx-react-lite";
 import ScreenHeader from "./src/screen/ScreenHeader";
 import Spinner from './src/components/Spinner';
+import './src/services/console';
 
 const Stack = createNativeStackNavigator();
 

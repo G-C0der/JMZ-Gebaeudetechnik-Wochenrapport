@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet } from "react-native";
 import { Text } from "@gluestack-ui/themed";
 import Menu from "../components/Menu";
-import { navigate } from "../services";
+import { navigate, navigationRef } from "../services";
 import { useStore } from "../stores";
 import { appColorTheme } from "../config/env";
 import { shortenString } from "../utils";
@@ -20,15 +20,37 @@ export default function ScreenHeader({ title }: ScreenHeaderProps) {
     return shortenString(name, ' ').toUpperCase();
   };
 
+  const getCurrentRouteName = () => navigationRef.isReady() && navigationRef.getCurrentRoute()?.name;
+
+  const getMenuOptions = () => {
+    const options = [
+      {
+        icon: 'calendar',
+        text: 'Rapport',
+        onPress: () => navigate('reportScreen'),
+        condition: getCurrentRouteName() !== 'reportScreen'
+      },
+      {
+        icon: 'addusergroup',
+        text: 'Mitarbeiter',
+        onPress: () => navigate('usersScreen'),
+        condition: getCurrentRouteName() !== 'usersScreen' && user?.admin
+      },
+      {
+        icon: 'logout',
+        text: 'Ausloggen',
+        onPress: logout
+      }
+    ];
+
+    return options.filter(option => option.condition !== false);
+  };
+
   return (
     <SafeAreaView style={styles.headerContainer}>
       <Text style={styles.userName}>{user?.fname} {shortenName(user?.lname)}</Text>
       <Text style={styles.headerTitle}>{title}</Text>
-        <Menu options={[
-          { icon: 'calendar', text: 'Rapport', onPress: () => navigate('reportScreen') },
-          { icon: 'addusergroup', text: 'Mitarbeiter', onPress: () => navigate('usersScreen') },
-          { icon: 'logout', text: 'Ausloggen', onPress: logout }
-        ]} />
+      <Menu options={getMenuOptions()} />
     </SafeAreaView>
   );
 }

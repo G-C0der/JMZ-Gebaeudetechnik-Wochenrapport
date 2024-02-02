@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Menu, MenuItem, MenuItemLabel, Text } from "@gluestack-ui/themed";
+import { Menu, MenuItem, MenuItemLabel } from "@gluestack-ui/themed";
 import Icon from '../Icon';
 import Button from '../Button';
 

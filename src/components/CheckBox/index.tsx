@@ -5,12 +5,12 @@ interface CheckBoxProps {
   value: boolean;
   onChange: () => void;
   isDisabled?: boolean;
-  isReadOnly?: boolean;
+  isReadonly?: boolean;
 }
 
-export default function CheckBox({ value, onChange, isDisabled, isReadOnly }: CheckBoxProps) {
+export default function CheckBox({ value, onChange, isDisabled, isReadonly }: CheckBoxProps) {
   return (
-    <Checkbox size="md" isChecked={value} onChange={isReadOnly ? null : onChange} isDisabled={isDisabled}>
+    <Checkbox size="md" isChecked={value} onChange={isReadonly ? null : onChange} isDisabled={isDisabled}>
       <CheckboxIndicator mr="$2">
         <CheckboxIcon as={CheckIcon} />
       </CheckboxIndicator>

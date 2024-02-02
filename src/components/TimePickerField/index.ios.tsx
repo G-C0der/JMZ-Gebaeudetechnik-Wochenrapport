@@ -10,7 +10,7 @@ interface TimePickerFieldProps {
   field: string;
   formik: FormikProps<any>;
   openTimePicker: (picker: string) => void;
-  isReadOnly?: boolean;
+  isReadonly?: boolean;
 }
 
 export default function TimePickerField({
@@ -18,7 +18,7 @@ export default function TimePickerField({
   field,
   openTimePicker,
   formik,
-  isReadOnly
+  isReadonly
 }: TimePickerFieldProps) {
   return (
     <>
@@ -28,9 +28,9 @@ export default function TimePickerField({
           field={field}
           formik={formik}
           value={formik.values[field]}
-          isReadOnly
+          isReadonly
         />
-        {!isReadOnly && (
+        {!isReadonly && (
           <TouchableOpacity
             style={styles.overlayTouchable}
             onPress={() => openTimePicker(field)}
@@ -42,7 +42,7 @@ export default function TimePickerField({
         icon='delete'
         action="secondary"
         w='$10'
-        isDisabled={isReadOnly || !formik.values[field]}
+        isDisabled={isReadonly || !formik.values[field]}
         onPress={() => formik.setFieldValue(field, null)}
       />
     </>

@@ -30,6 +30,9 @@ export default observer(function ReportScreen() {
       currentWorkweek,
       isFetchWorkweekLoading,
       getWorkdayFromCurrentWorkweek
+    },
+    userStore: {
+      user
     }
   } = useStore();
 
@@ -121,6 +124,9 @@ export default observer(function ReportScreen() {
 
     return total ? `${totalHours}h ${totalMinutes}m` : null;
   };
+
+  const isReadonly = () => isFetchWorkweekLoading || (!user?.admin && currentWorkweek?.approved);
+
   return (
     <Screen scrollable>
       <HStack justifyContent="space-between" alignItems="center">
@@ -155,7 +161,7 @@ export default observer(function ReportScreen() {
           field='from'
           formik={formik}
           openTimePicker={openTimePicker}
-          isReadOnly={currentWorkweek?.approved}
+          isReadonly={isReadonly()}
         />
 
         <TimePickerField
@@ -163,7 +169,7 @@ export default observer(function ReportScreen() {
           field='to'
           formik={formik}
           openTimePicker={openTimePicker}
-          isReadOnly={currentWorkweek?.approved}
+          isReadonly={isReadonly()}
         />
       </HStack>
 
@@ -173,7 +179,7 @@ export default observer(function ReportScreen() {
           field='from2'
           formik={formik}
           openTimePicker={openTimePicker}
-          isReadOnly={currentWorkweek?.approved}
+          isReadonly={isReadonly()}
         />
 
         <TimePickerField
@@ -181,7 +187,7 @@ export default observer(function ReportScreen() {
           field='to2'
           formik={formik}
           openTimePicker={openTimePicker}
-          isReadOnly={currentWorkweek?.approved}
+          isReadonly={isReadonly()}
         />
       </HStack>
 
@@ -202,7 +208,7 @@ export default observer(function ReportScreen() {
         />
       )}
 
-      <TextField placeholder='Projekt' field='project' formik={formik} isReadOnly={currentWorkweek?.approved} />
+      <TextField placeholder='Projekt' field='project' formik={formik} isReadonly={isReadonly()} />
 
       <SelectField
         placeholder='Typ'
@@ -210,17 +216,17 @@ export default observer(function ReportScreen() {
         field='code'
         formik={formik}
         valueFormatter={(value) => parseInt(value)}
-        isReadOnly={currentWorkweek?.approved}
+        isReadonly={isReadonly()}
       />
 
-      <TextField placeholder='Stunden' value={getTotalTime()} isReadOnly />
+      <TextField placeholder='Stunden' value={getTotalTime()} isReadonly />
 
       <LoadingButton
         text='Speichern'
         icon='save'
         onPress={() =>  formik.handleSubmit()}
         loading={isSaveWorkdayLoading}
-        isDisabled={currentWorkweek?.approved}
+        isDisabled={isReadonly()}
       />
     </Screen>
   );
