@@ -20,7 +20,7 @@ export default function ScreenHeader({ title }: ScreenHeaderProps) {
     return shortenString(name, ' ').toUpperCase();
   };
 
-  const getCurrentRouteName = () => navigationRef.getCurrentRoute()?.name;
+  const getCurrentRouteName = () => navigationRef.isReady() && navigationRef.getCurrentRoute()?.name;
 
   const getMenuOptions = () => {
     const options = [
