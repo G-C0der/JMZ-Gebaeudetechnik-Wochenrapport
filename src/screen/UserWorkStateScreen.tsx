@@ -1,5 +1,4 @@
 import React from "react";
-import { observer } from "mobx-react-lite";
 import { RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "../services";
 import WorkweekApprovalSubscreen from "./sub/WorkweekApprovalSubscreen";
@@ -11,7 +10,7 @@ interface UserWorkStateScreenProps {
   route: RouteProp<RootStackParamList, 'workStateScreen'>;
 }
 
-export default observer(function UserWorkStateScreen({ route }: UserWorkStateScreenProps){
+export default function UserWorkStateScreen({ route }: UserWorkStateScreenProps) {
   const { user } = route.params;
 
   return (
@@ -21,7 +20,7 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
       <WorkweekApprovalSubscreen user={user} />
     </Screen>
   );
-});
+}
 
 const styles = StyleSheet.create({
   userName: {

@@ -1,26 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { UserWorkweekApprovalStates } from "./types";
 import { observer } from "mobx-react-lite";
-import { useStore } from "../../stores";
-import { TextField } from "../../components/TextField";
+import { useStore } from "../../../stores";
+import { TextField } from "../../../components/TextField";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import moment from "moment";
-import CheckBox from "../../components/CheckBox";
-import { Box, HStack, ScrollView, Text, VStack } from "@gluestack-ui/themed";
-import { LoadingButton } from "../../components/LoadingButton";
-import PopUpDialog from "../../components/PopUpDialog";
-import Spinner from '../../components/Spinner';
-import { getScreenHeight } from "../utils";
-import { User } from "../../types";
+import CheckBox from "../../../components/CheckBox";
+import { Box, HStack, ScrollView, VStack } from "@gluestack-ui/themed";
+import { LoadingButton } from "../../../components/LoadingButton";
+import PopUpDialog from "../../../components/PopUpDialog";
+import Spinner from '../../../components/Spinner';
+import { getScreenHeight } from "../../utils";
+import { User } from "../../../types";
 
 interface WorkweekApprovalSubscreenProps {
   user: User;
 }
 
 export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApprovalSubscreenProps){
-  interface UserWorkweekApprovalStates {
-    [key: string]: { approved: boolean, readonly: boolean };
-  }
-
   const {
     adminStore: {
       listWorkweeks,
