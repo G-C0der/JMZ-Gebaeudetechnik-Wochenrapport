@@ -11,16 +11,12 @@ import CheckBox from "../components/CheckBox";
 import { Box, HStack, ScrollView, Text } from "@gluestack-ui/themed";
 import { LoadingButton } from "../components/LoadingButton";
 import PopUpDialog from "../components/PopUpDialog";
-import { Dimensions } from "react-native";
 import Spinner from '../components/Spinner';
 import { getScreenHeight } from "./utils";
-
-interface UserWorkStateScreenParams {
-  user: User;
-}
+import { RootStackParamList } from "../services";
 
 interface UserWorkStateScreenProps {
-  route: RouteProp<{ params: UserWorkStateScreenParams }, 'params'>;
+  route: RouteProp<RootStackParamList, 'workStateScreen'>;
 }
 
 export default observer(function UserWorkStateScreen({ route }: UserWorkStateScreenProps){

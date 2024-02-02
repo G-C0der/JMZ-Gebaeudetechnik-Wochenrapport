@@ -1,4 +1,4 @@
-import { createNavigationContainerRef, NavigationProp } from "@react-navigation/native";
+import { createNavigationContainerRef } from "@react-navigation/native";
 import { User } from "../types";
 
 interface RootStackParamList {
@@ -19,4 +19,8 @@ const navigate = (name: Screen, params?: any) => {
 export {
   navigationRef,
   navigate
+};
+
+export type {
+  RootStackParamList
 };
