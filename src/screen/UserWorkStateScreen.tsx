@@ -93,14 +93,14 @@ export default observer(function UserWorkStateScreen({ route }: UserWorkStateScr
                 >
                   <TextField
                     value={`${moment(workweek.start).format('DD.MM.')} - ${moment(workweek.end).format('DD.MM.')}`}
-                    isReadOnly
+                    isReadonly
                   />
                 </TouchableOpacity>
                 <CheckBox
                   value={workweekCheckboxStates[workweek.id]?.approved || false}
                   onChange={(isChecked: boolean) => handleCheckboxChange(workweek.id, isChecked)}
                   isDisabled={user.admin}
-                  isReadOnly={workweekCheckboxStates[workweek.id]?.readonly}
+                  isReadonly={workweekCheckboxStates[workweek.id]?.readonly}
                 />
               </HStack>
             ))}

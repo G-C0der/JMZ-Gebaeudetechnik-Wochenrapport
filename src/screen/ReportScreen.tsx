@@ -161,7 +161,7 @@ export default observer(function ReportScreen() {
           field='from'
           formik={formik}
           openTimePicker={openTimePicker}
-          isReadOnly={isReadonly()}
+          isReadonly={isReadonly()}
         />
 
         <TimePickerField
@@ -169,7 +169,7 @@ export default observer(function ReportScreen() {
           field='to'
           formik={formik}
           openTimePicker={openTimePicker}
-          isReadOnly={isReadonly()}
+          isReadonly={isReadonly()}
         />
       </HStack>
 
@@ -179,7 +179,7 @@ export default observer(function ReportScreen() {
           field='from2'
           formik={formik}
           openTimePicker={openTimePicker}
-          isReadOnly={isReadonly()}
+          isReadonly={isReadonly()}
         />
 
         <TimePickerField
@@ -187,7 +187,7 @@ export default observer(function ReportScreen() {
           field='to2'
           formik={formik}
           openTimePicker={openTimePicker}
-          isReadOnly={isReadonly()}
+          isReadonly={isReadonly()}
         />
       </HStack>
 
@@ -208,7 +208,7 @@ export default observer(function ReportScreen() {
         />
       )}
 
-      <TextField placeholder='Projekt' field='project' formik={formik} isReadOnly={isReadonly()} />
+      <TextField placeholder='Projekt' field='project' formik={formik} isReadonly={isReadonly()} />
 
       <SelectField
         placeholder='Typ'
@@ -216,10 +216,10 @@ export default observer(function ReportScreen() {
         field='code'
         formik={formik}
         valueFormatter={(value) => parseInt(value)}
-        isReadOnly={isReadonly()}
+        isReadonly={isReadonly()}
       />
 
-      <TextField placeholder='Stunden' value={getTotalTime()} isReadOnly />
+      <TextField placeholder='Stunden' value={getTotalTime()} isReadonly />
 
       <LoadingButton
         text='Speichern'
