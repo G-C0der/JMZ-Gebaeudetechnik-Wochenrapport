@@ -20,15 +20,21 @@ export default function ScreenHeader({ title }: ScreenHeaderProps) {
     return shortenString(name, ' ').toUpperCase();
   };
 
+  const getMenuOptions = () => {
+    const options = [
+      { icon: 'calendar', text: 'Rapport', onPress: () => navigate('reportScreen') },
+      { icon: 'addusergroup', text: 'Mitarbeiter', onPress: () => navigate('usersScreen'), condition: !!user?.admin },
+      { icon: 'logout', text: 'Ausloggen', onPress: logout }
+    ];
+
+    return options.filter(option => option.condition !== false);
+  };
+
   return (
     <SafeAreaView style={styles.headerContainer}>
       <Text style={styles.userName}>{user?.fname} {shortenName(user?.lname)}</Text>
       <Text style={styles.headerTitle}>{title}</Text>
-        <Menu options={[
-          { icon: 'calendar', text: 'Rapport', onPress: () => navigate('reportScreen') },
-          { icon: 'addusergroup', text: 'Mitarbeiter', onPress: () => navigate('usersScreen') },
-          { icon: 'logout', text: 'Ausloggen', onPress: logout }
-        ]} />
+      <Menu options={getMenuOptions()} />
     </SafeAreaView>
   );
 }
