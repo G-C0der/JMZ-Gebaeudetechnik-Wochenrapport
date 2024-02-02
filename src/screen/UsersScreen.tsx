@@ -5,9 +5,13 @@ import { useStore } from "../stores";
 import { TextField } from "../components/TextField";
 import { TouchableOpacity } from "react-native";
 import { navigate } from "../services";
+import Spinner from '../components/Spinner';
+import { getScreenHeight } from "./utils";
 
 export default observer(function UsersScreen() {
   const { adminStore: { users, listUsers, isListUsersLoading } } = useStore();
+
+  const spinnerMinHeight = getScreenHeight() * 0.82;
 
   useEffect(() => {
     if (!users.length) {
@@ -17,18 +21,24 @@ export default observer(function UsersScreen() {
   }, [users]);
 
   return (
-    <Screen>
-      {users.map(user => (
-        <TouchableOpacity
-          key={user.id}
-          onPress={() => navigate('workStateScreen', { user })}
-        >
-          <TextField
-            value={`${user.fname} ${user.lname}`}
-            isReadOnly
-          />
-        </TouchableOpacity>
-      ))}
+    <Screen scrollable>
+      {isListUsersLoading ? (
+        <Spinner style={{ minHeight: spinnerMinHeight }} />
+      ) : (
+        <>
+          {users.map(user => (
+            <TouchableOpacity
+              key={user.id}
+              onPress={() => navigate('workStateScreen', { user })}
+            >
+              <TextField
+                value={`${user.fname} ${user.lname}`}
+                isReadOnly
+              />
+            </TouchableOpacity>
+          ))}
+        </>
+      )}
     </Screen>
   );
 });

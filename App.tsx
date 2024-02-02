@@ -1,5 +1,5 @@
 import React from "react";
-import { GluestackUIProvider, Spinner } from "@gluestack-ui/themed";
+import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { config } from "@gluestack-ui/config";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -14,6 +14,7 @@ import UsersScreen from "./src/screen/UsersScreen";
 import UserWorkStateScreen from "./src/screen/UserWorkStateScreen";
 import { observer } from "mobx-react-lite";
 import ScreenHeader from "./src/screen/ScreenHeader";
+import Spinner from './src/components/Spinner';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,10 +24,10 @@ export default observer(function App() {
   return (
     <GluestackUIProvider config={config}>
       {!isSetupDone || (isLoggedIn && !user) ? (
-        <Spinner size="large" style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} />
+        <Spinner style={{ flex: 1 }} />
       ) : (
-        <NavigationContainer ref={navigationRef}>
-          <StoreContext.Provider value={stores}>
+        <StoreContext.Provider value={stores}>
+          <NavigationContainer ref={navigationRef}>
             <Stack.Navigator>
               {!isLoggedIn && <Stack.Screen name='loginScreen' component={LoginScreen} options={{ title: 'Login' }} />}
               {isLoggedIn && (
@@ -43,8 +44,8 @@ export default observer(function App() {
                 </>
               )}
             </Stack.Navigator>
-          </StoreContext.Provider>
-        </NavigationContainer>
+          </NavigationContainer>
+        </StoreContext.Provider>
       )}
 
       <Toast config={toastConfig} />
