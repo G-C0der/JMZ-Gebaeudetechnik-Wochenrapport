@@ -60,13 +60,13 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
 
   const handleApproveClick = async () => {
     const approvedPendingWorkweekIds = Object.keys(Object.fromEntries(
-      Object.entries(workweekCheckboxStates).filter(([_, { approved, readonly }]) => approved && !readonly))
+      Object.entries(workweekCheckboxStates).filter(([, { approved, readonly }]) => approved && !readonly))
     ).map(Number);
     await approveWorkweeks(approvedPendingWorkweekIds);
   };
 
   const isAPendingWorkweekCheckboxChecked = () => !!Object.entries(workweekCheckboxStates)
-    .find(([_, { approved, readonly }]) => approved && !readonly);
+    .find(([, { approved, readonly }]) => approved && !readonly);
 
   return (
     <VStack space='md'>
