@@ -1,11 +1,11 @@
 import { Api } from "./Api";
-import { Workweek } from "../../types";
+import { User, Workweek } from "../../types";
 
 class WorkweekApi extends Api {
   basePath = '/workweeks';
 
-  fetch = async (workdayDate: Date)=> {
-    const { data } = await this.api.get(`${this.basePath}/fetch/${workdayDate}`);
+  fetch = async (workdayDate: Date, viewUserId?: User['id'])=> {
+    const { data } = await this.api.get(`${this.basePath}/fetch/${workdayDate}${viewUserId ? `/${viewUserId}` : ''}`);
     return data;
   };
 

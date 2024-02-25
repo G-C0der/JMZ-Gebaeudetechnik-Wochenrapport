@@ -63,7 +63,7 @@ export default observer(function ReportScreen({ route }: ReportScreenProps) {
     const syncWorkdayForm = async () => {
       if (!formik.values.date) return;
 
-      await fetchWorkweek(formik.values.date);
+      await fetchWorkweek(formik.values.date, viewUser?.id);
 
       const currentWorkday = getWorkdayFromCurrentWorkweek(formik.values.date);
       if (currentWorkday) {
