@@ -12,6 +12,7 @@ import PopUpDialog from "../../../components/PopUpDialog";
 import Spinner from '../../../components/Spinner';
 import { getScreenHeight } from "../../utils";
 import { User } from "../../../types";
+import { navigate } from "../../../services";
 
 interface WorkweekApprovalSubscreenProps {
   user: User;
@@ -78,7 +79,7 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
             {userWorkweeks.map(workweek => (
               <HStack key={workweek.id} space='md'>
                 <TouchableOpacity
-                  onPress={() => {}}
+                  onPress={() => navigate('reportScreen', { user })}
                   style={{ flex: 1 }}
                 >
                   <TextField

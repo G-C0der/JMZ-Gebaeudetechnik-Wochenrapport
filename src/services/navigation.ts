@@ -3,7 +3,7 @@ import { User } from "../types";
 
 interface RootStackParamList {
   loginScreen: undefined;
-  reportScreen: undefined;
+  reportScreen?: { user: User };
   usersScreen: undefined;
   workStateScreen: { user: User };
 }
