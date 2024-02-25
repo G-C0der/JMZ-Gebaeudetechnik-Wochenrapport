@@ -22,7 +22,7 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
   const {
     adminStore: {
       listWorkweeks,
-      clearWorkweeks,
+      resetWorkweeks,
       userWorkweeks,
       isListWorkweeksLoading,
       approveWorkweeks,
@@ -34,10 +34,6 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
   const [isApprovalPopUpDialogOpen, setIsApprovalPopUpDialogOpen] = useState(false);
 
   const spinnerMinHeight = getScreenHeight() * 0.27;
-
-  useEffect(() => {
-    return () => clearWorkweeks();
-  }, []);
 
   useEffect(() => {
     if (!userWorkweeks.length) {
@@ -54,6 +50,8 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
       setWorkweekCheckboxStates({ ...workweekCheckboxStates, ...userWorkweekApprovalStates });
     }
   }, [userWorkweeks]);
+
+  useEffect(() =>  () => resetWorkweeks(), []);
 
   const handleCheckboxChange = (workweekId: number, isChecked: boolean) => {
     setWorkweekCheckboxStates({ ...workweekCheckboxStates, [workweekId]: { approved: isChecked, readonly: false } });

@@ -38,7 +38,8 @@ export default observer(function ReportScreen({ route }: ReportScreenProps) {
       fetchWorkweek,
       currentWorkweek,
       isFetchWorkweekLoading,
-      getWorkdayFromCurrentWorkweek
+      getWorkdayFromCurrentWorkweek,
+      resetCurrentWorkweek
     },
     userStore: {
       user
@@ -83,6 +84,8 @@ export default observer(function ReportScreen({ route }: ReportScreenProps) {
 
     syncWorkdayForm();
   }, [formik.values.date]);
+
+  useEffect(() => () => resetCurrentWorkweek());
 
   const decreaseDate = async () => {
     const dateMinusOneDay = moment(formik.values.date).subtract(1, "day").toDate();

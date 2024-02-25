@@ -26,6 +26,10 @@ export class WorkScheduleStore implements Store {
     Object.assign(this, initialState);
   };
 
+  resetCurrentWorkweek() {
+    runInAction(() => this.currentWorkweek = initialState.currentWorkweek);
+  }
+
   private belongsToCurrentWorkWeek = (workdayDate: Date) => {
     const { start, end } = getWeekDateRange(workdayDate);
     return this.currentWorkweek?.start === start && this.currentWorkweek.end === end;
