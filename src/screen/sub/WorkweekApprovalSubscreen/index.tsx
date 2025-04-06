@@ -51,7 +51,7 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
     }
   }, [userWorkweeks]);
 
-  useEffect(() =>  () => resetWorkweeks(), []);
+  useEffect(() => () => resetWorkweeks(), []);
 
   const handleCheckboxChange = (workweekId: number, isChecked: boolean) => {
     setWorkweekCheckboxStates({ ...workweekCheckboxStates, [workweekId]: { approved: isChecked, readonly: false } });
@@ -77,7 +77,7 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
             {userWorkweeks.map(workweek => (
               <HStack key={workweek.id} space='md'>
                 <TouchableOpacity
-                  onPress={() => navigate('adminReportScreen', { user })}
+                  onPress={() => navigate('adminReportScreen', { user, workweekStart: workweek.start })}
                   style={{ flex: 1 }}
                 >
                   <TextField

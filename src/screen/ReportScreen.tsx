@@ -24,7 +24,7 @@ interface ReportScreenProps {
 }
 
 export default observer(function ReportScreen({ route }: ReportScreenProps) {
-  const viewUser = route.params?.user;
+  const { user: viewUser, workweekStart } = route.params || {};
 
   type TimePicker = 'from' | 'to' | 'from2' | 'to2';
   const [isTimePickerModalOpen, setIsTimePickerModalOpen] = useState(false);
@@ -49,7 +49,7 @@ export default observer(function ReportScreen({ route }: ReportScreenProps) {
 
   const formik = useFormik<WorkdayFormInit>({
     initialValues: {
-      date: toDateWithLocalMidnight(toDateOnly()),
+      date: toDateWithLocalMidnight(toDateOnly(workweekStart)),
       from: null,
       to: null,
       from2: null,
