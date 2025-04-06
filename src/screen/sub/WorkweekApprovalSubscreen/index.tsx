@@ -77,7 +77,7 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
             {userWorkweeks.map(workweek => (
               <HStack key={workweek.id} space='md'>
                 <TouchableOpacity
-                  onPress={() => navigate('reportScreen', { user })}
+                  onPress={() => navigate('adminReportScreen', { user })}
                   style={{ flex: 1 }}
                 >
                   <TextField

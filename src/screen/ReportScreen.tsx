@@ -25,7 +25,6 @@ interface ReportScreenProps {
 
 export default observer(function ReportScreen({ route }: ReportScreenProps) {
   const viewUser = route.params?.user;
-  const isAdminViewMode = !!viewUser;
 
   type TimePicker = 'from' | 'to' | 'from2' | 'to2';
   const [isTimePickerModalOpen, setIsTimePickerModalOpen] = useState(false);
@@ -45,6 +44,8 @@ export default observer(function ReportScreen({ route }: ReportScreenProps) {
       user
     }
   } = useStore();
+
+  const isAdminViewMode = !!viewUser && viewUser.id !== user?.id;
 
   const formik = useFormik<WorkdayFormInit>({
     initialValues: {

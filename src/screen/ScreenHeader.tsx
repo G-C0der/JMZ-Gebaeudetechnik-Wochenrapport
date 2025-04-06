@@ -6,6 +6,7 @@ import { navigate, navigationRef } from "../services";
 import { useStore } from "../stores";
 import { appColorTheme } from "../config/env";
 import { shortenString } from "../utils";
+import { User } from "../types";
 
 interface ScreenHeaderProps {
   title: string;
@@ -21,6 +22,12 @@ export default function ScreenHeader({ title }: ScreenHeaderProps) {
   };
 
   const getCurrentRouteName = () => navigationRef.isReady() && navigationRef.getCurrentRoute()?.name;
+  const getCurrentUserName = () => {
+    const userParam = navigationRef.isReady() && navigationRef.getCurrentRoute()?.params as { user?: User };
+    return userParam
+      ? `${userParam.user?.fname} ${shortenName(userParam.user?.lname)}`
+      : `${user?.fname} ${shortenName(user?.lname)}`;
+  };
 
   const getMenuOptions = () => {
     const options = [
@@ -48,7 +55,7 @@ export default function ScreenHeader({ title }: ScreenHeaderProps) {
 
   return (
     <SafeAreaView style={styles.headerContainer}>
-      <Text style={styles.userName}>{user?.fname} {shortenName(user?.lname)}</Text>
+      <Text style={styles.userName}>{getCurrentUserName()}</Text>
       <Text style={styles.headerTitle}>{title}</Text>
       <Menu options={getMenuOptions()} />
     </SafeAreaView>

@@ -42,6 +42,9 @@ export default observer(function App() {
                   <Stack.Screen name='workStateScreen' component={UserWorkStateScreen} options={{
                     header: () => <ScreenHeader title='Arbeitszeit' />
                   }} />
+                  <Stack.Screen name='adminReportScreen' component={ReportScreen} options={{
+                    header: () => <ScreenHeader title='Mitarb. Rapport' />
+                  }} />
                 </>
               )}
             </Stack.Navigator>

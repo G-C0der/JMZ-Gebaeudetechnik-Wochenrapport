@@ -3,12 +3,13 @@ import { User } from "../types";
 
 interface RootStackParamList {
   loginScreen: undefined;
-  reportScreen?: { user: User };
+  reportScreen: undefined;
   usersScreen: undefined;
   workStateScreen: { user: User };
+  adminReportScreen: { user: User };
 }
 
-type Screen = 'loginScreen' | 'reportScreen' | 'usersScreen' | 'workStateScreen';
+type Screen = 'loginScreen' | 'reportScreen' | 'usersScreen' | 'workStateScreen' | 'adminReportScreen';
 
 const navigationRef = createNavigationContainerRef<RootStackParamList>();
 
