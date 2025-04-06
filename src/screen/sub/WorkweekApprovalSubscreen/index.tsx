@@ -12,6 +12,7 @@ import PopUpDialog from "../../../components/PopUpDialog";
 import Spinner from '../../../components/Spinner';
 import { getScreenHeight } from "../../utils";
 import { User } from "../../../types";
+import { navigate } from "../../../services";
 
 interface WorkweekApprovalSubscreenProps {
   user: User;
@@ -21,7 +22,7 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
   const {
     adminStore: {
       listWorkweeks,
-      clearWorkweeks,
+      resetWorkweeks,
       userWorkweeks,
       isListWorkweeksLoading,
       approveWorkweeks,
@@ -33,10 +34,6 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
   const [isApprovalPopUpDialogOpen, setIsApprovalPopUpDialogOpen] = useState(false);
 
   const spinnerMinHeight = getScreenHeight() * 0.27;
-
-  useEffect(() => {
-    return () => clearWorkweeks();
-  }, []);
 
   useEffect(() => {
     if (!userWorkweeks.length) {
@@ -53,6 +50,8 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
       setWorkweekCheckboxStates({ ...workweekCheckboxStates, ...userWorkweekApprovalStates });
     }
   }, [userWorkweeks]);
+
+  useEffect(() => () => resetWorkweeks(), []);
 
   const handleCheckboxChange = (workweekId: number, isChecked: boolean) => {
     setWorkweekCheckboxStates({ ...workweekCheckboxStates, [workweekId]: { approved: isChecked, readonly: false } });
@@ -78,7 +77,7 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
             {userWorkweeks.map(workweek => (
               <HStack key={workweek.id} space='md'>
                 <TouchableOpacity
-                  onPress={() => {}}
+                  onPress={() => navigate('adminReportScreen', { user, workweekStart: workweek.start })}
                   style={{ flex: 1 }}
                 >
                   <TextField

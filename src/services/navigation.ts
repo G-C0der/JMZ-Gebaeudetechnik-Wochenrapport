@@ -1,14 +1,15 @@
 import { createNavigationContainerRef } from "@react-navigation/native";
-import { User } from "../types";
+import { DateOnly, User } from "../types";
 
 interface RootStackParamList {
   loginScreen: undefined;
   reportScreen: undefined;
   usersScreen: undefined;
-  workStateScreen: { user: User };
+  workStateScreen: { user: User; };
+  adminReportScreen: { user: User; workweekStart: DateOnly; };
 }
 
-type Screen = 'loginScreen' | 'reportScreen' | 'usersScreen' | 'workStateScreen';
+type Screen = 'loginScreen' | 'reportScreen' | 'usersScreen' | 'workStateScreen' | 'adminReportScreen';
 
 const navigationRef = createNavigationContainerRef<RootStackParamList>();
 

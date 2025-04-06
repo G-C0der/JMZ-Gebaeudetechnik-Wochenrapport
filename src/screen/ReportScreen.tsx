@@ -16,8 +16,16 @@ import { LoadingButton } from "../components/LoadingButton";
 import { useStore } from "../stores";
 import { WorkdayForm, WorkdayFormInit } from "../types";
 import TimePickerField from "../components/TimePickerField";
+import { RouteProp } from "@react-navigation/native";
+import { RootStackParamList } from "../services";
 
-export default observer(function ReportScreen() {
+interface ReportScreenProps {
+  route: RouteProp<RootStackParamList, 'workStateScreen'>;
+}
+
+export default observer(function ReportScreen({ route }: ReportScreenProps) {
+  const { user: viewUser, workweekStart } = route.params || {};
+
   type TimePicker = 'from' | 'to' | 'from2' | 'to2';
   const [isTimePickerModalOpen, setIsTimePickerModalOpen] = useState(false);
   const [currentTimePicker, setCurrentTimePicker] = useState<TimePicker>();
@@ -29,16 +37,19 @@ export default observer(function ReportScreen() {
       fetchWorkweek,
       currentWorkweek,
       isFetchWorkweekLoading,
-      getWorkdayFromCurrentWorkweek
+      getWorkdayFromCurrentWorkweek,
+      resetCurrentWorkweek
     },
     userStore: {
       user
     }
   } = useStore();
 
+  const isAdminViewMode = !!viewUser && viewUser.id !== user?.id;
+
   const formik = useFormik<WorkdayFormInit>({
     initialValues: {
-      date: toDateWithLocalMidnight(toDateOnly()),
+      date: toDateWithLocalMidnight(toDateOnly(workweekStart)),
       from: null,
       to: null,
       from2: null,
@@ -54,7 +65,7 @@ export default observer(function ReportScreen() {
     const syncWorkdayForm = async () => {
       if (!formik.values.date) return;
 
-      await fetchWorkweek(formik.values.date);
+      await fetchWorkweek(formik.values.date, viewUser?.id);
 
       const currentWorkday = getWorkdayFromCurrentWorkweek(formik.values.date);
       if (currentWorkday) {
@@ -74,6 +85,8 @@ export default observer(function ReportScreen() {
 
     syncWorkdayForm();
   }, [formik.values.date]);
+
+  useEffect(() => () => resetCurrentWorkweek());
 
   const decreaseDate = async () => {
     const dateMinusOneDay = moment(formik.values.date).subtract(1, "day").toDate();
@@ -125,7 +138,7 @@ export default observer(function ReportScreen() {
     return total ? `${totalHours}h ${totalMinutes}m` : null;
   };
 
-  const isReadonly = () => isFetchWorkweekLoading || (!user?.admin && currentWorkweek?.approved);
+  const isReadonly = () => isAdminViewMode || isFetchWorkweekLoading || (!user?.admin && currentWorkweek?.approved);
 
   return (
     <Screen scrollable>
@@ -221,13 +234,15 @@ export default observer(function ReportScreen() {
 
       <TextField placeholder='Stunden' value={getTotalTime()} isReadonly />
 
-      <LoadingButton
-        text='Speichern'
-        icon='save'
-        onPress={() =>  formik.handleSubmit()}
-        loading={isSaveWorkdayLoading}
-        isDisabled={isReadonly()}
-      />
+      {!isAdminViewMode && (
+        <LoadingButton
+          text='Speichern'
+          icon='save'
+          onPress={() =>  formik.handleSubmit()}
+          loading={isSaveWorkdayLoading}
+          isDisabled={isReadonly()}
+        />
+      )}
     </Screen>
   );
 });

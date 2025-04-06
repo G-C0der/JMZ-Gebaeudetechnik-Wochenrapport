@@ -1,6 +1,6 @@
 import { Store } from "./index";
 import {makeAutoObservable, runInAction} from "mobx";
-import { Workday, WorkdayForm, Workweek } from "../types";
+import { User, Workday, WorkdayForm, Workweek } from "../types";
 import { workdayApi, workweekApi } from "../services";
 import { logResponseErrorMessage } from "./utils";
 import { getWeekDateRange, toDateOnly, toDateWithLocalMidnight } from "../utils";
@@ -25,6 +25,10 @@ export class WorkScheduleStore implements Store {
   reset = () => {
     Object.assign(this, initialState);
   };
+
+  resetCurrentWorkweek() {
+    runInAction(() => this.currentWorkweek = initialState.currentWorkweek);
+  }
 
   private belongsToCurrentWorkWeek = (workdayDate: Date) => {
     const { start, end } = getWeekDateRange(workdayDate);
@@ -59,12 +63,12 @@ export class WorkScheduleStore implements Store {
     }
   };
 
-  fetchWorkweek = async (workdayDate: Date) => {
+  fetchWorkweek = async (workdayDate: Date, viewUserId?: User['id']) => {
     if (this.currentWorkweek && this.belongsToCurrentWorkWeek(workdayDate)) return;
 
     this.isFetchWorkweekLoading = true;
     try {
-      const { workweek } = await workweekApi.fetch(workdayDate);
+      const { workweek } = await workweekApi.fetch(workdayDate, viewUserId);
 
       runInAction(() => {
         this.currentWorkweek = workweek;

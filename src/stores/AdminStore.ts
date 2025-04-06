@@ -31,12 +31,12 @@ export class AdminStore implements Store {
     Object.assign(this, initialState);
   };
 
-  private authorize = () => {
-    if (!stores.userStore.isAdmin) throw new Error('No permission.');
+  resetWorkweeks = () => {
+    runInAction(() => this.userWorkweeks = initialState.userWorkweeks);
   };
 
-  clearWorkweeks = () => {
-    runInAction(() => this.userWorkweeks.length = 0);
+  private authorize = () => {
+    if (!stores.userStore.isAdmin) throw new Error('No permission.');
   };
 
   listUsers = async () => {
