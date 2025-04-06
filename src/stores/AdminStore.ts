@@ -17,6 +17,7 @@ const initialState = {
 export class AdminStore implements Store {
   users: User[] = initialState.users;
   userWorkweeks: Workweek[] = initialState.userWorkweeks; // Workweeks of the currently selected user
+  selectedYear: number;
 
   isListUsersLoading = initialState.isListUsersLoading;
   isListWorkweeksLoading = initialState.isListWorkweeksLoading;
@@ -95,6 +96,8 @@ export class AdminStore implements Store {
       runInAction(() => this.isApproveWorkweekLoading = initialState.isApproveWorkweekLoading);
     }
   };
+
+  setSelectedYear = (year: number) => this.selectedYear = year;
 
   changeUserActiveState = async (id: number) => {
     this.authorize();
