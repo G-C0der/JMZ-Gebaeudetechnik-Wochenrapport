@@ -3,10 +3,8 @@ import { RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "../services";
 import WorkweekApprovalSubscreen from "./sub/WorkweekApprovalSubscreen";
 import Screen from "./Screen";
-import { Box, Text, VStack } from "@gluestack-ui/themed";
-import { StyleSheet } from "react-native";
 import WorkmonthStatisticsSubscreen from "./sub/WorkmonthStatisticsSubscreen";
-import YearPicker from "../components/YearPicker";
+import YearPicker from "../components/Picker/YearPicker";
 import { useStore } from "../stores";
 
 interface UserWorkStateScreenProps {
@@ -26,14 +24,6 @@ export default function UserWorkStateScreen({ route }: UserWorkStateScreenProps)
       <WorkweekApprovalSubscreen user={user}>
         <WorkmonthStatisticsSubscreen />
       </WorkweekApprovalSubscreen>
-      {/*<VStack space='md' style={{ flex: 1 }}>*/}
-      {/*  <Box style={{ flex: 1 }}>*/}
-      {/*    <WorkweekApprovalSubscreen user={user} />*/}
-      {/*  </Box>*/}
-      {/*  <Box style={{ flex: 1 }}>*/}
-      {/*    <WorkmonthStatisticsSubscreen />*/}
-      {/*  </Box>*/}
-      {/*</VStack>*/}
     </Screen>
   );
 }

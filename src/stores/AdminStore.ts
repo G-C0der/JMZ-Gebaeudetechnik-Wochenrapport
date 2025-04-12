@@ -9,6 +9,7 @@ const initialState = {
   users: [],
   userWorkweeks: [],
   year: moment().year(),
+  month: moment().format('MMMM'),
 
   isListUsersLoading: false,
   isListWorkweeksLoading: false,
@@ -20,6 +21,7 @@ export class AdminStore implements Store {
   users: User[] = initialState.users;
   userWorkweeks: Workweek[] = initialState.userWorkweeks; // Workweeks of the currently selected user
   year: number = initialState.year;
+  month: string = initialState.month;
 
   isListUsersLoading = initialState.isListUsersLoading;
   isListWorkweeksLoading = initialState.isListWorkweeksLoading;
@@ -100,6 +102,8 @@ export class AdminStore implements Store {
   };
 
   setYear = (year: number) => this.year = year;
+
+  setMonth = (month: string) => this.month = month;
 
   changeUserActiveState = async (id: number) => {
     this.authorize();
