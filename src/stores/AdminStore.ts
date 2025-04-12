@@ -3,10 +3,12 @@ import {makeAutoObservable, runInAction} from "mobx";
 import { User, Workweek } from "../types";
 import { userApi, workweekApi } from "../services";
 import { logResponseErrorMessage } from "./utils";
+import moment from "moment";
 
 const initialState = {
   users: [],
   userWorkweeks: [],
+  year: moment().year(),
 
   isListUsersLoading: false,
   isListWorkweeksLoading: false,
@@ -17,7 +19,7 @@ const initialState = {
 export class AdminStore implements Store {
   users: User[] = initialState.users;
   userWorkweeks: Workweek[] = initialState.userWorkweeks; // Workweeks of the currently selected user
-  selectedYear: number;
+  year: number = initialState.year;
 
   isListUsersLoading = initialState.isListUsersLoading;
   isListWorkweeksLoading = initialState.isListWorkweeksLoading;
@@ -63,7 +65,7 @@ export class AdminStore implements Store {
 
     this.isListWorkweeksLoading = true;
     try {
-      const { workweeks } = await workweekApi.list(userId);
+      const { workweeks } = await workweekApi.list(userId, this.year);
       runInAction(() => {
         this.userWorkweeks = workweeks;
         this.isListWorkweeksLoading = initialState.isListWorkweeksLoading;
@@ -97,7 +99,7 @@ export class AdminStore implements Store {
     }
   };
 
-  setSelectedYear = (year: number) => this.selectedYear = year;
+  setYear = (year: number) => this.year = year;
 
   changeUserActiveState = async (id: number) => {
     this.authorize();

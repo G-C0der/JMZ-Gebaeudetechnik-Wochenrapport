@@ -15,13 +15,13 @@ interface UserWorkStateScreenProps {
 
 export default function UserWorkStateScreen({ route }: UserWorkStateScreenProps) {
   const { user } = route.params;
-  const { adminStore: { setSelectedYear } } = useStore();
+  const { adminStore: { setYear } } = useStore();
 
   return (
     <Screen>
-      <Text style={styles.userName}>{user.fname} {user.lname}</Text>
+      {/*<Text style={styles.userName}>{user.fname} {user.lname}</Text>*/}
 
-      <YearPicker onChange={setSelectedYear} />
+      <YearPicker onChange={setYear} />
 
       <WorkweekApprovalSubscreen user={user} />
       {/*<VStack space='md' style={{ flex: 1 }}>*/}
@@ -36,9 +36,9 @@ export default function UserWorkStateScreen({ route }: UserWorkStateScreenProps)
   );
 }
 
-const styles = StyleSheet.create({
-  userName: {
-    fontWeight: "bold",
-    textAlign: "center"
-  }
-});
+// const styles = StyleSheet.create({
+//   userName: {
+//     fontWeight: "bold",
+//     textAlign: "center"
+//   }
+// });
