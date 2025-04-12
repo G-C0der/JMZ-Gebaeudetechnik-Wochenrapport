@@ -23,7 +23,9 @@ export default function UserWorkStateScreen({ route }: UserWorkStateScreenProps)
 
       <YearPicker onChange={setYear} />
 
-      <WorkweekApprovalSubscreen user={user} />
+      <WorkweekApprovalSubscreen user={user}>
+        <WorkmonthStatisticsSubscreen />
+      </WorkweekApprovalSubscreen>
       {/*<VStack space='md' style={{ flex: 1 }}>*/}
       {/*  <Box style={{ flex: 1 }}>*/}
       {/*    <WorkweekApprovalSubscreen user={user} />*/}

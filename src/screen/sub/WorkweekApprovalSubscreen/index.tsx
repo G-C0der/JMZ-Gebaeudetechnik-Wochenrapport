@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { UserWorkweekApprovalStates } from "./types";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../../stores";
@@ -16,9 +16,10 @@ import { navigate } from "../../../services";
 
 interface WorkweekApprovalSubscreenProps {
   user: User;
+  children?: ReactNode;
 }
 
-export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApprovalSubscreenProps){
+export default observer(function WorkweekApprovalSubscreen({ user, children }: WorkweekApprovalSubscreenProps){
   const {
     adminStore: {
       listWorkweeks,
@@ -109,6 +110,7 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
         loading={isApproveWorkweekLoading}
         isDisabled={user.admin || !isAPendingWorkweekCheckboxChecked()}
       />
+      {children}
       <PopUpDialog
         isOpen={isApprovalPopUpDialogOpen}
         setIsOpen={setIsApprovalPopUpDialogOpen}
@@ -123,7 +125,8 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
 
 const styles = StyleSheet.create({
   workweeksContainer: {
-    height: '33%',
-    overflow: "scroll"
+    maxHeight: getScreenHeight() * 0.28,
+    minHeight: getScreenHeight() * 0.28,
+    flexShrink: 1
   }
 });
