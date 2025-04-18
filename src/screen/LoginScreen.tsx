@@ -37,7 +37,7 @@ export default observer(function LoginScreen() {
       <LoadingButton
         text='Login'
         icon='login'
-        onPress={() =>  formik.handleSubmit()}
+        onPress={formik.submitForm}
         loading={isLoginLoading}
       />
     </Screen>

@@ -1,6 +1,6 @@
 import { Store } from "./index";
 import {makeAutoObservable, runInAction} from "mobx";
-import { User, Workday, WorkdayForm, Workweek } from "../types";
+import { User, Workday, WorkdayForm, WorkdayFormMapped, WorkdayProject, Workweek } from "../types";
 import { workdayApi, workweekApi } from "../services";
 import { logResponseErrorMessage } from "./utils";
 import { getWeekDateRange, toDateOnly, toDateWithLocalMidnight } from "../utils";
@@ -38,18 +38,48 @@ export class WorkScheduleStore implements Store {
   getWorkdayFromCurrentWorkweek = (workdayDate: Date): Workday | undefined =>
     this.currentWorkweek?.workdays.find(workday => toDateWithLocalMidnight(workday.date).getTime() === workdayDate.getTime());
 
-  private toWorkday = (form: WorkdayForm): Workday => ({ ...form, date: toDateOnly(form.date) });
+  private toWorkdayFormMapped = (form: WorkdayForm): WorkdayFormMapped => {
+    const { date, ...rest } = form;
+    const projects: WorkdayProject[] = [];
+
+    const projectIndexes = Object.keys(rest)
+      .filter(k => k.startsWith('project-'))
+      .map(k => Number(k.split('-')[1]))
+      .filter(i => !isNaN(i))
+      .sort((a, b) => a - b);
+
+    for (const i of projectIndexes) {
+      const project = rest[`project-${i}`];
+      const code = rest[`code-${i}`];
+
+      if (!project || !code) break;
+
+      projects.push({
+        from: rest[`from-${i}`] ?? null,
+        to: rest[`to-${i}`] ?? null,
+        from2: rest[`from2-${i}`] ?? null,
+        to2: rest[`to2-${i}`] ?? null,
+        project,
+        code,
+      });
+    }
+
+    return { date, projects };
+  };
+
+  private toWorkday = (form: WorkdayFormMapped): Workday => ({ ...form, date: toDateOnly(form.date) });
 
   saveWorkday = async (form: WorkdayForm) => {
     this.isSaveWorkdayLoading = true;
     try {
-      await workdayApi.save(form);
+      const formMapped = this.toWorkdayFormMapped(form);
+      await workdayApi.save(formMapped);
 
       runInAction(() => {
         if (this.currentWorkweek) {
           const currentWorkday = this.getWorkdayFromCurrentWorkweek(form.date);
 
-          const workday = this.toWorkday(form);
+          const workday = this.toWorkday(formMapped);
           if (currentWorkday) Object.assign(currentWorkday, workday);
           else this.currentWorkweek.workdays.push(workday);
         }

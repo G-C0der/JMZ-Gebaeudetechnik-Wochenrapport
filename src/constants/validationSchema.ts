@@ -1,12 +1,12 @@
 import * as yup from "yup";
 import { userFieldLengths } from "./user";
 import { escapeForRegExp, timeStringToMinutes } from "../utils";
-import { codes, workdayFieldLengths } from "./workday";
+import { codes, workdayFieldLengths, workdayProjectFieldLengths } from "./workday";
 
 const passwordSpecialCharacters = '*.!@#$%^&(){}[\]:;<>,.?\/~_+\-=|\\';
 const passwordSpecialCharactersDoubleEscaped = escapeForRegExp(passwordSpecialCharacters);
 
-const timeRegex = new RegExp('^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$');
+const timeRegex = /^([01]\d|2[0-3]):[0-5]\d$/;
 
 const emailValidationSchema = yup
   .string()
@@ -26,67 +26,57 @@ const passwordValidationSchema = yup
     'Password must contain at least one special character.')
   .min(userFieldLengths.password.min, `Password is too short - should be minimum ${userFieldLengths.password.min} characters.`);
 
-const workdayValidationSchema = yup.object({
-  date: yup
-    .date()
-    .required('Date is required.'),
-  from: yup
-    .string()
-    .nullable()
-    .matches(timeRegex),
-  to: yup
-    .string()
-    .nullable()
-    .matches(timeRegex),
-  from2: yup
-    .string()
-    .nullable()
-    .matches(timeRegex),
-  to2: yup
-    .string()
-    .nullable()
-    .matches(timeRegex),
-  project: yup
-    .string()
-    .required('Project is required.')
-    .max(workdayFieldLengths.project.max,
-      `Project is too long - should be maximum ${workdayFieldLengths.project.max} characters.`),
-  code: yup
-    .number()
-    .required('Type is required.')
-    .oneOf(codes, 'Type is invalid.')
-}).test('time-validation', 'Time validation failed', function(value) {
-  const { from, to, from2, to2 } = value;
+const workdayValidationSchema = yup.lazy((values: any) => {
+  const shape: Record<string, any> = {
+    date: yup.date().required('Date is required.'),
+  };
 
-  if (to && !from) {
-    return this.createError({ path: 'from', message: 'From is required when To is set.' });
+  const _timeRegex = /^(from|to|from2|to2)-\d+$/;
+  const projectRegex = /^project-\d+$/;
+  const codeRegex = /^code-\d+$/;
+
+  for (const key in values) {
+    if (_timeRegex.test(key)) {
+      shape[key] = yup.string().nullable().matches(timeRegex);
+    } else if (projectRegex.test(key)) {
+      shape[key] = yup.string()
+        .required('Project is required.')
+        .max(workdayProjectFieldLengths.project.max, `Project too long - should be maximum ${workdayProjectFieldLengths.project.max} characters.`);
+    } else if (codeRegex.test(key)) {
+      shape[key] = yup.number()
+        .required('Type is required.')
+        .oneOf(codes, 'Type is invalid.');
+    }
   }
 
-  if (from && !to) {
-    return this.createError({ path: 'to', message: 'To is required when From is set.' });
-  }
+  return yup.object().shape(shape).test('time-validation', 'Time validation failed', function (values) {
+    for (let i = 0; i < workdayFieldLengths.projects.max; i++) {
+      const from = values[`from-${i}`];
+      const to = values[`to-${i}`];
+      const from2 = values[`from2-${i}`];
+      const to2 = values[`to2-${i}`];
 
-  if (to2 && !from2) {
-    return this.createError({ path: 'from2', message: 'From2 is required when To2 is set.' });
-  }
+      if (to && !from) return this.createError({ path: `from-${i}`, message: `From-${i} is required when To-${i} is set.` });
+      if (from && !to) return this.createError({ path: `to-${i}`, message: `To-${i} is required when From-${i} is set.` });
 
-  if (from2 && !to2) {
-    return this.createError({ path: 'to2', message: 'To2 is required when From2 is set.' });
-  }
+      if (to2 && !from2) return this.createError({ path: `from2-${i}`, message: `From2-${i} is required when To2-${i} is set.` });
+      if (from2 && !to2) return this.createError({ path: `to2-${i}`, message: `To2-${i} is required when From2-${i} is set.` });
 
-  if (from && to && timeStringToMinutes(from) >= timeStringToMinutes(to)) {
-    return this.createError({ path: 'to', message: 'To has to be later than From.' });
-  }
+      if (from && to && timeStringToMinutes(from) >= timeStringToMinutes(to)) {
+        return this.createError({ path: `to-${i}`, message: `To-${i} must be after From-${i}.` });
+      }
 
-  if (to && from2 && timeStringToMinutes(to) >= timeStringToMinutes(from2)) {
-    return this.createError({ path: 'from2', message: 'From2 has to be later than To.' });
-  }
+      if (to && from2 && timeStringToMinutes(to) >= timeStringToMinutes(from2)) {
+        return this.createError({ path: `from2-${i}`, message: `From2-${i} must be after To-${i}.` });
+      }
 
-  if (from2 && to2 && timeStringToMinutes(from2) >= timeStringToMinutes(to2)) {
-    return this.createError({ path: 'to2', message: 'To2 has to be later than From2.' });
-  }
+      if (from2 && to2 && timeStringToMinutes(from2) >= timeStringToMinutes(to2)) {
+        return this.createError({ path: `to2-${i}`, message: `To2-${i} must be after From2-${i}.` });
+      }
+    }
 
-  return true;
+    return true;
+  });
 });
 
 export {
