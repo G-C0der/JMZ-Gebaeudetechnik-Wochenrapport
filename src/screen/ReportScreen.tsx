@@ -68,12 +68,14 @@ export default observer(function ReportScreen({ route }: ReportScreenProps) {
 
       await fetchWorkweek(formik.values.date, viewUser?.id);
 
-      const currentWorkday = getWorkdayFromCurrentWorkweek(formik.values.date);
+      const { workday: currentWorkday, projectsCount } = getWorkdayFromCurrentWorkweek(formik.values.date) || {};
+      console.log(currentWorkday,projectsCount)
       if (currentWorkday) {
         await formik.setValues({
           ...currentWorkday,
           date: formik.values.date
         });
+        setProjectForms([...Array(projectsCount).keys()]);
       } else {
         formik.resetForm({
           values: {
@@ -81,6 +83,8 @@ export default observer(function ReportScreen({ route }: ReportScreenProps) {
             date: formik.values.date
           }
         });
+        setProjectForms([0]);
+        flatListRef.current?.scrollToIndex({ index: 0, animated: false });
       }
     };
 

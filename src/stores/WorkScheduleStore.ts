@@ -4,6 +4,7 @@ import { User, Workday, WorkdayForm, WorkdayFormMapped, WorkdayProject, Workweek
 import { workdayApi, workweekApi } from "../services";
 import { logResponseErrorMessage } from "./utils";
 import { getWeekDateRange, toDateOnly, toDateWithLocalMidnight } from "../utils";
+import moment from "moment";
 
 const initialState = {
   currentWorkweek: null,
@@ -35,8 +36,28 @@ export class WorkScheduleStore implements Store {
     return this.currentWorkweek?.start === start && this.currentWorkweek.end === end;
   }
 
-  getWorkdayFromCurrentWorkweek = (workdayDate: Date): Workday | undefined =>
-    this.currentWorkweek?.workdays.find(workday => toDateWithLocalMidnight(workday.date).getTime() === workdayDate.getTime());
+  getWorkdayFromCurrentWorkweek = (workdayDate: Date): { workday: WorkdayForm; projectsCount: number; } | undefined => {
+    const workday = this.currentWorkweek?.workdays.find(workday => toDateWithLocalMidnight(workday.date).getTime() === workdayDate.getTime());
+    return workday ? this.toWorkdayForm(workday) : undefined;
+  };
+
+  private toWorkdayForm = (workday: Workday): { workday: WorkdayForm; projectsCount: number; } => {
+    const data: { workday: WorkdayForm; projectsCount: number; } = { workday: {
+      date: moment(workday.date).toDate() },
+      projectsCount: workday.projects.length
+    };
+
+    workday.projects.forEach((p, i) => {
+      data['workday'][`from-${i}`] = p.from ?? null;
+      data['workday'][`to-${i}`] = p.to ?? null;
+      data['workday'][`from2-${i}`] = p.from2 ?? null;
+      data['workday'][`to2-${i}`] = p.to2 ?? null;
+      data['workday'][`project-${i}`] = p.project;
+      data['workday'][`code-${i}`] = p.code;
+    });
+
+    return data;
+  };
 
   private toWorkdayFormMapped = (form: WorkdayForm): WorkdayFormMapped => {
     const { date, ...rest } = form;
