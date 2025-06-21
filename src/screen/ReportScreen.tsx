@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import { codeMap, workdayFieldLengths, workdayValidationSchema } from "../constants";
 import Screen from "./Screen";
 import {
-  HStack, VStack
+  HStack, VStack, Box
 } from "@gluestack-ui/themed";
 import DatePicker from "react-native-date-picker";
 import { TextField } from "../components/TextField";
@@ -121,26 +121,39 @@ export default observer(function ReportScreen({ route }: ReportScreenProps) {
     second: 0
   } : {});
 
-  const getTotalTime = (idx: number) => {
-    const parseTime = (field: TimePicker) => {
-      const key = `${field}-${idx}` as keyof typeof formik.values;
+  const getTotalTime = (idx?: number) => {
+    const parseTime = (field: TimePicker, i: number) => {
+      const key = `${field}-${i}` as keyof typeof formik.values;
       const time = formik.values[key] as string;
       return time ? timeToMoment(time) : null;
     };
 
-    const from = parseTime('from');
-    const to = parseTime('to');
-    const from2 = parseTime('from2');
-    const to2 = parseTime('to2');
+    const indexes = idx !== undefined
+      ? [idx]
+      : Object.keys(formik.values)
+        .filter(k => k.startsWith('project-'))
+        .map(k => Number(k.split('-')[1]))
+        .filter(i => !isNaN(i));
 
-    const time1 = (from && to) ? Math.max(to.diff(from, 'minutes'), 0) : 0;
-    const time2 = (from2 && to2) ? Math.max(to2.diff(from2, 'minutes'), 0) : 0;
+    let total = 0;
 
-    const total = (time1 + time2) / 60;
+    for (const i of indexes) {
+      const from = parseTime('from', i);
+      const to = parseTime('to', i);
+      const from2 = parseTime('from2', i);
+      const to2 = parseTime('to2', i);
+
+      total += (from && to) ? Math.max(to.diff(from, 'minutes'), 0) : 0;
+      total += (from2 && to2) ? Math.max(to2.diff(from2, 'minutes'), 0) : 0;
+    }
+
+    if (!total) return null;
+    total = total / 60;
+
     const totalHours = Math.floor(total);
     const totalMinutes = round((total - totalHours) * 60, 0);
 
-    return total ? `${totalHours}h ${totalMinutes}m` : null;
+    return `${totalHours}h ${totalMinutes}m`;
   };
 
   const isReadonly = () => isAdminViewMode || isFetchWorkweekLoading || (!user?.admin && currentWorkweek?.approved);
@@ -215,7 +228,10 @@ export default observer(function ReportScreen({ route }: ReportScreenProps) {
         isReadonly={isReadonly()}
       />
 
-      <TextField placeholder='Stunden' value={getTotalTime(idx)} isReadonly />
+      <HStack space='md'>
+        <Box style={{ flex: 1 }}><TextField placeholder='Stunden' value={getTotalTime(idx)} isReadonly /></Box>
+        <Box style={{ flex: 1 }}><TextField placeholder='Stunden total' value={getTotalTime()} isReadonly /></Box>
+      </HStack>
     </VStack>
   );
 
