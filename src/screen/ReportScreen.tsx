@@ -163,7 +163,11 @@ export default observer(function ReportScreen({ route }: ReportScreenProps) {
     return `${totalHours}h ${totalMinutes}m`;
   };
 
-  const isReadonly = () => isAdminViewMode || isFetchWorkweekLoading || (!user?.admin && currentWorkweek?.approved);
+  const isReadonly = () =>
+    isAdminViewMode ||
+    isFetchWorkweekLoading ||
+    isSaveWorkdayLoading ||
+    (!user?.admin && currentWorkweek?.approved);
 
   const [projectForms, setProjectForms] = useState([0]);
   const flatListRef = useRef<any>(null);
@@ -179,7 +183,28 @@ export default observer(function ReportScreen({ route }: ReportScreenProps) {
       formik.setFieldValue(`code-${newIdx}`, 0);
       return [...prev, newIdx];
     });
+
     setTimeout(() => flatListRef.current?.scrollToIndex({ index: projectForms.length, animated: true }), 100);
+  };
+
+  const deleteProjectForm = (idx: number) => {
+    if (idx !== 0 || (idx === 0 && projectForms.length !== 1)) {
+      setProjectForms((prev) => prev.filter((_, i) => i !== idx));
+    }
+
+    formik.setFieldValue(`from-${idx}`, null);
+    formik.setFieldValue(`to-${idx}`, null);
+    formik.setFieldValue(`from2-${idx}`, null);
+    formik.setFieldValue(`to2-${idx}`, null);
+    formik.setFieldValue(`project-${idx}`, '');
+    formik.setFieldValue(`code-${idx}`, 0);
+
+    if (idx !== 0 && idx === projectForms.length -1) {
+      setTimeout(
+        () => flatListRef.current?.scrollToIndex({ index: projectForms.length - 2, animated: true }),
+        100
+      );
+    }
   };
 
   const PROJECT_FORM_WIDTH = Dimensions.get('window').width - 40;
@@ -239,6 +264,14 @@ export default observer(function ReportScreen({ route }: ReportScreenProps) {
         <Box style={{ flex: 1 }}><TextField placeholder='Stunden' value={getTotalTime(idx)} isReadonly /></Box>
         <Box style={{ flex: 1 }}><TextField placeholder='Stunden total' value={getTotalTime()} isReadonly /></Box>
       </HStack>
+
+      <Button
+        text='Projekt Löschen'
+        icon='delete'
+        style={{ backgroundColor: '#CC6B6B' }}
+        onPress={() => deleteProjectForm(idx)}
+        isDisabled={isReadonly()}
+      />
     </VStack>
   );
 
