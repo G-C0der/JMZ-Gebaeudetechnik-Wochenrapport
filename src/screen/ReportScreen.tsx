@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import { codeMap, workdayFieldLengths, workdayValidationSchema } from "../constants";
 import Screen from "./Screen";
 import {
-  HStack, VStack, Box
+  HStack, VStack, Box, Text
 } from "@gluestack-ui/themed";
 import DatePicker from "react-native-date-picker";
 import { TextField } from "../components/TextField";
@@ -30,6 +30,7 @@ export default observer(function ReportScreen({ route }: ReportScreenProps) {
   type TimePicker = 'from' | 'to' | 'from2' | 'to2';
   const [isTimePickerModalOpen, setIsTimePickerModalOpen] = useState(false);
   const [currentTimePicker, setCurrentTimePicker] = useState<TimePicker>();
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
 
   const {
     workScheduleStore: {
@@ -87,6 +88,8 @@ export default observer(function ReportScreen({ route }: ReportScreenProps) {
         flatListRef.current?.scrollToIndex({ index: 0, animated: false });
       }
     };
+
+    setCurrentProjectIndex(0);
 
     syncWorkdayForm();
   }, [formik.values.date]);
@@ -267,6 +270,10 @@ export default observer(function ReportScreen({ route }: ReportScreenProps) {
         />
       </HStack>
 
+      <HStack justifyContent="center">
+        <Text>{currentProjectIndex + 1} / {projectForms.length}</Text>
+      </HStack>
+
       <FlatList
         ref={flatListRef}
         data={projectForms}
@@ -287,6 +294,11 @@ export default observer(function ReportScreen({ route }: ReportScreenProps) {
           index,
         })}
         renderItem={({ item }) => renderProjectForm(item)}
+        onScroll={({ nativeEvent }) => {
+          const index = Math.round(nativeEvent.contentOffset.x / PROJECT_FORM_TOTAL_WIDTH);
+          setCurrentProjectIndex(index);
+        }}
+        scrollEventThrottle={16}
         onMomentumScrollEnd={({ nativeEvent }) => {
           const index = Math.round(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width);
 
