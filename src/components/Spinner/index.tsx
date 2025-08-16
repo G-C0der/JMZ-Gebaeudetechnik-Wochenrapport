@@ -6,7 +6,7 @@ interface SpinnerProps {
 }
 
 export default function Spinner({ ...props }: SpinnerProps) {
-  const { style, ...otherProps } = props;
+  const { style, ...rest } = props;
 
   return (
     <Loader
@@ -16,7 +16,7 @@ export default function Spinner({ ...props }: SpinnerProps) {
         alignItems: 'center',
         ...style
       }}
-      {...otherProps}
+      {...rest}
     />
   );
 }
