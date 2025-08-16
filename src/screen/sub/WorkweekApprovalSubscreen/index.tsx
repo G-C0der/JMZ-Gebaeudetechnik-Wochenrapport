@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { UserWorkweekApprovalStates } from "./types";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../../stores";
@@ -6,7 +6,7 @@ import { TextField } from "../../../components/TextField";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import moment from "moment";
 import CheckBox from "../../../components/CheckBox";
-import { Box, HStack, ScrollView, VStack } from "@gluestack-ui/themed";
+import { Box, HStack, ScrollView, Text, VStack } from "@gluestack-ui/themed";
 import { LoadingButton } from "../../../components/LoadingButton";
 import PopUpDialog from "../../../components/PopUpDialog";
 import Spinner from '../../../components/Spinner';
@@ -16,9 +16,10 @@ import { navigate } from "../../../services";
 
 interface WorkweekApprovalSubscreenProps {
   user: User;
+  children?: ReactNode;
 }
 
-export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApprovalSubscreenProps){
+export default observer(function WorkweekApprovalSubscreen({ user, children }: WorkweekApprovalSubscreenProps){
   const {
     adminStore: {
       listWorkweeks,
@@ -26,7 +27,8 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
       userWorkweeks,
       isListWorkweeksLoading,
       approveWorkweeks,
-      isApproveWorkweekLoading
+      isApproveWorkweekLoading,
+      year
     }
   } = useStore();
 
@@ -36,10 +38,7 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
   const spinnerMinHeight = getScreenHeight() * 0.27;
 
   useEffect(() => {
-    if (!userWorkweeks.length) {
-      const fetchWorkweeks = async () => await listWorkweeks(user.id);
-      fetchWorkweeks();
-    } else {
+    if (userWorkweeks.length) {
       const userWorkweekApprovalStates: UserWorkweekApprovalStates = {};
       for (const userWorkweek of userWorkweeks) {
         userWorkweekApprovalStates[userWorkweek.id] = {
@@ -50,6 +49,10 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
       setWorkweekCheckboxStates({ ...workweekCheckboxStates, ...userWorkweekApprovalStates });
     }
   }, [userWorkweeks]);
+
+  useEffect(() => {
+    listWorkweeks(user.id);
+  }, [year])
 
   useEffect(() => () => resetWorkweeks(), []);
 
@@ -74,7 +77,7 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
           <Spinner style={{ minHeight: spinnerMinHeight }} />
         ) : (
           <Box gap={12}>
-            {userWorkweeks.map(workweek => (
+            {userWorkweeks.length ? userWorkweeks.map(workweek => (
               <HStack key={workweek.id} space='md'>
                 <TouchableOpacity
                   onPress={() => navigate('adminReportScreen', { user, workweekStart: workweek.start })}
@@ -92,7 +95,11 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
                   isReadonly={workweekCheckboxStates[workweek.id]?.readonly}
                 />
               </HStack>
-            ))}
+            )) : (
+              <Text style={{ textAlign: 'center', color: 'grey', marginTop: 40 }}>
+                Keine Arbeitswochen für dieses Jahr...
+              </Text>
+            )}
           </Box>
         )}
       </ScrollView>
@@ -103,6 +110,7 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
         loading={isApproveWorkweekLoading}
         isDisabled={user.admin || !isAPendingWorkweekCheckboxChecked()}
       />
+      {children}
       <PopUpDialog
         isOpen={isApprovalPopUpDialogOpen}
         setIsOpen={setIsApprovalPopUpDialogOpen}
@@ -117,7 +125,8 @@ export default observer(function WorkweekApprovalSubscreen({ user }: WorkweekApp
 
 const styles = StyleSheet.create({
   workweeksContainer: {
-    height: '33%',
-    overflow: "scroll"
+    maxHeight: getScreenHeight() * 0.28,
+    minHeight: getScreenHeight() * 0.28,
+    flexShrink: 1
   }
 });

@@ -3,7 +3,7 @@ import { Checkbox, CheckboxIndicator, CheckboxIcon, CheckIcon } from "@gluestack
 
 interface CheckBoxProps {
   value: boolean;
-  onChange: () => void;
+  onChange: (isChecked: boolean) => void;
   isDisabled?: boolean;
   isReadonly?: boolean;
 }
